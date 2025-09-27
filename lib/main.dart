@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mostawak/features/auth/presentation/forgot_password/screens/otp_screen.dart';
-import 'package:mostawak/core/theme/light_theme.dart';
+
+import 'features/auth/forgot_password/screens/otp_screen.dart';
+import 'core/theme/light_theme.dart';
 
 import 'generated/l10n.dart';
 
