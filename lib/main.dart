@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mostawak/features/auth/onboarding/onboarding.dart';
 
 import 'features/auth/forgot_password/screens/otp_screen.dart';
 import 'core/theme/light_theme.dart';
@@ -22,8 +23,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: LightTheme.theme(_language),
-      home: const OtpScreen(
-        email: 'mobakr99x@gmail.com',
+      home:  OnBoardingScreen(
+       // email: 'mobakr99x@gmail.com',
       ),
       localizationsDelegates: const [
         S.delegate,
