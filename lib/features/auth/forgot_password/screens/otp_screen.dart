@@ -21,12 +21,15 @@ class _OtpScreenState extends State<OtpScreen> {
 
   void _verify() {
     setState(() {
-      _validOTP =
-          _controllers.every((controller) => controller.text.isNotEmpty);
+      _validOTP = _controllers.every(
+        (controller) => controller.text.isNotEmpty,
+      );
     });
     if (_validOTP) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ConfirmResetScreen()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ConfirmResetScreen()),
+      );
     }
   }
 
@@ -38,10 +41,7 @@ class _OtpScreenState extends State<OtpScreen> {
           onPressed: () {
             // Navigator.pop(context);
           },
-          icon: const Icon(
-            Icons.arrow_back_sharp,
-            color: Color(0xff16697b),
-          ),
+          icon: const Icon(Icons.arrow_back_sharp, color: Color(0xff16697b)),
           padding: const EdgeInsets.symmetric(horizontal: 28),
         ),
       ),
@@ -52,14 +52,13 @@ class _OtpScreenState extends State<OtpScreen> {
             child: Column(
               children: <Widget>[
                 Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: Text(
-                      S.of(context).checkYourEmail,
-                      style: Theme.of(context).textTheme.displayLarge,
-                    )),
-                const SizedBox(
-                  height: 8,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    S.of(context).checkYourEmail,
+                    style: Theme.of(context).textTheme.displayLarge,
+                  ),
                 ),
+                const SizedBox(height: 8),
                 Text.rich(
                   TextSpan(
                     children: [
@@ -79,9 +78,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   textDirection: TextDirection.ltr,
@@ -98,8 +95,9 @@ class _OtpScreenState extends State<OtpScreen> {
                                   LogicalKeyboardKey.backspace &&
                               index > 0 &&
                               _controllers[index].text.isEmpty) {
-                            FocusScope.of(context)
-                                .requestFocus(_focusNodes[index - 1]);
+                            FocusScope.of(
+                              context,
+                            ).requestFocus(_focusNodes[index - 1]);
                           } else if (event is KeyDownEvent &&
                               event.logicalKey == LogicalKeyboardKey.enter) {
                             _verify();
@@ -115,21 +113,27 @@ class _OtpScreenState extends State<OtpScreen> {
                           textAlignVertical: TextAlignVertical.center,
                           style: const TextStyle(fontSize: 16),
                           inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly
+                            FilteringTextInputFormatter.digitsOnly,
                           ],
                           onTap: () {
                             if (_controllers[index].text.isEmpty &&
                                 _controllers.any(
-                                    (controller) => controller.text.isEmpty)) {
-                              FocusScope.of(context).requestFocus(_focusNodes[
-                                  _controllers.indexOf(_controllers.firstWhere(
-                                      (value) => value.text.isEmpty))]);
+                                  (controller) => controller.text.isEmpty,
+                                )) {
+                              FocusScope.of(context).requestFocus(
+                                _focusNodes[_controllers.indexOf(
+                                  _controllers.firstWhere(
+                                    (value) => value.text.isEmpty,
+                                  ),
+                                )],
+                              );
                             }
                           },
                           onChanged: (value) {
                             if (value.isNotEmpty && index < 5) {
-                              FocusScope.of(context)
-                                  .requestFocus(_focusNodes[index + 1]);
+                              FocusScope.of(
+                                context,
+                              ).requestFocus(_focusNodes[index + 1]);
                             }
                           },
                           decoration: InputDecoration(
@@ -137,21 +141,27 @@ class _OtpScreenState extends State<OtpScreen> {
                             errorText: null,
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: _validOTP
-                                      ? const Color(0xff16697B)
-                                      : const Color(0xffF44336),
-                                  width: 1),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(12)),
+                                color:
+                                    _validOTP
+                                        ? const Color(0xff16697B)
+                                        : const Color(0xffF44336),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
                             ),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: _validOTP
-                                      ? const Color(0xff9e9e9e)
-                                      : const Color(0xffF44336),
-                                  width: 1),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(12)),
+                                color:
+                                    _validOTP
+                                        ? const Color(0xff9e9e9e)
+                                        : const Color(0xffF44336),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
                             ),
                           ),
                         ),
@@ -159,63 +169,59 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: !_validOTP ? 13 : 9,
-                ),
+                SizedBox(height: !_validOTP ? 13 : 9),
                 if (!_validOTP)
                   Text(
                     S.of(context).verificationFailed,
                     style: GoogleFonts.poppins(
-                        fontSize: 12, color: const Color(0xffF44336)),
+                      fontSize: 12,
+                      color: const Color(0xffF44336),
+                    ),
                   ),
-                const SizedBox(
-                  height: 17,
-                ),
+                const SizedBox(height: 17),
                 ElevatedButton(
                   onPressed: _verify,
                   child: Text(
                     S.of(context).verifyCode,
                     style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                          fontSize: 23,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context)
-                              .elevatedButtonTheme
-                              .style
-                              ?.foregroundColor
-                              ?.resolve({}),
-                        ),
+                      fontSize: 23,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(
+                        context,
+                      ).elevatedButtonTheme.style?.foregroundColor?.resolve({}),
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  height: 12,
-                ),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       S.of(context).gotEmail,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(fontSize: 12),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(fontSize: 12),
                     ),
                     TextButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
                             content: Text(S.of(context).emailResent),
                             shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12))),
-                          ));
-                        },
-                        child: Text(
-                          S.of(context).resendEmail,
-                          style: Theme.of(context)
-                              .textButtonTheme
-                              .style
-                              ?.textStyle
-                              ?.resolve({}),
-                        ))
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        S.of(context).resendEmail,
+                        style: Theme.of(
+                          context,
+                        ).textButtonTheme.style?.textStyle?.resolve({}),
+                      ),
+                    ),
                   ],
                 ),
               ],

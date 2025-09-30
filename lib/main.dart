@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:mostawak/features/auth/onboarding/onboarding.dart';
+import 'features/auth/onboarding/onboarding.dart';
 
 import 'core/theme/light_theme.dart';
 
@@ -22,8 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: LightTheme.theme(_language),
-      home:  OnBoardingScreen(
-      ),
+      home: const OnBoardingScreen(),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

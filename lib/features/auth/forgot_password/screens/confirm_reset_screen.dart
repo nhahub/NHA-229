@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mostawak/generated/l10n.dart';
 
+import 'set_pass_screen.dart';
+
 class ConfirmResetScreen extends StatelessWidget {
   const ConfirmResetScreen({super.key});
 
@@ -12,10 +14,7 @@ class ConfirmResetScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
-            Icons.arrow_back_sharp,
-            color: Color(0xff16697b),
-          ),
+          icon: const Icon(Icons.arrow_back_sharp, color: Color(0xff16697b)),
           padding: const EdgeInsets.symmetric(horizontal: 28),
         ),
       ),
@@ -25,40 +24,39 @@ class ConfirmResetScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Align(
-                  // alignment: Alignment.centerLeft,
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Text(
-                    S.of(context).passwordReset,
-                    style: Theme.of(context).textTheme.displayLarge,
-                  )),
-              const SizedBox(
-                height: 10,
+                // alignment: Alignment.centerLeft,
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  S.of(context).passwordReset,
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
               ),
+              const SizedBox(height: 10),
               Text(
                 S.of(context).passwordResetMessage,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 30),
               ElevatedButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const SetPasswordScreen()));
-                  },
-                  child: Text(
-                    S.of(context).confirm,
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context)
-                            .elevatedButtonTheme
-                            .style
-                            ?.foregroundColor
-                            ?.resolve({})),
-                  )),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SetPassScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  S.of(context).confirm,
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    fontSize: 23,
+                    fontWeight: FontWeight.w700,
+                    color: Theme.of(
+                      context,
+                    ).elevatedButtonTheme.style?.foregroundColor?.resolve({}),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
