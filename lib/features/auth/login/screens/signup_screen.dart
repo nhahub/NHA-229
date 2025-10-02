@@ -31,13 +31,16 @@ class SignupScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const HeaderStack(),
+                  // TODO: replace this image with the new one if possible
                   SizedBox(height: 50.h),
                   CustomTextfield(controller: name, hintText: "Full Name"),
                   SizedBox(height: 30.h),
                   CustomTextfield(controller: email, hintText: "Email"),
                   SizedBox(height: 30.h),
+                  // TODO: Add visibility toggle button to show/hide password
                   CustomTextfield(controller: password, hintText: "Password"),
                   SizedBox(height: 30.h),
+                  // TODO: Add visibility toggle button to show/hide password
                   CustomTextfield(
                     controller: confirmPassword,
                     hintText: "Confirm Password",
@@ -57,6 +60,7 @@ class SignupScreen extends StatelessWidget {
                       );
                     },
                   ),
+                  // TODO: fix the alignment issue here
                   const Spacer(),
                   CustomButton(text: "SIGN UP!", onPressed: () {}),
                   RowStatements(
@@ -71,6 +75,7 @@ class SignupScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 20.h),
+                  // TODO: Add Sign with Google Buttons
                 ],
               ),
             ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-// import 'otp_screen.dart';
-
+import 'otp_screen.dart';
+// TODO: configure the fonts
 class ForgetPasswordEmailScreen extends StatelessWidget {
   const ForgetPasswordEmailScreen({super.key});
 
@@ -18,8 +18,9 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  // TODO: Add a back button to go to the previous screen
                   SvgPicture.asset(
-                    "assets/arrow_back.svg",
+                    "assets/images/arrow_back.svg",
                     width: 24,
                     height: 24,
                   ),
@@ -51,6 +52,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
               const SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
+                // TODO: Replace this TextFormField with a custom text field widget
                 child: TextFormField(
                   // TODO: Add a text controller
                   // TODO: Add a proper validator to email field and apply validation logic
@@ -72,12 +74,12 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const OtpScreen(email: emailController.text.trim(),),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OtpScreen(email: "emailController.text.trim()",),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF16697B),

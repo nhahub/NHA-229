@@ -39,7 +39,7 @@ class _OtpScreenState extends State<OtpScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // Navigator.pop(context);
+            Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_sharp, color: Color(0xff16697b)),
           padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -80,6 +80,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 const SizedBox(height: 30),
                 Row(
+                  // TODO: fix the validation color
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   textDirection: TextDirection.ltr,
                   children: List.generate(
@@ -215,6 +216,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           ),
                         );
                       },
+                      // TODO: Add counter
                       child: Text(
                         S.of(context).resendEmail,
                         style: Theme.of(

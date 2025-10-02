@@ -1,46 +1,74 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import '../login/screens/signup_screen.dart';
 
-class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({super.key});
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  final PageController controller = PageController();
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
 
-  final List<Map<String, String>> onboardingData = [
+  final List<Map<String, dynamic>> _onboardingPages = [
     {
       "image": "assets/images/mostawakLogo.png",
-      "title": "Welcome to mostawak !",
+      "isSvg": false,
+      "title": "Welcome to ",
+      "titleHighlight": "Mostawak !",
       "description": "Your place to learn and develop in simple and easy steps",
     },
     {
       "image": "assets/images/login.png",
+      "isSvg": false,
       "title": "Challenge Your Friends !",
+      "titleHighlight": "",
       "description":
           "Compete with your friend your knowledge, and make learning more exciting.",
+    },
+    {
+      "image": "assets/images/onboarding3.svg",
+      "isSvg": true,
+      "title": "Learn with Fun",
+      "titleHighlight": "",
+      "description":
+          "Enjoy a different educational journey, full of interaction and fun.",
     },
   ];
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffECE7E3),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: PageView.builder(
-                controller: controller,
-                itemCount: onboardingData.length,
+                controller: _pageController,
+                itemCount: _onboardingPages.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
                 itemBuilder: (context, index) {
+                  final page = _onboardingPages[index];
+                  final isLastPage = index == _onboardingPages.length - 1;
+
                   return SingleChildScrollView(
                     child: Column(
                       children: [
+                        // Image Container
                         Container(
                           height: 400,
                           width: double.infinity,
@@ -51,68 +79,70 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               bottomRight: Radius.circular(150),
                             ),
                           ),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.asset(
-                                onboardingData[index]["image"]!,
-                                width: 300,
-                                height: 300,
-                                fit: BoxFit.contain,
-                              ),
-                            ],
+                          child: Center(
+                            child:
+                                page["isSvg"]
+                                    ? SvgPicture.asset(
+                                      page["image"],
+                                      width: 300,
+                                      height: 300,
+                                      fit: BoxFit.contain,
+                                    )
+                                    : Image.asset(
+                                      page["image"],
+                                      width: 300,
+                                      height: 300,
+                                      fit: BoxFit.contain,
+                                    ),
                           ),
                         ),
 
                         const SizedBox(height: 20),
 
+                        // Title
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child:
-                              index == 0
+                              page["titleHighlight"].isNotEmpty
                                   ? RichText(
                                     textAlign: TextAlign.center,
-                                    text: const TextSpan(
-                                      style: TextStyle(
+                                    text: TextSpan(
+                                      style: const TextStyle(
                                         fontSize: 35,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: "Bebas Neue",
                                         color: Color(0XFF82C0CB),
                                       ),
                                       children: [
-                                        TextSpan(text: "Welcome to "),
+                                        TextSpan(text: page["title"]),
                                         TextSpan(
-                                          text: "Mostawak !",
-                                          style: TextStyle(
+                                          text: page["titleHighlight"],
+                                          style: const TextStyle(
                                             color: Color(0XFF16697B),
                                           ),
                                         ),
                                       ],
                                     ),
                                   )
-                                  : RichText(
+                                  : Text(
+                                    page["title"],
                                     textAlign: TextAlign.center,
-                                    text: const TextSpan(
-                                      style: TextStyle(
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "Bebas Neue",
-                                        color: Color(0XFF82C0CB),
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: "Challenge Your Friends !",
-                                        ),
-                                      ],
+                                    style: const TextStyle(
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: "Bebas Neue",
+                                      color: Color(0XFF82C0CB),
                                     ),
                                   ),
                         ),
 
                         const SizedBox(height: 15),
+
+                        // Description
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            onboardingData[index]["description"]!,
+                            page["description"],
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               fontSize: 25,
@@ -121,6 +151,34 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             ),
                           ),
                         ),
+
+                        // Show "Get Started" button only on last page
+                        if (isLastPage) ...[
+                          const SizedBox(height: 30),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignupScreen(),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF16697B),
+                              foregroundColor: const Color(0xFFECE7E3),
+                              minimumSize: const Size(200, 50),
+                            ),
+                            child: const Text(
+                              "Get Started",
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "Bebas Neue",
+                              ),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   );
@@ -128,75 +186,87 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
             ),
 
-            // Bottom buttons section
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Skip Button
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0XFF16697B),
-
-                      //foregroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+            // Bottom Navigation (Skip & Next) - Hide on last page
+            if (_currentPage != _onboardingPages.length - 1)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Skip Button
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0XFF16697B),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        minimumSize: const Size(100, 50),
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignupScreen()),
-                      );
-                    },
-                    child: const Text(
-                      "Skip",
-                      style: TextStyle(
-                        color: Color(0XFFECE7E3),
-                        fontFamily: "Bebas Neue",
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-
-                  // Next Button (Circle with icon)
-                  GestureDetector(
-                    onTap: () {
-                      if (controller.page == onboardingData.length - 1) {
+                      onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const OnBoardingScreen(),
+                            builder: (context) => SignupScreen(),
                           ),
                         );
-                      } else {
-                        controller.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    },
-                    child: Container(
-                      width: 37,
-                      height: 60,
-                      decoration: const BoxDecoration(
-                        color: Color(0xffFFA62B),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          size: 24,
+                      },
+                      child: const Text(
+                        "Skip",
+                        style: TextStyle(
+                          color: Color(0XFFECE7E3),
+                          fontFamily: "Bebas Neue",
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
-                  ),
-                ],
+
+                    // Page Indicators
+                    Row(
+                      children: List.generate(
+                        _onboardingPages.length,
+                        (index) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
+                          width: _currentPage == index ? 12 : 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color:
+                                _currentPage == index
+                                    ? const Color(0xffFFA62B)
+                                    : const Color(0XFF82C0CB),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Next Button
+                    GestureDetector(
+                      onTap: () {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: const BoxDecoration(
+                          color: Color(0xffFFA62B),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                            size: 24,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),
