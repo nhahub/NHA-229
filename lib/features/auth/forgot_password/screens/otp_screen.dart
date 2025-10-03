@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../generated/l10n.dart';
+import '../widgets/otp_fields.dart';
 import 'confirm_reset_screen.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -15,17 +14,15 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  final _controllers = List.generate(6, (_) => TextEditingController());
-  final _focusNodes = List.generate(6, (_) => FocusNode());
-  bool _validOTP = true;
+  final _formKey = GlobalKey<FormState>();
+  final _pinController = TextEditingController();
+  final _pinFocusNode = FocusNode();
 
   void _verify() {
     setState(() {
-      _validOTP = _controllers.every(
-        (controller) => controller.text.isNotEmpty,
-      );
+      _pinFocusNode.unfocus();
     });
-    if (_validOTP) {
+    if (_formKey.currentState!.validate()) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const ConfirmResetScreen()),
@@ -79,107 +76,12 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                Row(
-                  // TODO: fix the validation color
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  textDirection: TextDirection.ltr,
-                  children: List.generate(
-                    6,
-                    (index) => SizedBox(
-                      width: 50,
-                      // height: 40,
-                      child: KeyboardListener(
-                        focusNode: FocusNode(),
-                        onKeyEvent: (event) {
-                          if (event is KeyDownEvent &&
-                              event.logicalKey ==
-                                  LogicalKeyboardKey.backspace &&
-                              index > 0 &&
-                              _controllers[index].text.isEmpty) {
-                            FocusScope.of(
-                              context,
-                            ).requestFocus(_focusNodes[index - 1]);
-                          } else if (event is KeyDownEvent &&
-                              event.logicalKey == LogicalKeyboardKey.enter) {
-                            _verify();
-                          }
-                        },
-                        child: TextFormField(
-                          controller: _controllers[index],
-                          focusNode: _focusNodes[index],
-                          maxLength: 1,
-                          // initialValue: '${index % 2 == 0 ? index : null}',
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          textAlignVertical: TextAlignVertical.center,
-                          style: const TextStyle(fontSize: 16),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          onTap: () {
-                            if (_controllers[index].text.isEmpty &&
-                                _controllers.any(
-                                  (controller) => controller.text.isEmpty,
-                                )) {
-                              FocusScope.of(context).requestFocus(
-                                _focusNodes[_controllers.indexOf(
-                                  _controllers.firstWhere(
-                                    (value) => value.text.isEmpty,
-                                  ),
-                                )],
-                              );
-                            }
-                          },
-                          onChanged: (value) {
-                            if (value.isNotEmpty && index < 5) {
-                              FocusScope.of(
-                                context,
-                              ).requestFocus(_focusNodes[index + 1]);
-                            }
-                          },
-                          decoration: InputDecoration(
-                            counterText: '',
-                            errorText: null,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color:
-                                    _validOTP
-                                        ? const Color(0xff16697B)
-                                        : const Color(0xffF44336),
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color:
-                                    _validOTP
-                                        ? const Color(0xff9e9e9e)
-                                        : const Color(0xffF44336),
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                OtpFields(
+                  formKey: _formKey,
+                  pinController: _pinController,
+                  focusNode: _pinFocusNode,
                 ),
-                SizedBox(height: !_validOTP ? 13 : 9),
-                if (!_validOTP)
-                  Text(
-                    S.of(context).verificationFailed,
-                    style: GoogleFonts.poppins(
-                      fontSize: 12,
-                      color: const Color(0xffF44336),
-                    ),
-                  ),
-                const SizedBox(height: 17),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: _verify,
                   child: Text(
@@ -236,14 +138,8 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-
-    for (var focusNode in _focusNodes) {
-      focusNode.dispose();
-    }
-
     super.dispose();
+    _pinController.dispose();
+    _pinFocusNode.dispose();
   }
 }
