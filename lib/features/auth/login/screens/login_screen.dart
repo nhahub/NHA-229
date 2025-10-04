@@ -6,6 +6,7 @@ import '../components/header.dart';
 import '../components/accept_term_row.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textfield.dart';
+import '../../forgot_password/screens/forget_password_email_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController email = TextEditingController();
@@ -39,10 +40,25 @@ class LoginScreen extends StatelessWidget {
                   CustomTextfield(controller: email, hintText: "Email"),
                   SizedBox(height: 30.h),
                   CustomTextfield(controller: password, hintText: "Password"),
+                  // TODO: Add visibility toggle button to show/hide password
                   SizedBox(height: 30.h),
                   // TODO: Add Forgot Password Button
                   const Spacer(),
-                  CustomButton(text: "LOGIN", onPressed: () {}),
+                  // TODO: fix the alignment issue here
+                  CustomButton(
+                    text: "LOGIN",
+                    onPressed: () {
+                      // TODO: remove this code and add the correct login logic
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  const ForgetPasswordEmailScreen(),
+                        ),
+                      );
+                    },
+                  ),
                   RowStatements(
                     showCheckbox: false,
                     normalText: "Don't have an account? ",
@@ -54,6 +70,7 @@ class LoginScreen extends StatelessWidget {
                       );
                     },
                   ),
+                  // TODO: add sign with google button
                   SizedBox(height: 20.h),
                 ],
               ),

@@ -6,11 +6,11 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.hintText,
     this.controller,
     this.obscureText = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +25,23 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Poppins',
           fontSize: 16,
           color: Colors.black,
         ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Color(0xFF9E9E9E),
             fontFamily: 'Poppins',
             fontSize: 16,
           ),
-           isDense: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+          isDense: true,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 16,
+          ),
           border: InputBorder.none,
         ),
       ),
