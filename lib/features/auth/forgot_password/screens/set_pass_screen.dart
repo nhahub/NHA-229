@@ -54,9 +54,13 @@ class SetPassScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 29),
-              CustomTextField(hintText: S.current.password),
+              // TODO: Add validation to the text fields
+              CustomTextField(
+                hintText: S.current.password,
+              ), // TODO: use the custom text field from lib/features/auth/login/widgets/custom_textfield.dart
               const SizedBox(height: 28),
               CustomTextField(
+                // TODO: use the custom text field from lib/features/auth/login/widgets/custom_textfield.dart
                 hintText: '${S.current.confirm} ${S.current.password}',
               ),
               Padding(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../widgets/google_button.dart';
+import '../widgets/orDivider.dart';
 import 'login_screen.dart';
 import '../components/header.dart';
 import '../components/accept_term_row.dart';
@@ -8,6 +9,7 @@ import '../widgets/custom_textfield.dart';
 import '../widgets/custom_button.dart';
 
 class SignupScreen extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController name = TextEditingController();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
@@ -28,55 +30,84 @@ class SignupScreen extends StatelessWidget {
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: 1.sh),
             child: IntrinsicHeight(
-              child: Column(
-                children: [
-                  const HeaderStack(),
-                  // TODO: replace this image with the new one if possible
-                  SizedBox(height: 50.h),
-                  CustomTextfield(controller: name, hintText: "Full Name"),
-                  SizedBox(height: 30.h),
-                  CustomTextfield(controller: email, hintText: "Email"),
-                  SizedBox(height: 30.h),
-                  // TODO: Add visibility toggle button to show/hide password
-                  CustomTextfield(controller: password, hintText: "Password"),
-                  SizedBox(height: 30.h),
-                  // TODO: Add visibility toggle button to show/hide password
-                  CustomTextfield(
-                    controller: confirmPassword,
-                    hintText: "Confirm Password",
-                  ),
-                  SizedBox(height: 30.h),
-                  RowStatements(
-                    normalText: "I accept ",
-                    linkText: "Terms and Conditions",
-                    onLinkTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Terms & Conditions"),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const HeaderStack(),
+                    CustomTextfield(controller: name, hintText: "Full Name"),
+                    SizedBox(height: 20.h),
+                    CustomTextfield(controller: email, hintText: "Email"),
+                    SizedBox(height: 20.h),
+                    CustomTextfield(
+                      controller: password,
+                      hintText: "Password",
+                      showVisibilityButton: true,
+                    ),
+                    SizedBox(height: 20.h),
+                    CustomTextfield(
+                      controller: confirmPassword,
+                      hintText: "Confirm Password",
+                      showVisibilityButton: true,
+                    ),
+                    SizedBox(height: 30.h),
+                    RowStatements(
+                      normalText: "I accept ",
+                      linkText: "Terms and Conditions",
+                      onLinkTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Terms & Conditions"),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                  // TODO: fix the alignment issue here
-                  const Spacer(),
-                  CustomButton(text: "SIGN UP!", onPressed: () {}),
-                  RowStatements(
-                    showCheckbox: false,
-                    normalText: "Already have an account? ",
-                    linkText: "Login",
-                    onLinkTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                      );
-                    },
-                  ),
-                  SizedBox(height: 20.h),
-                  // TODO: Add Sign with Google Buttons
-                ],
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    CustomButton(
+                      text: "SIGN UP!",
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                        } else {}
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    const OrDivider(),
+                    const SizedBox(height: 20),
+                    GoogleSignButton(
+                      text: "Sign up with Google",
+                      onPressed: () {},
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 30.w,
+                        vertical: 20.h,
+                      ),
+                      child: Column(
+                        children: [
+                          RowStatements(
+                            showCheckbox: false,
+                            normalText: "Already have an account? ",
+                            linkText: "Login",
+                            onLinkTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: 20.h),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

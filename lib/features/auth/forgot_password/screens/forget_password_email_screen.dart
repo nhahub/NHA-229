@@ -23,7 +23,9 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
+          // TODO: wrap with padding
           child: Column(
+            // TODO: align elements to the start
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(height: 50),
@@ -33,8 +35,9 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                   "Forgot password",
                   style: TextStyle(
                     color: Color(0xFF16697B),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 36,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 40,
+                    fontFamily: "BigShoulders",
                   ),
                 ),
               ),
@@ -55,7 +58,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
 
-                  child: CustomTextField(
+                  child: CustomTextField( // TODO: use the custom text field from lib/features/auth/login/widgets/custom_textfield.dart
                     controller: emailController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -79,20 +82,20 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder:
-                            (context) => const OtpScreen(
-                              email: "emailController.text.trim()",
-                            ),
+                            (context) =>
+                                OtpScreen(email: emailController.text.trim()),
                       ),
                     );
                   }
                 },
+                // TODO: use the default elevated button theme and use copywith to make your modifications to fit the design
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF16697B),
                   foregroundColor: const Color(0xFFECE7E3),
                   minimumSize: const Size(200, 50),
                 ),
                 child: const Text(
-                  " Reseat Password",
+                  " Reset Password",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.w400),
                 ),

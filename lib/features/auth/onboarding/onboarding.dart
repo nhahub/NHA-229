@@ -52,6 +52,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            // TODO: Apply the picture container height to the design
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -141,7 +142,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
                             page["description"],
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.start,
                             style: const TextStyle(
                               fontSize: 25,
                               color: Color(0XFF82C0CB),
@@ -152,6 +153,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                         if (isLastPage) ...[
                           const SizedBox(height: 30),
+                          // TODO: Set the elevated button to bottom like in the design
                           ElevatedButton(
                             onPressed: () {
                               Navigator.pushReplacement(
@@ -195,7 +197,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0XFF16697B),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         minimumSize: const Size(60, 30),
                       ),
@@ -226,6 +228,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           curve: Curves.easeInOut,
                         );
                       },
+                      // TODO: use the picture in the design instead of the arrow icon
                       child: Container(
                         width: 60,
                         height: 40,

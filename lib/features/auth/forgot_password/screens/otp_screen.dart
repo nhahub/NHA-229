@@ -4,6 +4,8 @@ import '../../../../generated/l10n.dart';
 import '../widgets/otp_fields.dart';
 import 'confirm_reset_screen.dart';
 
+// TODO: implement screenutils in the screen
+
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key, required this.email});
 
