@@ -26,8 +26,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "تحقق من بريدك الإلكتروني",
     ),
     "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+    "cont": MessageLookupByLibrary.simpleMessage("متابعة"),
     "emailResent": MessageLookupByLibrary.simpleMessage("تم إعادة الإرسال"),
     "gotEmail": MessageLookupByLibrary.simpleMessage("لم يصلك البريد؟"),
+    "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "passwordReset": MessageLookupByLibrary.simpleMessage(
       "إعادة تعيين كلمة المرور",
     ),
@@ -35,12 +37,23 @@ class MessageLookup extends MessageLookupByLibrary {
       "تم إعادة تعيين كلمة المرور بنجاح. اضغط \"تأكيد\" لإعداد كلمة مرور جديدة",
     ),
     "resendEmail": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
+    "resetSuccess": MessageLookupByLibrary.simpleMessage("تم بنجاح"),
+    "resetSuccessMessage": MessageLookupByLibrary.simpleMessage(
+      "تهانينا! تم تغيير كلمة المرور الخاصة بك. اضغط \"متابعة\" لتسجيل الدخول",
+    ),
     "sentMessage1": MessageLookupByLibrary.simpleMessage(
       "أرسلنا رابط إعادة تعيين إلى ",
     ),
     "sentMessage2": MessageLookupByLibrary.simpleMessage(
       "، أدخل الرمز المكون من 6 أرقام المذكور في البريد الإلكتروني",
     ),
+    "setNewPassword": MessageLookupByLibrary.simpleMessage(
+      "إنشاء كلمة مرور جديدة",
+    ),
+    "setPasswordMessage": MessageLookupByLibrary.simpleMessage(
+      "أنشئ كلمة مرور جديدة. تأكد أن تكون مختلفة عن السابقة لأمان أكثر",
+    ),
+    "updatePassword": MessageLookupByLibrary.simpleMessage("تحديث كلمة المرور"),
     "verificationFailed": MessageLookupByLibrary.simpleMessage(
       "فشل التحقق. تأكد من الرمز وحاول مرة أخرى",
     ),

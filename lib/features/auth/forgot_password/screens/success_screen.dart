@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../login/screens/login_screen.dart';
-import '../widgets/custom_button.dart';
+import '../../../../generated/l10n.dart';
 
 extension CustomTextTheme on TextTheme {
   TextStyle get forPassH => const TextStyle(
@@ -34,8 +34,10 @@ class SuccessScreen extends StatelessWidget {
                 children: [
                   SvgPicture.asset('assets/images/raad.svg'),
                   Text(
-                    'successful',
-                    style: Theme.of(context).textTheme.forPassH,
+                    S.current.resetSuccess.toUpperCase(),
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -50,19 +52,35 @@ class SuccessScreen extends StatelessWidget {
               ),
               const SizedBox(height: 35),
               Text(
-                'Congratulations!Your password has been changed.Click continue to login',
-                style: Theme.of(context).textTheme.forPassS,
+                S.current.resetSuccessMessage,
+                style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 18),
-              CustomButton(
-                text: 'continue',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                },
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                child: SizedBox(
+                  width: 309,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    },
+                    child: Text(
+                      S.current.cont,
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context)
+                            .elevatedButtonTheme
+                            .style
+                            ?.foregroundColor
+                            ?.resolve({}),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

@@ -150,9 +150,64 @@ class S {
     );
   }
 
-  /// `CONFIRM`
+  /// `Confirm`
   String get confirm {
-    return Intl.message('CONFIRM', name: 'confirm', desc: '', args: []);
+    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
+  }
+
+  /// `Set a new password`
+  String get setNewPassword {
+    return Intl.message(
+      'Set a new password',
+      name: 'setNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create a new password. Ensure it differs form the previous ones for security`
+  String get setPasswordMessage {
+    return Intl.message(
+      'Create a new password. Ensure it differs form the previous ones for security',
+      name: 'setPasswordMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message('Password', name: 'password', desc: '', args: []);
+  }
+
+  /// `Update Password`
+  String get updatePassword {
+    return Intl.message(
+      'Update Password',
+      name: 'updatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successful`
+  String get resetSuccess {
+    return Intl.message('Successful', name: 'resetSuccess', desc: '', args: []);
+  }
+
+  /// `Congratulations! Your password has been changed. Click continue to login`
+  String get resetSuccessMessage {
+    return Intl.message(
+      'Congratulations! Your password has been changed. Click continue to login',
+      name: 'resetSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue`
+  String get cont {
+    return Intl.message('Continue', name: 'cont', desc: '', args: []);
   }
 }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'success_screen.dart';
-import '../widgets/custom_button.dart';
+import '../../../../generated/l10n.dart';
 import '../widgets/custom_text_field.dart';
 
 class SetPassScreen extends StatelessWidget {
@@ -19,12 +19,13 @@ class SetPassScreen extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/icon.svg',
-                      width: 24,
-                      height: 24,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_sharp,
+                      color: Color(0xff16697b),
                     ),
-                    onPressed: () {},
                   ),
                 ],
               ),
@@ -32,8 +33,8 @@ class SetPassScreen extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'set a new password',
-                    style: Theme.of(context).textTheme.forPassH,
+                    S.current.setNewPassword,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ],
               ),
@@ -44,8 +45,8 @@ class SetPassScreen extends StatelessWidget {
                     width: 324,
                     height: 48,
                     child: Text(
-                      'create a new password.Ensure it differs from the previous ones for security',
-                      style: Theme.of(context).textTheme.forPassS,
+                      S.current.setPasswordMessage,
+                      style: Theme.of(context).textTheme.bodySmall,
                       softWrap: true,
                     ),
                   ),
@@ -53,20 +54,41 @@ class SetPassScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 29),
-              const CustomTextField(hintText: 'Password'),
+              CustomTextField(hintText: S.current.password),
               const SizedBox(height: 28),
-              const CustomTextField(hintText: 'Confirm Password'),
-              const SizedBox(height: 31),
-              CustomButton(
-                text: 'update password',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SuccessScreen(),
+              CustomTextField(
+                hintText: '${S.current.confirm} ${S.current.password}',
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 31.0,
+                  // horizontal: 14,
+                ),
+                child: SizedBox(
+                  width: 309.w,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SuccessScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      S.of(context).updatePassword,
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context)
+                            .elevatedButtonTheme
+                            .style
+                            ?.foregroundColor
+                            ?.resolve({}),
+                      ),
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
             ],
           ),
