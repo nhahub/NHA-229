@@ -15,22 +15,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, dynamic>> _onboardingPages = [
     {
-      "image": "assets/images/mostawakLogo.png",
-      "isSvg": false,
+      "image": "assets/images/onboarding1.svg",
+      "isSvg": true, 
       "title": "Welcome to ",
       "titleHighlight": "Mostawak !",
       "description": "Your place to learn and develop in simple and easy steps",
     },
     {
-      "image": "assets/images/login.png",
-      "isSvg": false,
+      "image": "assets/images/onboarding2.svg",
+      "isSvg": true,
       "title": "Challenge Your Friends !",
       "titleHighlight": "",
       "description":
           "Compete with your friend your knowledge, and make learning more exciting.",
     },
     {
-      "image": "assets/images/onboarding3.svg",
+      "image": "assets/images/onboard3.svg",
       "isSvg": true,
       "title": "Learn with Fun",
       "titleHighlight": "",
@@ -80,20 +80,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                           ),
                           child: Center(
-                            child:
-                                page["isSvg"]
-                                    ? SvgPicture.asset(
-                                      page["image"],
-                                      width: 300,
-                                      height: 300,
-                                      fit: BoxFit.contain,
-                                    )
-                                    : Image.asset(
-                                      page["image"],
-                                      width: 300,
-                                      height: 300,
-                                      fit: BoxFit.contain,
-                                    ),
+                            child: page["isSvg"]
+                                ? SvgPicture.asset(
+                                    page["image"],
+                                    width: 300,
+                                    height: 300,
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.asset(
+                                    page["image"],
+                                    width: 300,
+                                    height: 300,
+                                    fit: BoxFit.contain,
+                                  ),
                           ),
                         ),
 
@@ -102,38 +101,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Title
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child:
-                              page["titleHighlight"].isNotEmpty
-                                  ? RichText(
-                                    textAlign: TextAlign.center,
-                                    text: TextSpan(
-                                      style: const TextStyle(
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "Bebas Neue",
-                                        color: Color(0XFF82C0CB),
-                                      ),
-                                      children: [
-                                        TextSpan(text: page["title"]),
-                                        TextSpan(
-                                          text: page["titleHighlight"],
-                                          style: const TextStyle(
-                                            color: Color(0XFF16697B),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                  : Text(
-                                    page["title"],
-                                    textAlign: TextAlign.center,
+                          child: page["titleHighlight"].isNotEmpty
+                              ? RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
                                     style: const TextStyle(
                                       fontSize: 35,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: "Bebas Neue",
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: "BigShoulders",
                                       color: Color(0XFF82C0CB),
                                     ),
+                                    children: [
+                                      TextSpan(text: page["title"]),
+                                      TextSpan(
+                                        text: page["titleHighlight"],
+                                        style: const TextStyle(
+                                          color: Color(0XFF16697B),
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                )
+                              : Text(
+                                  page["title"],
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "BigShoulders",
+                                    color: Color(0XFF82C0CB),
+                                  ),
+                                ),
                         ),
 
                         const SizedBox(height: 15),
@@ -152,7 +150,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                         ),
 
-                        // Show "Get Started" button only on last page
                         if (isLastPage) ...[
                           const SizedBox(height: 30),
                           ElevatedButton(
@@ -160,21 +157,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => SignupScreen(),
+                                  builder: (context) =>  SignupScreen(),
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF16697B),
                               foregroundColor: const Color(0xFFECE7E3),
-                              minimumSize: const Size(200, 50),
+                              minimumSize: const Size(300, 50),
                             ),
                             child: const Text(
                               "Get Started",
                               style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.w400,
-                                fontFamily: "Bebas Neue",
+                                fontFamily: "BigShoulders",
                               ),
                             ),
                           ),
@@ -200,13 +197,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        minimumSize: const Size(100, 50),
+                        minimumSize: const Size(60, 30),
                       ),
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignupScreen(),
+                            builder: (context) =>  SignupScreen(),
                           ),
                         );
                       },
@@ -214,28 +211,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         "Skip",
                         style: TextStyle(
                           color: Color(0XFFECE7E3),
-                          fontFamily: "Bebas Neue",
+                          fontFamily: "BigShoulders",
                           fontSize: 24,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-
-                    // Page Indicators
-                    Row(
-                      children: List.generate(
-                        _onboardingPages.length,
-                        (index) => Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          width: _currentPage == index ? 12 : 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            color:
-                                _currentPage == index
-                                    ? const Color(0xffFFA62B)
-                                    : const Color(0XFF82C0CB),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -250,7 +228,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       child: Container(
                         width: 60,
-                        height: 60,
+                        height: 40,
                         decoration: const BoxDecoration(
                           color: Color(0xffFFA62B),
                           shape: BoxShape.circle,
@@ -259,7 +237,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           child: Icon(
                             Icons.arrow_forward,
                             color: Colors.white,
-                            size: 24,
+                            size: 30,
                           ),
                         ),
                       ),
