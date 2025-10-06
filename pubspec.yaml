@@ -77,14 +77,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Bebas Neue
+    - family: BebasNeue
       fonts:
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Bebas_Neue/BebasNeue-Regular.ttf
+        - asset: assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf
     - family: Almarai 
       fonts:
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Almarai/Almarai-Regular.ttf
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Almarai/Almarai-Bold.ttf
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Almarai/Almarai-ExtraBold.ttf
+        - asset: assets/fonts/Almarai/Almarai-Regular.ttf 
+        - asset: assets/fonts/Almarai/Almarai-Bold.ttf
+        - asset: assets/fonts/Almarai/Almarai-ExtraBold.ttf
+    - family: BigShoulders
+      fonts:
+        - asset: assets/fonts/Big_Shoulders/static/BigShoulders_60pt-Bold.ttf
+        - asset: assets/fonts/Big_Shoulders/static/BigShoulders_18pt-ExtraBold.ttf
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf

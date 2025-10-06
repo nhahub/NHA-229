@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
+import '../widgets/custom_text_field.dart';
 import 'otp_screen.dart';
-// TODO: configure the fonts
+
 class ForgetPasswordEmailScreen extends StatelessWidget {
-  const ForgetPasswordEmailScreen({super.key});
+  ForgetPasswordEmailScreen({super.key});
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_sharp, color: Color(0xff16697b)),
+          padding: const EdgeInsets.symmetric(horizontal: 28),
+        ),
+      ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // TODO: Add a back button to go to the previous screen
-                  SvgPicture.asset(
-                    "assets/images/arrow_back.svg",
-                    width: 24,
-                    height: 24,
-                  ),
-                ],
-              ),
               const SizedBox(height: 50),
-              const Align(
-                alignment: Alignment.centerLeft,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "Forgot password",
                   style: TextStyle(
@@ -38,8 +38,8 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Align(
-                alignment: Alignment.centerLeft,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "please enter your email to reset\n the password",
                   style: TextStyle(
@@ -50,36 +50,41 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                // TODO: Replace this TextFormField with a custom text field widget
-                child: TextFormField(
-                  // TODO: Add a text controller
-                  // TODO: Add a proper validator to email field and apply validation logic
-                  decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 1.5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFF16697B),
-                        width: 1.5,
-                      ),
-                    ),
-                    hintText: "Email",
-                    fillColor: Color(0xFFFFFFFF),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+
+                  child: CustomTextField(
+                    controller: emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                    hintText: 'Enter Email',
+                    obscureText: false,
                   ),
                 ),
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const OtpScreen(email: "emailController.text.trim()",),
-                    ),
-                  );
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) => const OtpScreen(
+                              email: "emailController.text.trim()",
+                            ),
+                      ),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF16697B),
