@@ -95,9 +95,9 @@ class S {
     );
   }
 
-  /// `VERIFY CODE`
+  /// `Verify Code`
   String get verifyCode {
-    return Intl.message('VERIFY CODE', name: 'verifyCode', desc: '', args: []);
+    return Intl.message('Verify Code', name: 'verifyCode', desc: '', args: []);
   }
 
   /// `haven't got the email yet?`

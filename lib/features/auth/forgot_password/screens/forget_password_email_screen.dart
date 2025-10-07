@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mostawak/features/auth/login/widgets/custom_textfield.dart';
+import '../../login/widgets/custom_textfield.dart';
 import '../../login/widgets/custom_button.dart';
 import 'otp_screen.dart';
 
@@ -25,22 +25,17 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 50),
-                const Align(
+                Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
                     textAlign: TextAlign.start,
                     "Forgot password",
-                    style: TextStyle(
-                      color: Color(0xFF16697B),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 40,
-                      fontFamily: "BigShoulders",
-                    ),
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
                 const Padding(
@@ -59,6 +54,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                   key: _formKey,
                   child: CustomTextFormField(
                     controller: emailController,
+                    hPadding: false,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
@@ -74,6 +70,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                 const SizedBox(height: 24),
                 CustomButton(
                   text: "Reset Password",
+                  hPadding: false,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.push(

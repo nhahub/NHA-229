@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mostawak/features/auth/login/widgets/orDivider.dart';
 
+import '../widgets/orDivider.dart';
 import '../widgets/google_button.dart';
 import 'signup_screen.dart';
 import '../components/header.dart';
@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                           );
                         },
                         child: const Text(
-                          "Forget Password?",
+                          "Forgot Password?",
                           style: TextStyle(
                             color: Color(0xffFFA62B),
                             fontSize: 16,
@@ -95,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     CustomButton(
-                      text: "LOGIN",
+                      text: "Login",
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           Navigator.push(
@@ -114,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                       text: "Login with Google",
                       onPressed: () {},
                     ),
-
+                    SizedBox(height: 20.h),
                     RowStatements(
                       showCheckbox: false,
                       normalText: "Don't have an account? ",

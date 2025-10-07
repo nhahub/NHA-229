@@ -19,12 +19,9 @@ class GoogleSignButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 14.h),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(16),
           ),
-          side: const BorderSide(
-            color: Color(0xFF006D77),
-            width: 1.2,
-          ),
+          side: const BorderSide(color: Color(0xFF006D77), width: 1.2),
         ),
         onPressed: onPressed,
         icon: Image.asset(

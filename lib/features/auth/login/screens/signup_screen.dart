@@ -35,7 +35,10 @@ class SignupScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const HeaderStack(),
-                    CustomTextFormField(controller: name, hintText: "Full Name"),
+                    CustomTextFormField(
+                      controller: name,
+                      hintText: "Full Name",
+                    ),
                     SizedBox(height: 20.h),
                     CustomTextFormField(controller: email, hintText: "Email"),
                     SizedBox(height: 20.h),
@@ -69,7 +72,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     CustomButton(
-                      text: "SIGN UP!",
+                      text: "Sign up !",
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                         } else {}
