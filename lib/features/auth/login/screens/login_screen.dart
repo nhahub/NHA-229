@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                       height: 200.h,
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextfield(
+                    CustomTextFormField(
                       controller: email,
                       hintText: "Email",
                       validator: (value) {
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextfield(
+                    CustomTextFormField(
                       controller: password,
                       hintText: "Password",
                       showVisibilityButton: true,

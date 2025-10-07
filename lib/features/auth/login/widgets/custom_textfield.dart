@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomTextfield extends StatefulWidget {
+class CustomTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final String hintText;
   final bool showVisibilityButton;
 
-  const CustomTextfield({
+  const CustomTextFormField({
     super.key,
     required this.controller,
     this.validator,
@@ -15,10 +15,10 @@ class CustomTextfield extends StatefulWidget {
   });
 
   @override
-  State<CustomTextfield> createState() => _CustomTextfieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _CustomTextfieldState extends State<CustomTextfield> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _obscureText = true;
 
   @override
