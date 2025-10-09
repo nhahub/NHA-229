@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../generated/l10n.dart';
+import '../widgets/timer_button.dart';
 import '../widgets/otp_fields.dart';
 import 'confirm_reset_screen.dart';
-
-// TODO: implement screenutils in the screen
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key, required this.email});
@@ -21,9 +21,7 @@ class _OtpScreenState extends State<OtpScreen> {
   final _pinFocusNode = FocusNode();
 
   void _verify() {
-    setState(() {
-      _pinFocusNode.unfocus();
-    });
+    _pinFocusNode.unfocus();
     if (_formKey.currentState!.validate()) {
       Navigator.push(
         context,
@@ -41,13 +39,13 @@ class _OtpScreenState extends State<OtpScreen> {
             Navigator.pop(context);
           },
           icon: const Icon(Icons.arrow_back_sharp, color: Color(0xff16697b)),
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding: EdgeInsets.symmetric(horizontal: 28.w),
         ),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 50),
+            padding: EdgeInsets.symmetric(horizontal: 28.w, vertical: 50.h),
             child: Column(
               children: <Widget>[
                 Align(
@@ -57,7 +55,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8.h),
                 Text.rich(
                   TextSpan(
                     children: [
@@ -77,13 +75,13 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 OtpFields(
                   formKey: _formKey,
                   pinController: _pinController,
                   focusNode: _pinFocusNode,
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 ElevatedButton(
                   onPressed: _verify,
                   child: Text(
@@ -97,7 +95,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -107,7 +105,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         context,
                       ).textTheme.bodySmall?.copyWith(fontSize: 12),
                     ),
-                    TextButton(
+                    TimerButton(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -120,13 +118,6 @@ class _OtpScreenState extends State<OtpScreen> {
                           ),
                         );
                       },
-                      // TODO: Add counter
-                      child: Text(
-                        S.of(context).resendEmail,
-                        style: Theme.of(
-                          context,
-                        ).textButtonTheme.style?.textStyle?.resolve({}),
-                      ),
                     ),
                   ],
                 ),
