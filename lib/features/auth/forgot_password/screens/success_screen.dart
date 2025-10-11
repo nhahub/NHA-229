@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 
 import '../../login/screens/login_screen.dart';
 import '../../../../generated/l10n.dart';
@@ -32,7 +33,7 @@ class SuccessScreen extends StatelessWidget {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset('assets/images/raad.svg'),
+                  SvgPicture.asset(AppAssets.raad),
                   Text(
                     S.current.resetSuccess.toUpperCase(),
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
@@ -46,8 +47,8 @@ class SuccessScreen extends StatelessWidget {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset('assets/images/Ellipse.svg'),
-                  SvgPicture.asset('assets/images/Check.svg'),
+                  SvgPicture.asset(AppAssets.ellipse),
+                  SvgPicture.asset(AppAssets.check),
                 ],
               ),
               const SizedBox(height: 35),

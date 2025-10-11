@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../login/screens/signup_screen.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
+import '../signup/signup_screen.dart';
 import '../login/widgets/custom_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -16,14 +17,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, dynamic>> _onboardingPages = [
     {
-      "image": "assets/images/onboarding1.svg",
+      "image": AppAssets.onboarding1,
       "isSvg": true,
       "title": "Welcome to ",
       "titleHighlight": "Mostawak !",
       "description": "Your place to learn and develop in simple and easy steps",
     },
     {
-      "image": "assets/images/onboarding2.svg",
+      "image": AppAssets.onboarding2,
       "isSvg": true,
       "title": "Challenge Your Friends !",
       "titleHighlight": "",
@@ -31,7 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           "Compete with your friend your knowledge, and make learning more exciting.",
     },
     {
-      "image": "assets/images/onboard3.svg",
+      "image": AppAssets.onboarding3,
       "isSvg": true,
       "title": "Learn with Fun",
       "titleHighlight": "",

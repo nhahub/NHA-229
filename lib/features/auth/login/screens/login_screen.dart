@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 
-import '../widgets/orDivider.dart';
+import '../widgets/or_divider.dart';
 import '../widgets/google_button.dart';
-import 'signup_screen.dart';
+import '../../signup/signup_screen.dart';
 import '../components/header.dart';
 import '../components/accept_term_row.dart';
 import '../widgets/custom_button.dart';
@@ -39,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                       width: 400.w,
                       height: 200.h,
                       child: Image.asset(
-                        "assets/images/login.png",
+                        AppAssets.loginPNG,
                         fit: BoxFit
                             .cover,
                       ),

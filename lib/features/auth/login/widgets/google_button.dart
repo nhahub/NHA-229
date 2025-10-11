@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 
 class GoogleSignButton extends StatelessWidget {
   final String text;
@@ -25,7 +26,7 @@ class GoogleSignButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         icon: Image.asset(
-          "assets/images/google.png",
+          AppAssets.googleIcon,
           height: 24.h,
           width: 24.w,
         ),

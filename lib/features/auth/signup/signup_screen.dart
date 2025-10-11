@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../widgets/google_button.dart';
-import '../widgets/orDivider.dart';
-import 'login_screen.dart';
-import '../components/header.dart';
-import '../components/accept_term_row.dart';
-import '../widgets/custom_textfield.dart';
-import '../widgets/custom_button.dart';
+
+import '../login/widgets/google_button.dart';
+import '../login/widgets/or_divider.dart';
+import '../login/screens/login_screen.dart';
+import '../login/components/header.dart';
+import '../login/components/accept_term_row.dart';
+import '../login/widgets/custom_textfield.dart';
+import '../login/widgets/custom_button.dart';
 
 class SignupScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();

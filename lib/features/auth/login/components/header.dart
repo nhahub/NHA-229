@@ -14,7 +14,7 @@ class HeaderStack extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: [
           SvgPicture.asset(
-            "assets/images/Component 7.svg",
+            AppAssets.headerComponent,
             width: 1.sw,
             fit: BoxFit.fill,
           ),
