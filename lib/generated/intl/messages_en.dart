@@ -23,25 +23,38 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "checkYourEmail": MessageLookupByLibrary.simpleMessage("Check Your Email"),
-    "confirm": MessageLookupByLibrary.simpleMessage("CONFIRM"),
+    "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
+    "cont": MessageLookupByLibrary.simpleMessage("Continue"),
     "emailResent": MessageLookupByLibrary.simpleMessage("Email Resent"),
     "gotEmail": MessageLookupByLibrary.simpleMessage(
       "haven\'t got the email yet?",
     ),
+    "password": MessageLookupByLibrary.simpleMessage("Password"),
     "passwordReset": MessageLookupByLibrary.simpleMessage("Password Reset"),
     "passwordResetMessage": MessageLookupByLibrary.simpleMessage(
       "your password has been successfully reset. Click confirm to set a new password",
     ),
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend email"),
+    "resetSuccess": MessageLookupByLibrary.simpleMessage("Successful"),
+    "resetSuccessMessage": MessageLookupByLibrary.simpleMessage(
+      "Congratulations! Your password has been changed. Click continue to login",
+    ),
     "sentMessage1": MessageLookupByLibrary.simpleMessage(
       "We sent a reset link to ",
     ),
     "sentMessage2": MessageLookupByLibrary.simpleMessage(
       " enter 6 digit code that mentioned in the email",
     ),
+    "setNewPassword": MessageLookupByLibrary.simpleMessage(
+      "Set a new password",
+    ),
+    "setPasswordMessage": MessageLookupByLibrary.simpleMessage(
+      "Create a new password. Ensure it differs form the previous ones for security",
+    ),
+    "updatePassword": MessageLookupByLibrary.simpleMessage("Update Password"),
     "verificationFailed": MessageLookupByLibrary.simpleMessage(
       "Verification failed. Check the code and try again",
     ),
-    "verifyCode": MessageLookupByLibrary.simpleMessage("VERIFY CODE"),
+    "verifyCode": MessageLookupByLibrary.simpleMessage("Verify Code"),
   };
 }
