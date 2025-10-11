@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mostawak/features/auth/login/widgets/orDivider.dart';
 
+import '../widgets/orDivider.dart';
 import '../widgets/google_button.dart';
 import 'signup_screen.dart';
 import '../components/header.dart';
@@ -35,14 +35,17 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const HeaderStack(),
-                    // TODO: adjust the image size if possible
-                    Image.asset(
-                      "assets/images/login.png",
-                      width: 350.w,
+                    SizedBox(
+                      width: 400.w,
                       height: 200.h,
+                      child: Image.asset(
+                        "assets/images/login.png",
+                        fit: BoxFit
+                            .cover,
+                      ),
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextfield(
+                    CustomTextFormField(
                       controller: email,
                       hintText: "Email",
                       validator: (value) {
@@ -57,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 10.h),
-                    CustomTextfield(
+                    CustomTextFormField(
                       controller: password,
                       hintText: "Password",
                       showVisibilityButton: true,
@@ -71,31 +74,35 @@ class LoginScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 200, top: 10),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgetPasswordEmailScreen(),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 32.5, top: 10),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ForgetPasswordEmailScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Forgot Password?",
+                            style: TextStyle(
+                              color: Color(0xffFFA62B),
+                              fontSize: 16,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.bold,
                             ),
-                          );
-                        },
-                        child: const Text(
-                          "Forget Password?",
-                          style: TextStyle(
-                            color: Color(0xffFFA62B),
-                            fontSize: 16,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 20),
                     CustomButton(
-                      text: "LOGIN",
+                      text: "Login",
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           Navigator.push(
@@ -114,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                       text: "Login with Google",
                       onPressed: () {},
                     ),
-
+                    SizedBox(height: 20.h),
                     RowStatements(
                       showCheckbox: false,
                       normalText: "Don't have an account? ",

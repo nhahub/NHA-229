@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 
-class CustomTextfield extends StatefulWidget {
+class CustomTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final String hintText;
   final bool showVisibilityButton;
+  final bool hPadding;
 
-  const CustomTextfield({
+  const CustomTextFormField({
     super.key,
     required this.controller,
     this.validator,
     this.hintText = '',
     this.showVisibilityButton = false,
+    this.hPadding = true,
   });
 
   @override
-  State<CustomTextfield> createState() => _CustomTextfieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
-class _CustomTextfieldState extends State<CustomTextfield> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30),
+      padding: EdgeInsets.symmetric(horizontal: widget.hPadding ? 30 : 0),
       child: TextFormField(
         controller: widget.controller,
         obscureText: widget.showVisibilityButton ? _obscureText : false,
-        validator: widget.validator ??
-                (value) {
+        validator:
+            widget.validator ??
+            (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'This field cannot be empty';
               }
@@ -40,35 +43,31 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           hintStyle: const TextStyle(color: Color(0xff9E9E9E)),
           filled: true,
           fillColor: Colors.white,
-          contentPadding:
-          const EdgeInsets.symmetric(vertical: 18, horizontal: 14),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 18,
+            horizontal: 14,
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: Colors.black,
-              width: 1.2,
-            ),
+            borderSide: const BorderSide(color: Colors.black, width: 1.2),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: Colors.black,
-              width: 1.2,
-            ),
+            borderSide: const BorderSide(color: Colors.black, width: 1.2),
           ),
-          suffixIcon: widget.showVisibilityButton
-              ? IconButton(
-            icon: Icon(
-              _obscureText ? Icons.visibility_off : Icons.visibility,
-              color: Colors.black,
-            ),
-            onPressed: () =>
-                setState(() => _obscureText = !_obscureText),
-          )
-              : null,
+          suffixIcon:
+              widget.showVisibilityButton
+                  ? IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.black,
+                    ),
+                    onPressed:
+                        () => setState(() => _obscureText = !_obscureText),
+                  )
+                  : null,
         ),
       ),
     );
   }
 }
-

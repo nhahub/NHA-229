@@ -55,6 +55,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "verificationFailed": MessageLookupByLibrary.simpleMessage(
       "Verification failed. Check the code and try again",
     ),
-    "verifyCode": MessageLookupByLibrary.simpleMessage("VERIFY CODE"),
+    "verifyCode": MessageLookupByLibrary.simpleMessage("Verify Code"),
   };
 }

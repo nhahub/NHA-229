@@ -42,7 +42,7 @@ class ConfirmResetScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SetPassScreen(),
+                      builder: (context) => SetPassScreen(),
                     ),
                   );
                 },

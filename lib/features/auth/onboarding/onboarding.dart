@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../login/screens/signup_screen.dart';
+import '../login/widgets/custom_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -16,7 +17,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<Map<String, dynamic>> _onboardingPages = [
     {
       "image": "assets/images/onboarding1.svg",
-      "isSvg": true, 
+      "isSvg": true,
       "title": "Welcome to ",
       "titleHighlight": "Mostawak !",
       "description": "Your place to learn and develop in simple and easy steps",
@@ -81,19 +82,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                           ),
                           child: Center(
-                            child: page["isSvg"]
-                                ? SvgPicture.asset(
-                                    page["image"],
-                                    width: 300,
-                                    height: 300,
-                                    fit: BoxFit.fill,
-                                  )
-                                : Image.asset(
-                                    page["image"],
-                                    width: 300,
-                                    height: 300,
-                                    fit: BoxFit.contain,
-                                  ),
+                            child:
+                                page["isSvg"]
+                                    ? SvgPicture.asset(
+                                      page["image"],
+                                      width: 300,
+                                      height: 300,
+                                      fit: BoxFit.fill,
+                                    )
+                                    : Image.asset(
+                                      page["image"],
+                                      width: 300,
+                                      height: 300,
+                                      fit: BoxFit.contain,
+                                    ),
                           ),
                         ),
 
@@ -102,37 +104,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Title
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: page["titleHighlight"].isNotEmpty
-                              ? RichText(
-                                  textAlign: TextAlign.center,
-                                  text: TextSpan(
+                          child:
+                              page["titleHighlight"].isNotEmpty
+                                  ? RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.w700,
+                                        fontFamily: "BigShoulders",
+                                        color: Color(0XFF82C0CB),
+                                      ),
+                                      children: [
+                                        TextSpan(text: page["title"]),
+                                        TextSpan(
+                                          text: page["titleHighlight"],
+                                          style: const TextStyle(
+                                            color: Color(0XFF16697B),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  : Text(
+                                    page["title"],
+                                    textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       fontSize: 35,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.w400,
                                       fontFamily: "BigShoulders",
                                       color: Color(0XFF82C0CB),
                                     ),
-                                    children: [
-                                      TextSpan(text: page["title"]),
-                                      TextSpan(
-                                        text: page["titleHighlight"],
-                                        style: const TextStyle(
-                                          color: Color(0XFF16697B),
-                                        ),
-                                      ),
-                                    ],
                                   ),
-                                )
-                              : Text(
-                                  page["title"],
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "BigShoulders",
-                                    color: Color(0XFF82C0CB),
-                                  ),
-                                ),
                         ),
 
                         const SizedBox(height: 15),
@@ -153,29 +156,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                         if (isLastPage) ...[
                           const SizedBox(height: 30),
-                          // TODO: Set the elevated button to bottom like in the design
-                          ElevatedButton(
+                          CustomButton(
+                            text: ' Get Started ',
                             onPressed: () {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  SignupScreen(),
+                                  builder: (context) => SignupScreen(),
                                 ),
                               );
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF16697B),
-                              foregroundColor: const Color(0xFFECE7E3),
-                              minimumSize: const Size(300, 50),
-                            ),
-                            child: const Text(
-                              "Get Started",
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: "BigShoulders",
-                              ),
-                            ),
                           ),
                         ],
                       ],
@@ -205,7 +195,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  SignupScreen(),
+                            builder: (context) => SignupScreen(),
                           ),
                         );
                       },

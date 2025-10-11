@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../screens/confirm_reset_screen.dart';
 
@@ -31,8 +32,8 @@ class _OtpFieldsState extends State<OtpFields> {
     const int pins = 6;
 
     final defaultPinTheme = PinTheme(
-      width: 40,
-      height: 40,
+      width: 40.w,
+      height: 40.h,
       textStyle: const TextStyle(
         fontSize: 16,
         color: Color.fromRGBO(30, 60, 87, 1),
@@ -59,7 +60,7 @@ class _OtpFieldsState extends State<OtpFields> {
           focusNode: widget.focusNode,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           defaultPinTheme: defaultPinTheme,
-          separatorBuilder: (index) => const SizedBox(width: 6),
+          separatorBuilder: (index) => SizedBox(width: 6.w),
           validator: (value) {
             return (value != null && value.length < pins)
                 ? 'Verification failed. Check the code and try again'
