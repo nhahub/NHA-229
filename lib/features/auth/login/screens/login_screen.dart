@@ -35,11 +35,14 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const HeaderStack(),
-                    // TODO: adjust the image size if possible
-                    Image.asset(
-                      "assets/images/login.png",
-                      width: 350.w,
+                    SizedBox(
+                      width: 400.w,
                       height: 200.h,
+                      child: Image.asset(
+                        "assets/images/login.png",
+                        fit: BoxFit
+                            .cover,
+                      ),
                     ),
                     SizedBox(height: 10.h),
                     CustomTextFormField(
@@ -80,8 +83,8 @@ class LoginScreen extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder:
-                                    (context) => ForgetPasswordEmailScreen(),
+                                builder: (context) =>
+                                    ForgetPasswordEmailScreen(),
                               ),
                             );
                           },
