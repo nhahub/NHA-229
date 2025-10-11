@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import '../signup/signup_screen.dart';
@@ -54,7 +55,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // TODO: Apply the picture container height to the design
+            // TODO: Apply the picture container height to the design   // done
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -71,9 +72,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   return SingleChildScrollView(
                     child: Column(
                       children: [
-                        // Image Container
+                      
                         Container(
-                          height: 400,
+                          height: 500.h,
                           width: double.infinity,
                           decoration: const BoxDecoration(
                             color: Color(0xff16697B),
@@ -148,42 +149,45 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             page["description"],
                             textAlign: TextAlign.start,
                             style: const TextStyle(
-                              fontSize: 25,
+                              fontSize: 22,
                               color: Color(0XFF82C0CB),
                               fontFamily: "Almarai",
                             ),
                           ),
                         ),
 
-                        if (isLastPage) ...[
-                          const SizedBox(height: 30),
-                          CustomButton(
-                            text: ' Get Started ',
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignupScreen(),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                        
                       ],
                     ),
                   );
                 },
               ),
             ),
-
-            // Bottom Navigation (Skip & Next) - Hide on last page
+if (_currentPage == _onboardingPages.length - 1) ...[
+                          const SizedBox(height: 30),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom:20),
+                            child: CustomButton(
+                              text: ' Get Started ',
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignupScreen(),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+           
             if (_currentPage != _onboardingPages.length - 1)
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Skip Button
+                   
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0XFF16697B),
@@ -219,7 +223,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           curve: Curves.easeInOut,
                         );
                       },
-                      // TODO: use the picture in the design instead of the arrow icon
+                     
                       child: Container(
                         width: 60,
                         height: 40,
