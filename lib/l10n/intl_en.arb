@@ -3,11 +3,18 @@
   "sentMessage1": "We sent a reset link to ",
   "sentMessage2": " enter 6 digit code that mentioned in the email",
   "verificationFailed": "Verification failed. Check the code and try again",
-  "verifyCode": "VERIFY CODE",
+  "verifyCode": "Verify Code",
   "gotEmail": "haven't got the email yet?",
   "resendEmail": "Resend email",
   "emailResent": "Email Resent",
   "passwordReset": "Password Reset",
   "passwordResetMessage": "your password has been successfully reset. Click confirm to set a new password",
-  "confirm": "CONFIRM"
+  "confirm": "Confirm",
+  "setNewPassword": "Set a new password",
+  "setPasswordMessage": "Create a new password. Ensure it differs form the previous ones for security",
+  "password": "Password",
+  "updatePassword": "Update Password",
+  "resetSuccess": "Successful",
+  "resetSuccessMessage": "Congratulations! Your password has been changed. Click continue to login",
+  "cont": "Continue"
 }

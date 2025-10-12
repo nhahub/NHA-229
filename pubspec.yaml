@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.2
+  sdk: ">=3.6.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -39,8 +39,9 @@ dependencies:
   google_fonts: ^6.3.0
   pinput: ^5.0.2
   intl: ^0.20.0
-  flutter_svg: ^2.2.1
+  flutter_svg: ^2.2.0
   flutter_screenutil: ^5.9.3
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:
@@ -76,14 +77,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Bebas Neue
+    - family: BebasNeue
       fonts:
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Bebas_Neue/BebasNeue-Regular.ttf
+        - asset: assets/fonts/Bebas_Neue/BebasNeue-Regular.ttf
     - family: Almarai 
       fonts:
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Almarai/Almarai-Regular.ttf
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Almarai/Almarai-Bold.ttf
-        - asset: assets/fonts/Almarai,Bebas_Neue,Noto_Kufi_Arabic/Almarai/Almarai-ExtraBold.ttf
+        - asset: assets/fonts/Almarai/Almarai-Regular.ttf 
+        - asset: assets/fonts/Almarai/Almarai-Bold.ttf
+        - asset: assets/fonts/Almarai/Almarai-ExtraBold.ttf
+    - family: BigShoulders
+      fonts:
+        - asset: assets/fonts/Big_Shoulders/static/BigShoulders_60pt-Bold.ttf
+        - asset: assets/fonts/Big_Shoulders/static/BigShoulders_18pt-ExtraBold.ttf
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf

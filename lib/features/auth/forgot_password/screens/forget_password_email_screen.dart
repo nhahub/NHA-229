@@ -1,96 +1,90 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-// import 'otp_screen.dart';
+import '../../login/widgets/custom_textfield.dart';
+import '../../login/widgets/custom_button.dart';
+import 'otp_screen.dart';
 
 class ForgetPasswordEmailScreen extends StatelessWidget {
-  const ForgetPasswordEmailScreen({super.key});
+  ForgetPasswordEmailScreen({super.key});
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_sharp, color: Color(0xff16697b)),
+          padding: const EdgeInsets.symmetric(horizontal: 28),
+        ),
+      ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    "assets/arrow_back.svg",
-                    width: 24,
-                    height: 24,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 50),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Forgot password",
-                  style: TextStyle(
-                    color: Color(0xFF16697B),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 36,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 50),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    textAlign: TextAlign.start,
+                    "Forgot password",
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                 ),
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "please enter your email to reset\n the password",
-                  style: TextStyle(
-                    color: Color(0xFF9E9E9E),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Text(
+                    "please enter your email to reset the password",
+                    style: TextStyle(
+                      color: Color(0xFF9E9E9E),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextFormField(
-                  // TODO: Add a text controller
-                  // TODO: Add a proper validator to email field and apply validation logic
-                  decoration: const InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black, width: 1.5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0xFF16697B),
-                        width: 1.5,
-                      ),
-                    ),
+                const SizedBox(height: 24),
+                Form(
+                  key: _formKey,
+                  child: CustomTextFormField(
+                    controller: emailController,
+                    hPadding: false,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
                     hintText: "Email",
-                    fillColor: Color(0xFFFFFFFF),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const OtpScreen(email: emailController.text.trim(),),
-                  //   ),
-                  // );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF16697B),
-                  foregroundColor: const Color(0xFFECE7E3),
-                  minimumSize: const Size(200, 50),
+                const SizedBox(height: 24),
+                CustomButton(
+                  text: "Reset Password",
+                  hPadding: false,
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              OtpScreen(email: emailController.text.trim()),
+                        ),
+                      );
+                    }
+                  },
                 ),
-                child: const Text(
-                  " Reseat Password",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.w400),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

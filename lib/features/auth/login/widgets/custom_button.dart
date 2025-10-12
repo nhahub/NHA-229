@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final bool hPadding;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
-  }) : super(key: key);
+    this.hPadding = true,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xff16697B),
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20), // rounded edges
-        ),
-        elevation: 0, // flat look (no shadow)
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          letterSpacing: 1.5,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: hPadding ? 35 : 0),
+      child: SizedBox(
+        height: 49.h,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                  fontSize: 23,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.5,
+                  color: Theme.of(
+                    context,
+                  ).elevatedButtonTheme.style?.foregroundColor?.resolve({}),
+                ),
+          ),
         ),
       ),
     );

@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 
 import '../../login/screens/login_screen.dart';
-import '../widgets/custom_button.dart';
-
-extension CustomTextTheme on TextTheme {
-  TextStyle get forPassH => const TextStyle(
-    fontSize: 40,
-    color: Color(0xff16697B),
-    fontFamily: 'BebasNeue',
-  );
-  TextStyle get forPassS => const TextStyle(
-    fontSize: 16,
-    color: Color(0xff9E9E9E),
-    fontFamily: 'Poppins',
-  );
-}
+import '../../../../generated/l10n.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -32,10 +20,12 @@ class SuccessScreen extends StatelessWidget {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset('assets/images/raad.svg'),
+                  SvgPicture.asset(AppAssets.raad),
                   Text(
-                    'successful',
-                    style: Theme.of(context).textTheme.forPassH,
+                    S.current.resetSuccess.toUpperCase(),
+                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -44,25 +34,42 @@ class SuccessScreen extends StatelessWidget {
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset('assets/images/Ellipse.svg'),
-                  SvgPicture.asset('assets/images/Check.svg'),
+                  SvgPicture.asset(AppAssets.ellipse),
+                  SvgPicture.asset(AppAssets.check),
                 ],
               ),
               const SizedBox(height: 35),
               Text(
-                'Congratulations!Your password has been changed.Click continue to login',
-                style: Theme.of(context).textTheme.forPassS,
+                S.current.resetSuccessMessage,
+                style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 18),
-              CustomButton(
-                text: 'continue',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
-                },
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                child: SizedBox(
+                  width: 309,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                        (route) => false,
+                      );
+                    },
+                    child: Text(
+                      S.current.cont,
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                            fontSize: 23,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context)
+                                .elevatedButtonTheme
+                                .style
+                                ?.foregroundColor
+                                ?.resolve({}),
+                          ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

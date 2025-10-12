@@ -42,19 +42,23 @@ class ConfirmResetScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SetPassScreen(),
+                      builder: (context) => SetPassScreen(),
                     ),
                   );
                 },
                 child: Text(
                   S.of(context).confirm,
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(
-                      context,
-                    ).elevatedButtonTheme.style?.foregroundColor?.resolve({}),
-                  ),
+                        fontSize: 23,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(
+                          context,
+                        )
+                            .elevatedButtonTheme
+                            .style
+                            ?.foregroundColor
+                            ?.resolve({}),
+                      ),
                 ),
               ),
             ],
