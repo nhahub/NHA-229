@@ -55,7 +55,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // TODO: Apply the picture container height to the design   // done
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -67,12 +66,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 },
                 itemBuilder: (context, index) {
                   final page = _onboardingPages[index];
-                  final isLastPage = index == _onboardingPages.length - 1;
 
                   return SingleChildScrollView(
                     child: Column(
                       children: [
-                      
                         Container(
                           height: 500.h,
                           width: double.infinity,
@@ -84,20 +81,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                           ),
                           child: Center(
-                            child:
-                                page["isSvg"]
-                                    ? SvgPicture.asset(
-                                      page["image"],
-                                      width: 300,
-                                      height: 300,
-                                      fit: BoxFit.fill,
-                                    )
-                                    : Image.asset(
-                                      page["image"],
-                                      width: 300,
-                                      height: 300,
-                                      fit: BoxFit.contain,
-                                    ),
+                            child: page["isSvg"]
+                                ? SvgPicture.asset(
+                                    page["image"],
+                                    width: 300,
+                                    height: 300,
+                                    fit: BoxFit.fill,
+                                  )
+                                : Image.asset(
+                                    page["image"],
+                                    width: 300,
+                                    height: 300,
+                                    fit: BoxFit.contain,
+                                  ),
                           ),
                         ),
 
@@ -106,38 +102,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         // Title
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child:
-                              page["titleHighlight"].isNotEmpty
-                                  ? RichText(
-                                    textAlign: TextAlign.center,
-                                    text: TextSpan(
-                                      style: const TextStyle(
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: "BigShoulders",
-                                        color: Color(0XFF82C0CB),
-                                      ),
-                                      children: [
-                                        TextSpan(text: page["title"]),
-                                        TextSpan(
-                                          text: page["titleHighlight"],
-                                          style: const TextStyle(
-                                            color: Color(0XFF16697B),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                  : Text(
-                                    page["title"],
-                                    textAlign: TextAlign.center,
+                          child: page["titleHighlight"].isNotEmpty
+                              ? RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
                                     style: const TextStyle(
                                       fontSize: 35,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w700,
                                       fontFamily: "BigShoulders",
                                       color: Color(0XFF82C0CB),
                                     ),
+                                    children: [
+                                      TextSpan(text: page["title"]),
+                                      TextSpan(
+                                        text: page["titleHighlight"],
+                                        style: const TextStyle(
+                                          color: Color(0XFF16697B),
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                )
+                              : Text(
+                                  page["title"],
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "BigShoulders",
+                                    color: Color(0XFF82C0CB),
+                                  ),
+                                ),
                         ),
 
                         const SizedBox(height: 15),
@@ -155,39 +150,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                           ),
                         ),
-
-                        
                       ],
                     ),
                   );
                 },
               ),
             ),
-if (_currentPage == _onboardingPages.length - 1) ...[
-                          const SizedBox(height: 30),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom:20),
-                            child: CustomButton(
-                              text: ' Get Started ',
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SignupScreen(),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-           
+            if (_currentPage == _onboardingPages.length - 1) ...[
+              const SizedBox(height: 30),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: CustomButton(
+                  text: ' Get Started ',
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignupScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
             if (_currentPage != _onboardingPages.length - 1)
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                   
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0XFF16697B),
@@ -223,7 +214,6 @@ if (_currentPage == _onboardingPages.length - 1) ...[
                           curve: Curves.easeInOut,
                         );
                       },
-                     
                       child: Container(
                         width: 60,
                         height: 40,

@@ -41,8 +41,7 @@ class LoginScreen extends StatelessWidget {
                       height: 200.h,
                       child: Image.asset(
                         AppAssets.loginPNG,
-                        fit: BoxFit
-                            .cover,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     SizedBox(height: 10.h),

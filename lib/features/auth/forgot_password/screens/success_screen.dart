@@ -5,19 +5,6 @@ import 'package:mostawak/core/constants/app_assets.dart';
 import '../../login/screens/login_screen.dart';
 import '../../../../generated/l10n.dart';
 
-extension CustomTextTheme on TextTheme {
-  TextStyle get forPassH => const TextStyle(
-    fontSize: 40,
-    color: Color(0xff16697B),
-    fontFamily: 'BebasNeue',
-  );
-  TextStyle get forPassS => const TextStyle(
-    fontSize: 16,
-    color: Color(0xff9E9E9E),
-    fontFamily: 'Poppins',
-  );
-}
-
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
 
@@ -37,8 +24,8 @@ class SuccessScreen extends StatelessWidget {
                   Text(
                     S.current.resetSuccess.toUpperCase(),
                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                          fontWeight: FontWeight.bold,
+                        ),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -72,14 +59,14 @@ class SuccessScreen extends StatelessWidget {
                     child: Text(
                       S.current.cont,
                       style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context)
-                            .elevatedButtonTheme
-                            .style
-                            ?.foregroundColor
-                            ?.resolve({}),
-                      ),
+                            fontSize: 23,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context)
+                                .elevatedButtonTheme
+                                .style
+                                ?.foregroundColor
+                                ?.resolve({}),
+                          ),
                     ),
                   ),
                 ),

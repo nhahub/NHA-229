@@ -1,8 +1,7 @@
 class AppAssets {
   // Images
   static const String logo = 'assets/images/mostawak_logo.png';
-   // ignore: constant_identifier_names
-   static const String Logo = 'assets/images/mostawak_logo.svg';
+  static const String svgLogo = 'assets/images/mostawak_logo.svg';
   static const String raad = 'assets/images/raad.svg';
   static const String ellipse = 'assets/images/ellipse.svg';
   static const String check = 'assets/images/check.svg';

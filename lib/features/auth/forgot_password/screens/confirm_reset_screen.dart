@@ -49,12 +49,16 @@ class ConfirmResetScreen extends StatelessWidget {
                 child: Text(
                   S.of(context).confirm,
                   style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(
-                      context,
-                    ).elevatedButtonTheme.style?.foregroundColor?.resolve({}),
-                  ),
+                        fontSize: 23,
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(
+                          context,
+                        )
+                            .elevatedButtonTheme
+                            .style
+                            ?.foregroundColor
+                            ?.resolve({}),
+                      ),
                 ),
               ),
             ],

@@ -52,7 +52,6 @@ class SetPassScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodySmall,
                     softWrap: true,
                   ),
-
                   const SizedBox(height: 29),
                   CustomTextFormField(
                     controller: passwordController,
@@ -108,14 +107,14 @@ class SetPassScreen extends StatelessWidget {
                           style: Theme.of(
                             context,
                           ).textTheme.displayLarge?.copyWith(
-                            fontSize: 23,
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context)
-                                .elevatedButtonTheme
-                                .style
-                                ?.foregroundColor
-                                ?.resolve({}),
-                          ),
+                                fontSize: 23,
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context)
+                                    .elevatedButtonTheme
+                                    .style
+                                    ?.foregroundColor
+                                    ?.resolve({}),
+                              ),
                         ),
                       ),
                     ),

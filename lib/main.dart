@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/features/auth/onboarding/splash.dart';
-import 'features/auth/onboarding/onboarding.dart';
 
 import 'core/theme/light_theme.dart';
 
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: LightTheme.theme(_language),
-          home: const Splash_screen(),
+          home: const SplashScreen(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,

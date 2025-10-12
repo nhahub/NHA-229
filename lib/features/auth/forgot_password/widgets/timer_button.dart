@@ -28,36 +28,36 @@ class TimerButton extends StatelessWidget {
         builder: (context, durationState) {
           return durationState.inSeconds > 0
               ? Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: '${S.of(context).resendEmail} ',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(fontSize: 12),
-                    ),
-                    TextSpan(
-                      text:
-                          '${(durationState.inSeconds ~/ 60).toString().padLeft(2, '0')}:${(durationState.inSeconds % 60).toString().padLeft(2, '0')}',
-                      style: Theme.of(
-                        context,
-                      ).textButtonTheme.style?.textStyle?.resolve({}),
-                    ),
-                  ],
-                ),
-              )
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '${S.of(context).resendEmail} ',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodySmall?.copyWith(fontSize: 12),
+                      ),
+                      TextSpan(
+                        text:
+                            '${(durationState.inSeconds ~/ 60).toString().padLeft(2, '0')}:${(durationState.inSeconds % 60).toString().padLeft(2, '0')}',
+                        style: Theme.of(
+                          context,
+                        ).textButtonTheme.style?.textStyle?.resolve({}),
+                      ),
+                    ],
+                  ),
+                )
               : TextButton(
-                onPressed: () {
-                  startTimer(context);
-                  onPressed();
-                },
-                child: Text(
-                  S.of(context).resendEmail,
-                  style: Theme.of(
-                    context,
-                  ).textButtonTheme.style?.textStyle?.resolve({}),
-                ),
-              );
+                  onPressed: () {
+                    startTimer(context);
+                    onPressed();
+                  },
+                  child: Text(
+                    S.of(context).resendEmail,
+                    style: Theme.of(
+                      context,
+                    ).textButtonTheme.style?.textStyle?.resolve({}),
+                  ),
+                );
         },
       ),
     );
