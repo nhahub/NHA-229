@@ -76,9 +76,8 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder:
-                              (context) =>
-                                  OtpScreen(email: emailController.text.trim()),
+                          builder: (context) =>
+                              OtpScreen(email: emailController.text.trim()),
                         ),
                       );
                     }

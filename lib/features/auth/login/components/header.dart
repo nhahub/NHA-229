@@ -19,11 +19,11 @@ class HeaderStack extends StatelessWidget {
             fit: BoxFit.fill,
           ),
           Positioned(
-            top: -10,
-            child: Image.asset(
-              AppAssets.logo,
-              width: 200.w,
-              height: 200.h,
+            top: 30,
+            child: SvgPicture.asset(
+              AppAssets.svgLogo,
+              width: 100.w,
+              height: 100.h,
             ),
           ),
         ],
@@ -31,5 +31,3 @@ class HeaderStack extends StatelessWidget {
     );
   }
 }
-
-

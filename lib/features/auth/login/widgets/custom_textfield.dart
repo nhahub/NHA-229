@@ -30,8 +30,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       child: TextFormField(
         controller: widget.controller,
         obscureText: widget.showVisibilityButton ? _obscureText : false,
-        validator:
-            widget.validator ??
+        validator: widget.validator ??
             (value) {
               if (value == null || value.trim().isEmpty) {
                 return 'This field cannot be empty';
@@ -55,17 +54,15 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Colors.black, width: 1.2),
           ),
-          suffixIcon:
-              widget.showVisibilityButton
-                  ? IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility_off : Icons.visibility,
-                      color: Colors.black,
-                    ),
-                    onPressed:
-                        () => setState(() => _obscureText = !_obscureText),
-                  )
-                  : null,
+          suffixIcon: widget.showVisibilityButton
+              ? IconButton(
+                  icon: Icon(
+                    _obscureText ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.black,
+                  ),
+                  onPressed: () => setState(() => _obscureText = !_obscureText),
+                )
+              : null,
         ),
       ),
     );

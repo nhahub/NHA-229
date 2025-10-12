@@ -24,13 +24,13 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             style: Theme.of(context).textTheme.displayLarge?.copyWith(
-              fontSize: 23,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 1.5,
-              color: Theme.of(
-                context,
-              ).elevatedButtonTheme.style?.foregroundColor?.resolve({}),
-            ),
+                  fontSize: 23,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.5,
+                  color: Theme.of(
+                    context,
+                  ).elevatedButtonTheme.style?.foregroundColor?.resolve({}),
+                ),
           ),
         ),
       ),
