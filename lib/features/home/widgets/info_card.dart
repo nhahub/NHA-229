@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-
 class InfoCard extends StatelessWidget {
   final String title1;
   final String value1;
@@ -60,8 +58,11 @@ class InfoCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title1, style: titleStyle ?? const TextStyle(fontWeight: FontWeight.bold)),
-                Text(value1, style: valueStyle ?? const TextStyle(fontSize: 12)),
+                Text(title1,
+                    style: titleStyle ??
+                        const TextStyle(fontWeight: FontWeight.bold)),
+                Text(value1,
+                    style: valueStyle ?? const TextStyle(fontSize: 12)),
               ],
             ),
             SizedBox(height: spacing),
@@ -70,7 +71,10 @@ class InfoCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title2, style: titleStyle ?? const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                Text(title2,
+                    style: titleStyle ??
+                        const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 12)),
                 if (imagePath2 != null) // ✅ conditional rendering
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
@@ -97,7 +101,11 @@ class InfoCard extends StatelessWidget {
                       height: 24,
                     ),
                     const SizedBox(width: 8),
-                    Text(title3, style: titleStyle ?? const TextStyle(fontWeight: FontWeight.bold , color: Colors.orange)),
+                    Text(title3,
+                        style: titleStyle ??
+                            const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.orange)),
                   ],
                 ),
                 OutlinedButton(
