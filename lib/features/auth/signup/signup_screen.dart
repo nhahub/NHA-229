@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mostawak/data/preferences/preference_manager.dart';
 
+import '../../home/home/screens/main_screen.dart';
 import '../login/widgets/google_button.dart';
 import '../login/widgets/or_divider.dart';
 import '../login/screens/login_screen.dart';
@@ -47,12 +49,33 @@ class SignupScreen extends StatelessWidget {
                       controller: password,
                       hintText: "Password",
                       showVisibilityButton: true,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field cannot be empty';
+                        }
+                        if (value.trim().length < 6) {
+                          return 'Password must be at least 6 characters';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 20.h),
                     CustomTextFormField(
                       controller: confirmPassword,
                       hintText: "Confirm Password",
                       showVisibilityButton: true,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'This field cannot be empty';
+                        }
+                        if (value.trim().length < 6) {
+                          return 'Password must be at least 6 characters';
+                        }
+                        if (value.trim() != password.text.trim()) {
+                          return "Passwords don't match";
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 30.h),
                     RowStatements(
@@ -74,8 +97,15 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     CustomButton(
                       text: "Sign up !",
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MainScreen(),
+                            ),
+                          );
+                          await PreferenceManager().setBool("isLoggedIn", true);
                         } else {}
                       },
                     ),

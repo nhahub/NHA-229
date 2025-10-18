@@ -3,6 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 
+import '../../home/screens/home_screen.dart';
+import '../../shop/screens/reward_screen.dart';
+import '../../challenges/screens/challenges_screen.dart';
+
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
@@ -41,19 +45,64 @@ class MainScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: const TabBarView(
-          children: [
-            /// Screens to be placed here
-            Center(
-              child: Text('Welcome to the Home Screen!'),
+        body: const SafeArea(
+          child: TabBarView(
+            children: [
+              HomePage(),
+              Center(
+                child: Text('Welcome to the Learn Screen!'),
+              ),
+              ChallengesScreen(),
+            ],
+          ),
+        ),
+        drawer: SafeArea(
+          child: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: const Text(
+                    'Menu',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.shopping_cart_rounded),
+                  title: const Text('Shop'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RewardScreen(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings),
+                  title: const Text('Settings'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
-            Center(
-              child: Text('Welcome to the Learn Screen!'),
-            ),
-            Center(
-              child: Text('Welcome to the Challenges Screen!'),
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
-import 'package:mostawak/features/home/reward_screen.dart';
+import 'package:mostawak/data/preferences/preference_manager.dart';
 
 import '../widgets/or_divider.dart';
 import '../widgets/google_button.dart';
@@ -10,6 +10,7 @@ import '../components/header.dart';
 import '../components/accept_term_row.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textfield.dart';
+import '../../../home/home/screens/main_screen.dart';
 import '../../forgot_password/screens/forget_password_email_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -104,14 +105,15 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     CustomButton(
                       text: "Login",
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => RewardScreen(),
+                              builder: (context) => const MainScreen(),
                             ),
                           );
+                          await PreferenceManager().setBool("isLoggedIn", true);
                         } else {}
                       },
                     ),
