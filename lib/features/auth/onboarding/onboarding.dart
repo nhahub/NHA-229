@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
+import 'package:mostawak/features/auth/home/home_screen.dart';
 import '../signup/signup_screen.dart';
 import '../login/widgets/custom_button.dart';
 
@@ -166,7 +167,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignupScreen(),
+                        builder: (context) => HomePage(),
                       ),
                     );
                   },

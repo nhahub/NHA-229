@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.3.0
   pinput: ^5.0.2
-  intl: ^0.20.0
+  intl: 0.20.2
   flutter_svg: ^2.2.0
   flutter_screenutil: ^5.9.3
   flutter_bloc: ^9.1.1

@@ -11,4 +11,6 @@ class AppAssets {
   static const String onboarding1 = 'assets/images/onboarding1.svg';
   static const String onboarding2 = 'assets/images/onboarding2.svg';
   static const String onboarding3 = 'assets/images/onboarding3.svg';
+  static const String bookIcon = 'assets/images/books.svg';
+  static const String robotIcon = 'assets/images/robot.svg';
 }
