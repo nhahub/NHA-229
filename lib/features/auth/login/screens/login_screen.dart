@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
+import 'package:mostawak/features/home/reward_screen.dart';
 
 import '../widgets/or_divider.dart';
 import '../widgets/google_button.dart';
@@ -108,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ForgetPasswordEmailScreen(),
+                              builder: (context) => RewardScreen(),
                             ),
                           );
                         } else {}
