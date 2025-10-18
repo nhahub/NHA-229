@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mostawak/features/home/widgets/info_card.dart';
+import '../widgets/info_card.dart';
 
 class RewardScreen extends StatelessWidget {
   const RewardScreen({super.key});
@@ -20,8 +20,8 @@ class RewardScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey, fontSize: 14),
               ),
               const SizedBox(height: 8),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(Icons.monetization_on, color: Colors.amber, size: 20),
                   SizedBox(width: 4),
                   Text(
@@ -40,13 +40,13 @@ class RewardScreen extends StatelessWidget {
                 title1: "Mostawak hero avatar",
                 value1: "Epic",
                 title2:
-                "A heroic style — sharp, \ndetermined, and full of energy",
+                    "A heroic style — sharp, \ndetermined, and full of energy",
                 imagePath2: "assets/images/avatar.png",
                 title3: "75",
                 imagePath3: "assets/images/coin.png",
                 buttonText: "Unlock",
                 onButtonPressed: () => print("Hero avatar unlocked!"),
-                buttonColor: Color(0xff16697B),
+                buttonColor: const Color(0xff16697B),
                 buttonTextColor: Colors.white,
                 cardColor: const Color(0xff489EB5),
               ),
@@ -56,7 +56,7 @@ class RewardScreen extends StatelessWidget {
                 title1: "Black and white theme",
                 value1: "common",
                 title2:
-                "A clean black-and-white theme — minimal, \nelegant, and timeless.",
+                    "A clean black-and-white theme — minimal, \nelegant, and timeless.",
                 imagePath2: null,
                 title3: "25",
                 imagePath3: "assets/images/coin.png",
@@ -71,13 +71,14 @@ class RewardScreen extends StatelessWidget {
               InfoCard(
                 title1: "Double XP Weekend",
                 value1: "common",
-                title2: "Get 2x points for completing levels for \nthe next 7 days",
+                title2:
+                    "Get 2x points for completing levels for \nthe next 7 days",
                 imagePath2: null,
                 title3: "35",
                 imagePath3: "assets/images/coin.png",
                 buttonText: "Unlock",
                 onButtonPressed: () => print("Double XP unlocked!"),
-                buttonColor: Color(0xff16697B),
+                buttonColor: const Color(0xff16697B),
                 buttonTextColor: Colors.white,
                 cardColor: const Color(0xff489EB5),
               ),
@@ -86,13 +87,14 @@ class RewardScreen extends StatelessWidget {
               InfoCard(
                 title1: "3x XP Weekend",
                 value1: "common",
-                title2: "Get 3x points for completing levels for \nthe next 7 days",
+                title2:
+                    "Get 3x points for completing levels for \nthe next 7 days",
                 imagePath2: null,
                 title3: "45",
                 imagePath3: "assets/images/coin.png",
                 buttonText: "Unlock",
                 onButtonPressed: () => print("3x XP unlocked!"),
-                buttonColor: Color(0xff16697B),
+                buttonColor: const Color(0xff16697B),
                 buttonTextColor: Colors.white,
                 cardColor: const Color(0xff489EB5),
               ),

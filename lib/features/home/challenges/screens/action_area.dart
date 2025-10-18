@@ -26,9 +26,8 @@ Widget actionArea() {
         ),
         const SizedBox(height: 10),
         const Padding(
-          padding: const EdgeInsets.only(left: 150),
-          child: const Text(
-
+          padding: EdgeInsets.only(left: 150),
+          child: Text(
             "training | Play offline",
             style: TextStyle(
                 fontSize: 12,

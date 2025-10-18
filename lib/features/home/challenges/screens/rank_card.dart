@@ -30,10 +30,10 @@ class RankCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             spreadRadius: 2,
             blurRadius: 5,
-           offset: const Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -67,7 +67,9 @@ class RankCard extends StatelessWidget {
                   ],
                 ),
               ),
-             const SizedBox(width: 55,),
+              const SizedBox(
+                width: 55,
+              ),
               Column(
                 children: [
                   rankIcon,
@@ -84,7 +86,7 @@ class RankCard extends StatelessWidget {
               ),
             ],
           ),
-         const  Spacer(),
+          const Spacer(),
           SizedBox(
             width: double.infinity,
             height: 45.0,

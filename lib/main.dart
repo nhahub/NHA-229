@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/features/auth/onboarding/splash.dart';
-import 'package:mostawak/features/home/home/screens/main_screen.dart';
 
 import 'core/theme/light_theme.dart';
-
-import 'features/home/challenges/screens/challenges_screen.dart';
+import 'data/preferences/preference_manager.dart';
 import 'generated/l10n.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await PreferenceManager().init();
   runApp(const MyApp());
 }
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: LightTheme.theme(_language),
-          home:  const ChallengesScreen(),
+          home:  const SplashScreen(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
