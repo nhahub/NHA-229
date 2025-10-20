@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
+import 'package:mostawak/data/preferences/preference_manager.dart';
+import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 
 import '../../home/screens/home_screen.dart';
 import '../../shop/screens/reward_screen.dart';
@@ -16,7 +18,10 @@ class MainScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: SvgPicture.asset(AppAssets.svgLogo),
+          title: SvgPicture.asset(
+            AppAssets.svgLogo,
+            height: 70.h,
+          ),
           centerTitle: true,
           toolbarHeight: 80.h,
           bottom: PreferredSize(
@@ -98,6 +103,23 @@ class MainScreen extends StatelessWidget {
                   title: const Text('Settings'),
                   onTap: () {
                     Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.logout_rounded,
+                    color: Colors.red,
+                  ),
+                  title: const Text('Logout'),
+                  textColor: Colors.red,
+                  onTap: () async {
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ));
+                    await PreferenceManager().setBool('isLoggedIn', false);
                   },
                 ),
               ],

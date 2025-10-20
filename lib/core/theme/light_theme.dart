@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LightTheme {
@@ -50,7 +51,7 @@ class LightTheme {
                   color: mainColor,
                 ),
           bodySmall: GoogleFonts.poppins(
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.normal,
             color: const Color(0xff9e9e9e),
           ),
