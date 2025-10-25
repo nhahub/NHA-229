@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "523845928813",
+    "project_id": "mostawak-22fc3",
+    "storage_bucket": "mostawak-22fc3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523845928813:android:22e4ff69d0e8149d37bc64",
+        "android_client_info": {
+          "package_name": "com.example.mostawak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfkSvCJhjsH9B8geoDyEbDu7n1OkOapU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
