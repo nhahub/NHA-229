@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/data/preferences/preference_manager.dart';
-
+import 'package:mostawak/services/auth_service.dart';
 import '../widgets/or_divider.dart';
 import '../widgets/google_button.dart';
 import '../../signup/signup_screen.dart';
@@ -107,14 +107,29 @@ class LoginScreen extends StatelessWidget {
                       text: "Login",
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainScreen(),
-                            ),
-                          );
-                          await PreferenceManager().setBool("isLoggedIn", true);
-                        } else {}
+                          try {
+                            final user =
+                                await AuthService().signInWithEmailAndPassword(
+                              email.text.trim(),
+                              password.text.trim(),
+                            );
+
+                            if (user != null) {
+                              await PreferenceManager()
+                                  .setBool("isLoggedIn", true);
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MainScreen(),
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
+                          }
+                        }
                       },
                     ),
                     const SizedBox(height: 20),
@@ -122,7 +137,24 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     GoogleSignButton(
                       text: "Login with Google",
-                      onPressed: () {},
+                      onPressed: () async {
+                        final authService = AuthService();
+                        final user = await authService.signInWithGoogle();
+
+                        if (user != null) {
+                          await PreferenceManager().setBool("isLoggedIn", true);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MainScreen()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Login with Google failed")),
+                          );
+                        }
+                      },
                     ),
                     SizedBox(height: 20.h),
                     RowStatements(
