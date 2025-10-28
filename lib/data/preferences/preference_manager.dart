@@ -9,39 +9,43 @@ class PreferenceManager {
 
   static final PreferenceManager _instance = PreferenceManager._internal();
 
-  SharedPreferences? _preferences;
+  late SharedPreferences _preferences;
 
   Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
   }
 
+  // Setters
+
   Future<void> setBool(String key, bool value) async {
-    await _preferences?.setBool(key, value);
+    await _preferences.setBool(key, value);
   }
 
   Future<void> setInt(String key, int value) async {
-    await _preferences?.setInt(key, value);
+    await _preferences.setInt(key, value);
   }
 
   Future<void> setDouble(String key, double value) async {
-    await _preferences?.setDouble(key, value);
+    await _preferences.setDouble(key, value);
   }
 
   Future<void> setString(String key, String value) async {
-    await _preferences?.setString(key, value);
+    await _preferences.setString(key, value);
   }
 
   Future<void> setStringList(String key, List<String> value) async {
-    await _preferences?.setStringList(key, value);
+    await _preferences.setStringList(key, value);
   }
 
-  bool? getBool(String key) => _preferences?.getBool(key);
+  // Getters
 
-  int? getInt(String key) => _preferences?.getInt(key);
+  bool? getBool(String key) => _preferences.getBool(key);
 
-  double? getDouble(String key) => _preferences?.getDouble(key);
+  int? getInt(String key) => _preferences.getInt(key);
 
-  String? getString(String key) => _preferences?.getString(key);
+  double? getDouble(String key) => _preferences.getDouble(key);
 
-  List<String>? getStringList(String key) => _preferences?.getStringList(key);
+  String? getString(String key) => _preferences.getString(key);
+
+  List<String>? getStringList(String key) => _preferences.getStringList(key);
 }
