@@ -3,13 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'firebase_options.dart';
 import 'core/theme/light_theme.dart';
-import 'data/preferences/preference_manager.dart';
 import 'generated/l10n.dart';
 import 'features/auth/onboarding/splash.dart';
-import 'features/auth/login/screens/login_screen.dart';
 import 'features/home/home/screens/main_screen.dart';
 
 void main() async {
@@ -18,8 +15,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  await PreferenceManager().init();
 
   runApp(const MyApp());
 }

@@ -13,9 +13,10 @@ class AuthService {
         password: password,
       );
       return result.user;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message ?? 'Login error');
     } catch (e) {
-      print('Login error: $e');
-      return null;
+      throw Exception('Login error: $e');
     }
   }
 
@@ -36,15 +37,35 @@ class AuthService {
           await _auth.signInWithCredential(credential);
 
       return userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message ?? 'Google Sign-In Error');
     } catch (e) {
-      print('Google Sign-In Error: $e');
-      return null;
+      throw Exception('Google Sign-In Error: $e');
     }
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
     await _googleSignIn.signOut();
+  }
+
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password, String name) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      await result.user?.updateDisplayName(name);
+      await result.user?.reload();
+
+      return _auth.currentUser;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message ?? 'Sign Up Error');
+    } catch (e) {
+      throw Exception('Sign Up Error: $e');
+    }
   }
 
   User? get currentUser => _auth.currentUser;
