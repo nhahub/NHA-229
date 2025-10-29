@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
-import 'package:mostawak/data/preferences/preference_manager.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
-
 import '../../home/screens/home_screen.dart';
 import '../../shop/screens/reward_screen.dart';
 import '../../challenges/screens/challenges_screen.dart';
@@ -114,12 +113,13 @@ class MainScreen extends StatelessWidget {
                   textColor: Colors.red,
                   onTap: () async {
                     Navigator.pop(context);
+                    await FirebaseAuth.instance.signOut();
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ));
-                    await PreferenceManager().setBool('isLoggedIn', false);
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
                   },
                 ),
               ],
