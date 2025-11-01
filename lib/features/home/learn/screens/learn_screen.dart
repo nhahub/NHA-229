@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mostawak/features/home/challenges/screens/action_area.dart';
+import '../../challenges/screens/challenge_room.dart';
 import 'content_cards.dart';
 
 class Content {
@@ -33,36 +34,45 @@ class _LearnScreenState extends State<LearnScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Text(
-              "Ready to learn something \n           new today ?",
-              style: TextStyle(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Ready to learn something \n           new today ?",
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w400,
-                  color: Color(0xFF82C0CB)),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ...List.generate(contentList.length, (index) {
-              final content = contentList[index];
+                  color: Color(0xFF82C0CB),
+                ),
+              ),
+              const SizedBox(height: 30),
+              ...List.generate(contentList.length, (index) {
+                final content = contentList[index];
 
-              return ContentCards(
-                title: content.title,
-                imagePath: content.imagePath,
-                isSelected: index == selectedIndex,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-              );
-            }),
-            const SizedBox(
-              height: 40,
-            ),
-            actionArea(),
-          ]),
+                return ContentCards(
+                  title: content.title,
+                  imagePath: content.imagePath,
+                  isSelected: index == selectedIndex,
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+
+                    if (content.title == "English") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChallengeRoomScreen(),
+                        ),
+                      );
+                    }
+                  },
+                );
+              }),
+              const SizedBox(height: 40),
+              actionArea(),
+            ],
+          ),
         ),
       ),
     );

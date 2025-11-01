@@ -67,9 +67,7 @@ class MainScreen extends StatelessWidget {
             ],
           ),
         ),
-
         drawer: const CustomDrawer(),
-
       ),
     );
   }

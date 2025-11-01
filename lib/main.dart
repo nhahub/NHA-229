@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) { 
+      builder: (context, child) {
         return MaterialApp(
           title: 'Mostawak',
           debugShowCheckedModeBanner: false,

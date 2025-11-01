@@ -6,6 +6,8 @@ import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/ai/screens/chat_screen.dart';
 import 'package:mostawak/features/home/home/screens/home_screen.dart';
 import 'package:mostawak/features/home/shop/screens/reward_screen.dart';
+import 'package:mostawak/features/profile/profile.dart';
+import 'package:mostawak/features/settings/settings.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -121,21 +123,13 @@ class CustomDrawer extends StatelessWidget {
                         context,
                         AppAssets.profile,
                         'Profile',
-                        const Scaffold(
-                          body: Center(
-                            child: Text('Settings'),
-                          ),
-                        ),
+                        const ProfilePage(),
                       ),
                       _buildDrawerItem(
                         context,
                         AppAssets.settings,
                         'Settings',
-                        const Scaffold(
-                          body: Center(
-                            child: Text('Settings'),
-                          ),
-                        ),
+                        const SettingsPage(),
                       ),
                       _buildDrawerItem(
                         context,
