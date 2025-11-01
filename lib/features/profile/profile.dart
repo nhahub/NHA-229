@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 
-
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +45,19 @@ class ProfilePage extends StatelessWidget {
       body: Column(
         children: [
           const SizedBox(height: 60),
-         
           Stack(
             children: [
               Container(
                 width: 120,
                 height: 120,
-              child :    SvgPicture.asset(
-                      'assets/images/person.svg',
-                    ),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 4),
-                
-
-                    
-                  ),
                 ),
-         
+                child: SvgPicture.asset(
+                  'assets/images/person.svg',
+                ),
+              ),
               Positioned(
                 bottom: 0,
                 right: 0,
@@ -84,8 +78,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ],
           ),
-           SizedBox(height: 20),
-         
+          const SizedBox(height: 20),
           const Text(
             'Usama Elgendy',
             style: TextStyle(
@@ -95,7 +88,6 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-         
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -122,7 +114,6 @@ class ProfilePage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 50),
-         
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Column(
@@ -167,7 +158,8 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, String title, VoidCallback onTap) {
+  Widget _buildMenuItem(
+      BuildContext context, String title, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       child: Padding(

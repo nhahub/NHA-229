@@ -13,4 +13,14 @@ class AppAssets {
   static const String onboarding3 = 'assets/images/onboarding3.svg';
   static const String bookIcon = 'assets/images/books.svg';
   static const String robotIcon = 'assets/images/robot.svg';
+  // Drawer Icons
+  static const String drawerIcon = 'assets/images/drawer.svg';
+  static const String usama = 'assets/images/usama.svg';
+  static const String home = 'assets/images/home.svg';
+  static const String shop = 'assets/images/shop.svg';
+  static const String stats = 'assets/images/stats.svg';
+  static const String chat = 'assets/images/chat.svg';
+  static const String profile = 'assets/images/profile.svg';
+  static const String settings = 'assets/images/settings.svg';
+  static const String logout = 'assets/images/logout.svg';
 }

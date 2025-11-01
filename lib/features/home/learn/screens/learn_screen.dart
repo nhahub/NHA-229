@@ -45,11 +45,11 @@ class _LearnScreenState extends State<LearnScreen> {
               height: 30,
             ),
             ...List.generate(contentList.length, (index) {
-              final Content = contentList[index];
+              final content = contentList[index];
 
               return ContentCards(
-                title: Content.title,
-                imagePath: Content.imagePath,
+                title: content.title,
+                imagePath: content.imagePath,
                 isSelected: index == selectedIndex,
                 onTap: () {
                   setState(() {

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
 import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
-import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import '../../home/screens/home_screen.dart';
 import '../../challenges/screens/challenges_screen.dart';
 
@@ -22,7 +20,7 @@ class MainScreen extends StatelessWidget {
             builder: (context) => IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
               icon: SvgPicture.asset(
-                'assets/images/drawer.svg',
+                AppAssets.drawerIcon,
                 width: 25,
                 height: 25,
               ),
