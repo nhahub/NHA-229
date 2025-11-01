@@ -12,7 +12,20 @@
           "package_name": "com.example.mostawak"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "523845928813-mdkd2rqp1aqntpne4cpc525lq642nopi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mostawak",
+            "certificate_hash": "378196484ea51b90dec6fe80f78579add076f457"
+          }
+        },
+        {
+          "client_id": "523845928813-c6q3a78ok8je8mj7res3neboi02k13cp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAfkSvCJhjsH9B8geoDyEbDu7n1OkOapU4"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "523845928813-c6q3a78ok8je8mj7res3neboi02k13cp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "523845928813-0r45e069gtvag8a6ls3eufhqs7e5t3c4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mostawak"
+              }
+            }
+          ]
         }
       }
     }
