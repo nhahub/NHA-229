@@ -104,7 +104,7 @@ class RankCard extends StatelessWidget {
                 child: const Row(
                   children: <Widget>[
                     Text(
-                      "My Rank",
+                      "My Stats",
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import '../../home/screens/home_screen.dart';
-import '../../shop/screens/reward_screen.dart';
 import '../../challenges/screens/challenges_screen.dart';
 
 class MainScreen extends StatelessWidget {
@@ -17,6 +18,16 @@ class MainScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          leading: Builder(
+            builder: (context) => IconButton(
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              icon: SvgPicture.asset(
+                'assets/images/drawer.svg',
+                width: 25,
+                height: 25,
+              ),
+            ),
+          ),
           title: SvgPicture.asset(
             AppAssets.svgLogo,
             height: 70.h,
@@ -53,79 +64,14 @@ class MainScreen extends StatelessWidget {
           child: TabBarView(
             children: [
               HomePage(),
-              Center(
-                child: Text('Welcome to the Learn Screen!'),
-              ),
+              LearnScreen(),
               ChallengesScreen(),
             ],
           ),
         ),
-        drawer: SafeArea(
-          child: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: const Text(
-                    'Menu',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.home),
-                  title: const Text('Home'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.shopping_cart_rounded),
-                  title: const Text('Shop'),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const RewardScreen(),
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.settings),
-                  title: const Text('Settings'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.logout_rounded,
-                    color: Colors.red,
-                  ),
-                  title: const Text('Logout'),
-                  textColor: Colors.red,
-                  onTap: () async {
-                    Navigator.pop(context);
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+
+        drawer: const CustomDrawer(),
+
       ),
     );
   }

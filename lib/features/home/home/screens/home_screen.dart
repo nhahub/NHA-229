@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
 
 import '../../ai/screens/chat_screen.dart';
 import '../widgets/feature_card.dart';
@@ -21,7 +22,12 @@ class HomePage extends StatelessWidget {
               title:
                   'Start Learning with Mostawak! 📚\nDiscover interactive lessons and practical exercises that guide you step by step, helping you build skills and stay motivated on your journey',
               buttonText: 'Start Learning',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LearnScreen()),
+                );
+              },
             ),
             FeatureCard(
               title: 'Zero to Hero',

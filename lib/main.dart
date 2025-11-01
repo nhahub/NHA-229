@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mostawak/features/achievement/achievement.dart';
+import 'package:mostawak/features/auth/onboarding/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'data/preferences/preference_manager.dart';
 import 'firebase_options.dart';
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) {
+      builder: (context, child) { 
         return MaterialApp(
           title: 'Mostawak',
           debugShowCheckedModeBanner: false,
