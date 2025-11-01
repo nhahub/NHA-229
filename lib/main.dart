@@ -1,8 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mostawak/features/achievement/achievement.dart';
 import 'package:mostawak/features/auth/onboarding/splash.dart';
 import 'package:mostawak/features/home/home/screens/main_screen.dart';
+import 'package:mostawak/features/profile/profile.dart';
+import 'package:mostawak/features/progress_overview/progress_overview.dart';
+import 'package:mostawak/features/settings/settings.dart';
 
 import 'core/theme/light_theme.dart';
 
@@ -25,12 +30,12 @@ class MyApp extends StatelessWidget {
       designSize: const Size(390, 844),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) {
+      builder: (context, child) { 
         return MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: LightTheme.theme(_language),
-          home:  const ChallengesScreen(),
+          home:  const ProfilePage(),  
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
