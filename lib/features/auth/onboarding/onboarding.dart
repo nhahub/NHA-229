@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
-import 'package:mostawak/features/auth/home/home_screen.dart';
+import 'package:mostawak/data/preferences/preference_manager.dart';
 import '../signup/signup_screen.dart';
 import '../login/widgets/custom_button.dart';
 
@@ -163,13 +163,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: CustomButton(
                   text: ' Get Started ',
-                  onPressed: () {
+                  onPressed: () async {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomePage(),
+                        builder: (context) => SignupScreen(),
                       ),
                     );
+                    await PreferenceManager().setBool("isFirstLaunch", false);
                   },
                 ),
               ),
@@ -188,13 +189,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         minimumSize: const Size(60, 30),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => SignupScreen(),
                           ),
                         );
+                        await PreferenceManager()
+                            .setBool("isFirstLaunch", false);
                       },
                       child: const Text(
                         "Skip",

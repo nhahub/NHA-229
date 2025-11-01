@@ -1,104 +1,112 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mostawak/core/constants/app_assets.dart';
-import 'package:mostawak/features/home/challenges/screens/action_area.dart';
-import 'package:mostawak/features/home/challenges/screens/grid_widget.dart';
-import 'package:mostawak/features/home/challenges/screens/rank_card.dart';
+import 'courses_grid.dart';
+import 'action_area.dart';
+import 'rank_card.dart';
 
-class ChallengesScreen extends StatelessWidget {
+class ChallengesScreen extends StatefulWidget {
   const ChallengesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: SvgPicture.asset(AppAssets.svgLogo),
-          centerTitle: true,
-          toolbarHeight: 80.h,
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(40.h),
-            child: Container(
-              color: const Color(0xff489eb5),
-              child: TabBar(
-                labelColor: Colors.white,
-                labelStyle: Theme.of(context).textTheme.bodySmall,
-                unselectedLabelColor: Colors.white70,
-                tabs: const [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Home'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Learn'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Challenges'),
-                  ),
-                ],
+  ChallengesScreenState createState() => ChallengesScreenState();
+}
+
+class ChallengesScreenState extends State<ChallengesScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  final Color selectedTabColor = const Color(0xFFFE9C04);
+  final Color unselectedTextColor = const Color(0xFF9E9E9E);
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+
+    _tabController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildCustomTabBar() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        // color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TabBar(
+        controller: _tabController,
+        indicatorWeight: 0.1,
+        indicator: BoxDecoration(
+          color: selectedTabColor.withValues(alpha: 200),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        indicatorSize: TabBarIndicatorSize.tab,
+        tabs: [
+          Tab(
+            child: Text(
+              'Ranked',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: _tabController.index == 0
+                    ? selectedTabColor
+                    : unselectedTextColor,
               ),
             ),
           ),
-        ),
-        body: TabBarView(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    RankCard(
-                        rankText: "plat V",
-                        rankIcon: SvgPicture.asset(
-                            "assets/images/challenge_icon.svg"),
-                        onButtonPressed: () {}),
-                    const SizedBox(height: 10),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Ranked",
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.normal,
-                              color: Color(0xFF9E9E9E)),
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          "|",
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.normal,
-                              color: Color(0xFF9E9E9E)),
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          "Unranked",
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.normal,
-                              color: Color(0xFF9E9E9E)),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    gridWidget(),
-
-                    // CustomButton(
-                    //   text: 'Ready !',
-                    //   onPressed: () {},
-                    //   hPadding: false,
-                    // )
-                      actionArea(),
-                  ],
-                ),
+          Tab(
+            child: Text(
+              'Unranked',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: _tabController.index == 1
+                    ? selectedTabColor
+                    : unselectedTextColor,
               ),
-            )
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            RankCard(
+                rankText: "plat V",
+                rankIcon: SvgPicture.asset("assets/images/challenge_icon.svg"),
+                onButtonPressed: () {}),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: _buildCustomTabBar(),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: 400,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  CoursesGrid(courses: rankedCourses),
+                  CoursesGrid(courses: unrankedCourses),
+                ],
+              ),
+            ),
+            actionArea(),
           ],
         ),
       ),

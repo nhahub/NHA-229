@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
+import '../../home/screens/home_screen.dart';
+import '../../challenges/screens/challenges_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -12,7 +16,20 @@ class MainScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: SvgPicture.asset(AppAssets.svgLogo),
+          leading: Builder(
+            builder: (context) => IconButton(
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              icon: SvgPicture.asset(
+                'assets/images/drawer.svg',
+                width: 25,
+                height: 25,
+              ),
+            ),
+          ),
+          title: SvgPicture.asset(
+            AppAssets.svgLogo,
+            height: 70.h,
+          ),
           centerTitle: true,
           toolbarHeight: 80.h,
           bottom: PreferredSize(
@@ -41,20 +58,16 @@ class MainScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: const TabBarView(
-          children: [
-            /// Screens to be placed here
-            Center(
-              child: Text('Welcome to the Home Screen!'),
-            ),
-            Center(
-              child: Text('Welcome to the Learn Screen!'),
-            ),
-            Center(
-              child: Text('Welcome to the Challenges Screen!'),
-            ),
-          ],
+        body: const SafeArea(
+          child: TabBarView(
+            children: [
+              HomePage(),
+              LearnScreen(),
+              ChallengesScreen(),
+            ],
+          ),
         ),
+        drawer: const CustomDrawer(),
       ),
     );
   }

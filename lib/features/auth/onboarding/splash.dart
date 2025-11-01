@@ -3,6 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/data/preferences/preference_manager.dart';
+import 'package:mostawak/features/auth/signup/signup_screen.dart';
+import 'package:mostawak/features/home/home/screens/main_screen.dart';
 import 'onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,7 +24,13 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+          MaterialPageRoute(
+              builder: (context) =>
+                  PreferenceManager().getBool("isFirstLaunch") ?? true
+                      ? const OnboardingScreen()
+                      : PreferenceManager().getBool("isLoggedIn") ?? false
+                          ? const MainScreen()
+                          : SignupScreen()),
         );
       }
     });
