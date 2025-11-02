@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendEmail": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
     "resetSuccess": MessageLookupByLibrary.simpleMessage("تم بنجاح"),
     "resetSuccessMessage": MessageLookupByLibrary.simpleMessage(
-      "تهانينا! تم تغيير كلمة المرور الخاصة بك. اضغط \"متابعة\" لتسجيل الدخول",
+      "تحقق من بريدك الإلكتروني! ارسلنا رابط لإعادة تعيين كلمة المرور. اعد تعيين كلمة المرور لتسجيل الدخول",
     ),
     "sentMessage1": MessageLookupByLibrary.simpleMessage(
       "أرسلنا رابط إعادة تعيين إلى ",
