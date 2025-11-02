@@ -5,6 +5,8 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  User? get currentUser => _auth.currentUser;
+
   Future<User?> signInWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -68,5 +70,13 @@ class AuthService {
     }
   }
 
-  User? get currentUser => _auth.currentUser;
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message ?? 'Password Reset Error');
+    } catch (e) {
+      throw Exception('Password Reset Error: $e');
+    }
+  }
 }

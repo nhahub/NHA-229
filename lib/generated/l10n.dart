@@ -195,10 +195,10 @@ class S {
     return Intl.message('Successful', name: 'resetSuccess', desc: '', args: []);
   }
 
-  /// `Congratulations! Your password has been changed. Click continue to login`
+  /// `Check Your Email! We sent a reset link to your email. Reset your password and login`
   String get resetSuccessMessage {
     return Intl.message(
-      'Congratulations! Your password has been changed. Click continue to login',
+      'Check Your Email! We sent a reset link to your email. Reset your password and login',
       name: 'resetSuccessMessage',
       desc: '',
       args: [],
