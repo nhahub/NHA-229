@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mostawak/data/preferences/preference_manager.dart';
 import 'package:mostawak/features/home/home/screens/main_screen.dart';
 import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
 import 'firebase_options.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: S.delegate.supportedLocales,
           locale: _language,
-          home: const MainScreen(),
+         
         );
       },
     );
