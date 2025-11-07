@@ -37,7 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "resendEmail": MessageLookupByLibrary.simpleMessage("Resend email"),
     "resetSuccess": MessageLookupByLibrary.simpleMessage("Successful"),
     "resetSuccessMessage": MessageLookupByLibrary.simpleMessage(
-      "Congratulations! Your password has been changed. Click continue to login",
+      "Check Your Email! We sent a reset link to your email. Reset your password and login",
     ),
     "sentMessage1": MessageLookupByLibrary.simpleMessage(
       "We sent a reset link to ",

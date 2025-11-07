@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
-
 import 'package:mostawak/core/constants/app_colors.dart';
-
-
 
 class ProgressOverviewPage extends StatelessWidget {
   const ProgressOverviewPage({super.key});
@@ -64,7 +60,6 @@ class ProgressOverviewPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-             
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -84,32 +79,24 @@ class ProgressOverviewPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 30),
-              
-              
               _buildCourseSection(
                 courseName: 'Math',
                 lectureCount: 4,
                 completedPercentage: 45,
               ),
               const SizedBox(height: 30),
-              
-            
               _buildCourseSection(
                 courseName: 'Science',
                 lectureCount: 2,
                 completedPercentage: 25,
               ),
               const SizedBox(height: 30),
-              
-             
               _buildCourseSection(
                 courseName: 'Programming',
                 lectureCount: 7,
                 completedPercentage: 75,
               ),
               const SizedBox(height: 30),
-              
-             
               _buildCourseSection(
                 courseName: 'English',
                 lectureCount: 12,

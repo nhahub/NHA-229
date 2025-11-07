@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/ai/screens/chat_screen.dart';
 import 'package:mostawak/features/home/home/screens/home_screen.dart';
@@ -56,7 +57,7 @@ class CustomDrawer extends StatelessWidget {
                         padding: const EdgeInsets.all(6),
                         child: ClipOval(
                           child: SvgPicture.asset(
-                            'assets/images/usama.svg',
+                            AppAssets.usama,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -92,19 +93,19 @@ class CustomDrawer extends StatelessWidget {
                     children: [
                       _buildDrawerItem(
                         context,
-                        'assets/images/home.svg',
+                        AppAssets.home,
                         'Home',
                         const HomePage(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/shop.svg',
+                        AppAssets.shop,
                         'Shop',
                         const RewardScreen(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/stats.svg',
+                        AppAssets.stats,
                         'Stats & Dashboard',
                         const Scaffold(
                           body: Center(
@@ -114,25 +115,25 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/chat.svg',
+                        AppAssets.chat,
                         'Chat with AI',
                         const ChatScreen(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/profile.svg',
+                        AppAssets.profile,
                         'Profile',
                         const ProfilePage(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/settings.svg',
+                        AppAssets.settings,
                         'Settings',
                         const SettingsPage(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/logout.svg',
+                        AppAssets.logout,
                         'Logout',
                         LoginScreen(),
                         logout: true,

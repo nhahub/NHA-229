@@ -20,7 +20,7 @@ class MainScreen extends StatelessWidget {
             builder: (context) => IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
               icon: SvgPicture.asset(
-                'assets/images/drawer.svg',
+                AppAssets.drawerIcon,
                 width: 25,
                 height: 25,
               ),

@@ -55,9 +55,9 @@ class _CoursesGridState extends State<CoursesGrid> {
         final course = widget.courses[index];
         final bool isSelected = index == selectedIndex;
 
-        final Color selectedBorderColor = const Color(0xFFFE9C04);
-        final Color unselectedBorderColor = const Color(0xFF16697B);
-        final Color textUnselectedColor = const Color(0xFF16697B);
+        const Color selectedBorderColor = Color(0xFFFE9C04);
+        const Color unselectedBorderColor = Color(0xFF16697B);
+        const Color textUnselectedColor = Color(0xFF16697B);
 
         return Column(
           children: [

@@ -15,6 +15,6 @@
   "password": "Password",
   "updatePassword": "Update Password",
   "resetSuccess": "Successful",
-  "resetSuccessMessage": "Congratulations! Your password has been changed. Click continue to login",
+  "resetSuccessMessage": "Check Your Email! We sent a reset link to your email. Reset your password and login",
   "cont": "Continue"
 }
