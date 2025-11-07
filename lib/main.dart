@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/features/achievement/achievement.dart';
 import 'package:mostawak/features/auth/onboarding/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mostawak/features/home/home/screens/main_screen.dart';
+import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
 import 'firebase_options.dart';
 import 'core/theme/light_theme.dart';
 import 'data/preferences/preference_manager.dart';
@@ -33,9 +35,9 @@ class MyApp extends StatelessWidget {
       builder: (context, child) { 
         return MaterialApp(
           title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner: false, 
           theme: LightTheme.theme(_language),
-          home: const SplashScreen(),
+          home:   LearnScreen(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,

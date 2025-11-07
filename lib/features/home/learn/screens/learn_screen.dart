@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/features/home/challenges/screens/action_area.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
+
+import 'package:mostawak/features/home/home/widgets/custom_app_bar.dart';
 import 'content_cards.dart';
 
 class Content {
@@ -28,41 +33,50 @@ class _LearnScreenState extends State<LearnScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFECE7E3),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Text(
-              "Ready to learn something \n           new today ?",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF82C0CB)),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            ...List.generate(contentList.length, (index) {
-              final Content = contentList[index];
+    return DefaultTabController(
+      length: 3,
+      initialIndex: 1, 
+      child: Scaffold(
+        backgroundColor: const Color(0xFFECE7E3),
+        drawer: const CustomDrawer(),
+        appBar: const CustomAppBarWithTabs(), 
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Ready to learn something \n           new today ?",
+                  style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400,
+                      color: MyColors.iconColor),
+                ),
+                SizedBox(
+                  height: 25.h,
+                ),
+                ...List.generate(contentList.length, (index) {
+                  final content = contentList[index];
 
-              return ContentCards(
-                title: Content.title,
-                imagePath: Content.imagePath,
-                isSelected: index == selectedIndex,
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-              );
-            }),
-            const SizedBox(
-              height: 40,
+                  return ContentCards(
+                    title: content.title,
+                    imagePath: content.imagePath,
+                    isSelected: index == selectedIndex,
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
+                  );
+                }),
+                SizedBox(
+                  height: 10.h,
+                ),
+                actionArea(),
+              ],
             ),
-            actionArea(),
-          ]),
+          ),
         ),
       ),
     );
