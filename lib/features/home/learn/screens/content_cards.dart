@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ContentCards extends StatelessWidget {
@@ -28,15 +29,15 @@ class ContentCards extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        height: 150,
+        height: 130.h,
         margin: const EdgeInsets.symmetric(vertical: 10),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
           color: cardColor,
           borderRadius: BorderRadius.circular(25),
           border: isSelected
-              ? Border.all(color: selectedBorderColor, width: 3.0)
-              : Border.all(color: unselectedBorderColor, width: 3.0),
+              ? Border.all(color: selectedBorderColor, width: 1.5)
+              : Border.all(color: unselectedBorderColor, width: 1.5),
         ),
         child: Row(
           children: [
@@ -48,14 +49,18 @@ class ContentCards extends StatelessWidget {
             const SizedBox(
               width: 20,
             ),
-            const Spacer(),
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.normal,
-                  color: foregroundColor),
-            )
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                    fontSize: 23.sp,
+                    fontWeight: FontWeight.w600,
+                    color: foregroundColor),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ),
           ],
         ),
       ),

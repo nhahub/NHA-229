@@ -9,5 +9,6 @@ class MyColors {
    static const Color backgroundLight = Color(0xFFECE7E3);
     static const Color borderColor= Color(0xFF16697B);
     static const Color shadowColor= Color(0xFF489EB5);
+    static const Color iconColor= Color(0xFF82C0CB);
 
 }

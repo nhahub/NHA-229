@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'data/preferences/preference_manager.dart';
+import 'package:mostawak/data/preferences/preference_manager.dart';
+import 'package:mostawak/features/home/home/screens/main_screen.dart';
+import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
 import 'firebase_options.dart';
 import 'core/theme/light_theme.dart';
 import 'generated/l10n.dart';
@@ -33,9 +35,10 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
-          title: 'Mostawak',
-          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false, 
           theme: LightTheme.theme(_language),
+          home:   LearnScreen(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -44,7 +47,7 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: S.delegate.supportedLocales,
           locale: _language,
-          home: const SplashScreen(),
+         
         );
       },
     );
