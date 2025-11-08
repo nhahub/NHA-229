@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/info_card.dart';
@@ -16,28 +17,36 @@ class RewardScreen extends StatelessWidget {
       backgroundColor: const Color(0xfff6f6f6),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(8.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 8),
+              SizedBox(height: 8.h),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const Text(
+                padding: EdgeInsets.all(8.w),
+                child: Text(
                   "Use your points to unlock cool rewards and power-ups.",
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14.sp,
+                  ),
                 ),
               ),
-              const SizedBox(height: 8),
-              const Row(
+              SizedBox(height: 8.h),
+              Row(
                 children: [
-                  Icon(Icons.monetization_on, color: Colors.amber, size: 20),
-                  SizedBox(width: 4),
+                  Icon(
+                    Icons.monetization_on,
+                    color: Colors.amber,
+                    size: 20.sp,
+                  ),
+                  SizedBox(width: 4.w),
                   Text(
                     "Your Balance: ",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: MyColors.primary,
+                      fontSize: 14.sp,
                     ),
                   ),
                   Text(
@@ -45,19 +54,20 @@ class RewardScreen extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.amber,
+                      fontSize: 14.sp,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
 
-              // 🔹 First Card
+              /// 🔹 First Card
               InfoCard(
                 title1: "Mostawak hero avatar",
-                titleStyle: TextStyle(fontSize: 12, color: Colors.white),
+                titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
                 value1: "Epic",
                 title2:
-                    "A heroic style — sharp, \ndetermined, and full of energy",
+                "A heroic style — sharp, \ndetermined, and full of energy",
                 imagePath2: "assets/images/avatar.png",
                 title3: "75",
                 imagePath3: "assets/images/coin.png",
@@ -67,13 +77,14 @@ class RewardScreen extends StatelessWidget {
                 buttonTextColor: Colors.white,
                 cardColor: const Color(0xff489EB5),
               ),
+              SizedBox(height: 16.h),
 
-              // 🔹 Second Card
+              /// 🔹 Second Card
               InfoCard(
                 title1: "Black and white theme",
-                value1: "common",
+                value1: "Common",
                 title2:
-                    "A clean black-and-white theme — minimal, \nelegant, and timeless.",
+                "A clean black-and-white theme — minimal, \nelegant, and timeless.",
                 imagePath2: null,
                 title3: "25",
                 imagePath3: "assets/images/coin.png",
@@ -83,14 +94,15 @@ class RewardScreen extends StatelessWidget {
                 buttonTextColor: Colors.white,
                 cardColor: Colors.white,
               ),
+              SizedBox(height: 16.h),
 
-              // 🔹 Third Card
+              /// 🔹 Third Card
               InfoCard(
                 title1: "Double XP Weekend",
-                titleStyle: TextStyle(fontSize: 12, color: Colors.white),
-                value1: "common",
+                titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
+                value1: "Common",
                 title2:
-                    "Get 2x points for completing levels for \nthe next 7 days",
+                "Get 2x points for completing levels for \nthe next 7 days",
                 imagePath2: null,
                 title3: "35",
                 imagePath3: "assets/images/coin.png",
@@ -100,14 +112,15 @@ class RewardScreen extends StatelessWidget {
                 buttonTextColor: Colors.white,
                 cardColor: const Color(0xff489EB5),
               ),
+              SizedBox(height: 16.h),
 
-              // 🔹 Fourth Card
+              /// 🔹 Fourth Card
               InfoCard(
                 title1: "3x XP Weekend",
-                titleStyle: TextStyle(fontSize: 12, color: Colors.white),
-                value1: "common",
+                titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
+                value1: "Common",
                 title2:
-                    "Get 3x points for completing levels for \nthe next 7 days",
+                "Get 3x points for completing levels for \nthe next 7 days",
                 imagePath2: null,
                 title3: "45",
                 imagePath3: "assets/images/coin.png",

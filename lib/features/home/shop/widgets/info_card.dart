@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InfoCard extends StatelessWidget {
   final String title1;
@@ -47,47 +48,61 @@ class InfoCard extends StatelessWidget {
       color: cardColor ?? Colors.white,
       elevation: 3,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
+        borderRadius: BorderRadius.circular(borderRadius.r),
       ),
-      margin: const EdgeInsets.all(16),
+      margin: EdgeInsets.all(16.w),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
             // Row 1: text + text
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title1,
-                    style: titleStyle ??
-                        const TextStyle(fontWeight: FontWeight.bold)),
-                Text(value1,
-                    style: valueStyle ?? const TextStyle(fontSize: 12)),
+                Text(
+                  title1,
+                  style: titleStyle ??
+                      TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.sp,
+                      ),
+                ),
+                Text(
+                  value1,
+                  style: valueStyle ??
+                      TextStyle(
+                        fontSize: 12.sp,
+                      ),
+                ),
               ],
             ),
-            SizedBox(height: spacing),
+            SizedBox(height: spacing.h),
 
             // Row 2: text + optional image
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title2,
-                    style: titleStyle ??
-                        const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12)),
-                if (imagePath2 != null) // ✅ conditional rendering
+                Text(
+                  title2,
+                  style: titleStyle ??
+                      TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.sp,
+                      ),
+                ),
+                if (imagePath2 != null)
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(8.r),
                     child: Image.asset(
                       imagePath2!,
-                      width: 140,
-                      height: 80,
+                      width: 120.w,
+                      height: 80.h,
                       fit: BoxFit.cover,
                     ),
                   ),
               ],
             ),
-            SizedBox(height: spacing),
+            SizedBox(height: spacing.h),
 
             // Row 3: (image + text) + button
             Row(
@@ -97,15 +112,19 @@ class InfoCard extends StatelessWidget {
                   children: [
                     Image.asset(
                       imagePath3,
-                      width: 24,
-                      height: 24,
+                      width: 24.w,
+                      height: 24.h,
                     ),
-                    const SizedBox(width: 8),
-                    Text(title3,
-                        style: titleStyle ??
-                            const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.orange)),
+                    SizedBox(width: 8.w),
+                    Text(
+                      title3,
+                      style: titleStyle ??
+                          TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange,
+                            fontSize: 14.sp,
+                          ),
+                    ),
                   ],
                 ),
                 OutlinedButton(
@@ -113,12 +132,19 @@ class InfoCard extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     backgroundColor: buttonColor ?? Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(24.r),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8.h,
+                      horizontal: 16.w,
                     ),
                   ),
                   child: Text(
                     buttonText,
-                    style: TextStyle(color: buttonTextColor ?? Colors.white),
+                    style: TextStyle(
+                      color: buttonTextColor ?? Colors.white,
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               ],

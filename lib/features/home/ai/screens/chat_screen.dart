@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mostawak/data/models/user_model.dart';
+import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/message_bubble.dart';
 import '../../../../data/models/message_model.dart';
 
@@ -40,7 +41,10 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffECE7E3),
+      appBar: const ReusableAppBar(
+        centerImage: 'assets/images/chatwithai.svg',
+        showTabs: false,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 23),

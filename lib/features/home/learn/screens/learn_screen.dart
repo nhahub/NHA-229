@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
-import 'package:mostawak/features/home/challenges/screens/action_area.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
 
 import 'package:mostawak/features/home/home/widgets/custom_app_bar.dart';
+import '../../challenges/screens/coming_soon.dart';
+import '../../challenges/screens/english_challenge_room.dart';
 import 'content_cards.dart';
 
 class Content {
@@ -31,53 +32,90 @@ class LearnScreen extends StatefulWidget {
 class _LearnScreenState extends State<LearnScreen> {
   int selectedIndex = -1;
 
+  void _navigateToSelected(String title) {
+    if (title == "English") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const EnglishChallengeRoomScreen(),
+        ),
+      );
+    } else if (title == "Science" ||
+        title == "Programming" ||
+        title == "Mathematics") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ComingSoonScreen(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
-      initialIndex: 1, 
+      initialIndex: 1,
       child: Scaffold(
-        backgroundColor: const Color(0xFFECE7E3),
-        drawer: const CustomDrawer(),
-        appBar: const CustomAppBarWithTabs(), 
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "Ready to learn something \n           new today ?",
                   style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w400,
-                      color: MyColors.iconColor),
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                    color: MyColors.iconColor,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: 25.h,
-                ),
+                SizedBox(height: 25.h),
+
+                // Cards
                 ...List.generate(contentList.length, (index) {
                   final content = contentList[index];
+                  final isSelected = index == selectedIndex;
 
                   return ContentCards(
                     title: content.title,
                     imagePath: content.imagePath,
-                    isSelected: index == selectedIndex,
+                    isSelected: isSelected,
                     onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
+                      setState(() => selectedIndex = index);
+                      _navigateToSelected(content.title);
                     },
                   );
                 }),
-                SizedBox(
-                  height: 10.h,
-                ),
+
+                SizedBox(height: 20.h),
                 actionArea(),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget actionArea() {
+    return ElevatedButton(
+      onPressed: selectedIndex != -1
+          ? () => _navigateToSelected(contentList[selectedIndex].title)
+          : null,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF16697B),
+        padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 15.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+      ),
+      child: Text(
+        "Start Learning",
+        style: TextStyle(fontSize: 20.sp, color: Colors.white),
       ),
     );
   }

@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false, 
           theme: LightTheme.theme(_language),
-          home:   LearnScreen(),
+          home:   const SplashScreen(),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
