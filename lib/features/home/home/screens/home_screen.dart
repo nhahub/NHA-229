@@ -37,6 +37,30 @@ class HomePage extends StatelessWidget {
               onPressed: () {},
             ),
             FeatureCard(
+              imageUrl: AppAssets.itemShop,
+              title:
+              'Explore and unlock extra features that enhance your experience! From advanced learning tools to exclusive content and rewards, everything you need is at your fingertips to get the most out of the app.',
+              buttonText: 'Item Shop',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LearnScreen()),
+                );
+              },
+            ),
+            FeatureCard(
+              imageUrl: AppAssets.statistics,
+              title:
+              ' Track your progress and performance all in one place! Get clear insights, see your achievements, and stay motivated with real-time statistics and an interactive dashboard.',
+              buttonText: 'Stats & Dashboard',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LearnScreen()),
+                );
+              },
+            ),
+            FeatureCard(
               // imageUrl: AppAssets.robotIcon,
               title: 'Chat with AI – Learn Smarter',
               titleColor: MyColors.accentColor,

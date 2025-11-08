@@ -117,8 +117,22 @@ class _SettingsPageState extends State<SettingsPage> {
         Switch(
           value: value,
           onChanged: onChanged,
-          activeThumbColor: const Color(0xFF2B7A8C),
-          activeTrackColor: const Color(0xFF7AB5C1),
+          thumbColor: MaterialStateProperty.resolveWith<Color?>(
+                (states) {
+              if (states.contains(MaterialState.selected)) {
+                return const Color(0xFF2B7A8C);
+              }
+              return Colors.grey;
+            },
+          ),
+          trackColor: MaterialStateProperty.resolveWith<Color?>(
+                (states) {
+              if (states.contains(MaterialState.selected)) {
+                return const Color(0xFF7AB5C1);
+              }
+              return Colors.grey.shade400;
+            },
+          ),
         ),
       ],
     );

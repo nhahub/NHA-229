@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import '../../../../data/level_beginner1_quiz.dart';
+import '../../../../data/level_inter_quiz1.dart';
 import '../widgets/quiz_header.dart';
 import '../widgets/quiz_navigation.dart';
 import '../widgets/quiz_question_page.dart';
+import '../widgets/reusable_appbar.dart';
 import 'challenge_room_result.dart';
 
-class ChallengeRoomScreen extends StatefulWidget {
-  const ChallengeRoomScreen({super.key});
+class IntermediateChallengeRoomScreen extends StatefulWidget {
+  const IntermediateChallengeRoomScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChallengeRoomScreen> createState() => _ChallengeRoomScreenState();
+  State<IntermediateChallengeRoomScreen> createState() => _IntermediateChallengeRoomScreenState();
 }
 
-class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
+class _IntermediateChallengeRoomScreenState extends State<IntermediateChallengeRoomScreen> {
   late final PageController _pageController;
   late List<int?> _selectedAnswers;
   int _currentIndex = 0;
@@ -21,7 +22,7 @@ class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    _selectedAnswers = List.filled(quizQuestions.length, null);
+    _selectedAnswers = List.filled(grammarTenseQuizQuestions.length, null);
   }
 
   void _selectAnswer(int answerIndex) {
@@ -39,7 +40,7 @@ class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
       return;
     }
 
-    if (_currentIndex < quizQuestions.length - 1) {
+    if (_currentIndex < grammarTenseQuizQuestions.length - 1) {
       setState(() => _currentIndex++);
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
@@ -63,8 +64,8 @@ class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
   void _finishQuiz() {
     int score = 0;
 
-    for (int i = 0; i < quizQuestions.length; i++) {
-      final correctAnswer = quizQuestions[i]['correct'];
+    for (int i = 0; i < grammarTenseQuizQuestions.length; i++) {
+      final correctAnswer = grammarTenseQuizQuestions[i]['correct'];
       if (_selectedAnswers[i] == correctAnswer) score++;
     }
 
@@ -73,7 +74,7 @@ class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
       MaterialPageRoute(
         builder: (_) => ChallengeRoomResultResultScreen(
           score: score,
-          totalQuestions: quizQuestions.length,
+          totalQuestions: grammarTenseQuizQuestions.length,
         ),
       ),
     );
@@ -81,7 +82,7 @@ class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (quizQuestions.isEmpty) {
+    if (grammarTenseQuizQuestions.isEmpty) {
       return const Scaffold(
         body: Center(child: Text("No questions available.")),
       );
@@ -89,42 +90,27 @@ class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9F6F2),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF206E79),
-        elevation: 0,
-        title: const Text.rich(
-          TextSpan(children: [
-            TextSpan(
-              text: "CHALLENGE ",
-              style:
-                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
-            ),
-            TextSpan(
-              text: "ROOM",
-              style: TextStyle(
-                  color: Color(0xFFFF9E1B), fontWeight: FontWeight.bold),
-            ),
-          ]),
-        ),
-        centerTitle: true,
+      appBar: const ReusableAppBar(
+        centerImage: 'assets/images/challenge ROOM.svg',
+        showTabs: false,
       ),
       body: Column(
         children: [
           const SizedBox(height: 16),
           QuizHeader(
             currentIndex: _currentIndex,
-            totalQuestions: quizQuestions.length,
+            totalQuestions: grammarTenseQuizQuestions.length,
             selectedAnswers: _selectedAnswers,
           ),
           const SizedBox(height: 24),
           Expanded(
             child: PageView.builder(
               controller: _pageController,
-              itemCount: quizQuestions.length,
+              itemCount: grammarTenseQuizQuestions.length,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) => QuizQuestionPage(
-                question: quizQuestions[index]['question'],
-                answers: quizQuestions[index]['answers'],
+                question: grammarTenseQuizQuestions[index]['question'],
+                answers: grammarTenseQuizQuestions[index]['answers'],
                 selectedIndex: _selectedAnswers[index],
                 onAnswerSelected: (i) => _selectAnswer(i),
               ),
@@ -132,7 +118,7 @@ class _ChallengeRoomScreenState extends State<ChallengeRoomScreen> {
           ),
           QuizNavigation(
             currentIndex: _currentIndex,
-            totalQuestions: quizQuestions.length,
+            totalQuestions: grammarTenseQuizQuestions.length,
             onNext: _nextQuestion,
             onPrev: _prevQuestion,
           ),
