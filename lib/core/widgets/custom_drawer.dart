@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,10 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    final userName = user?.displayName ?? 'User';
+    final userEmail = user?.email ?? 'user@example.com';
+
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF16697B),
@@ -57,15 +62,15 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.all(6),
                         child: ClipOval(
-                          child: SvgPicture.asset(
-                            AppAssets.usama,
-                            fit: BoxFit.contain,
+                          child: Image.asset(
+                            'assets/images/profile.gif',
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Text(
-                        'Usama Elgendy',
+                       Text(
+                        userName,
                         style: TextStyle(
                           fontFamily: 'BigShoulders',
                           fontSize: 30,
@@ -73,8 +78,8 @@ class CustomDrawer extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const Text(
-                        'usamaelgendy112@gmail.com',
+                       Text(
+                        userEmail,
                         style: TextStyle(
                           fontFamily: 'poppins',
                           fontSize: 12,

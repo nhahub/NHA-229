@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -62,13 +63,25 @@ class AuthService {
       await result.user?.updateDisplayName(name);
       await result.user?.reload();
 
-      return _auth.currentUser;
+      final user = _auth.currentUser;
+
+      // ✅ Add this block here to create Firestore user document
+      final uid = user!.uid;
+      final userDoc = FirebaseFirestore.instance.collection('users').doc(uid);
+      await userDoc.set({
+        'name': name,
+        'email': email,
+        'coins': 0,
+      }, SetOptions(merge: true));
+
+      return user;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message ?? 'Sign Up Error');
     } catch (e) {
       throw Exception('Sign Up Error: $e');
     }
   }
+
 
   Future<void> sendPasswordResetEmail(String email) async {
     try {

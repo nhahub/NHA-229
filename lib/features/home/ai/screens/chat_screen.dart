@@ -17,7 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
 
   bool isUserTurn = true;
-  final UserModel user = UserModel(name: "Omar");
+  //final UserModel user = UserModel(name: "Omar");
 
   void _sendMessage() {
     final text = _controller.text.trim();
@@ -65,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Hi, ${user.name}',
+                                'Hi, ',
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 40,
