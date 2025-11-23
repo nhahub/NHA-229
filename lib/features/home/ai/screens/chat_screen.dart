@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
 import 'package:mostawak/data/models/user_model.dart';
 import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/message_bubble.dart';
@@ -153,6 +154,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

@@ -4,10 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/ai/screens/chat_screen.dart';
-import 'package:mostawak/features/home/home/screens/home_screen.dart';
+import 'package:mostawak/features/home/home/screens/main_screen.dart';
 import 'package:mostawak/features/home/shop/screens/reward_screen.dart';
 import 'package:mostawak/features/profile/profile.dart';
 import 'package:mostawak/features/settings/settings.dart';
+import 'package:mostawak/features/stats_and_dashboard/stats_and_dashboard.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -17,7 +18,7 @@ class CustomDrawer extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF16697B),
-        border: Border( 
+        border: Border(
           top: BorderSide(color: Color(0XFFFFA62B), width: 3),
           right: BorderSide(color: Color(0XFFFFA62B), width: 3),
           bottom: BorderSide(color: Color(0XFFFFA62B), width: 3),
@@ -95,7 +96,7 @@ class CustomDrawer extends StatelessWidget {
                         context,
                         AppAssets.home,
                         'Home',
-                        const HomePage(),
+                        const MainScreen(),
                       ),
                       _buildDrawerItem(
                         context,
@@ -107,11 +108,7 @@ class CustomDrawer extends StatelessWidget {
                         context,
                         AppAssets.stats,
                         'Stats & Dashboard',
-                        const Scaffold(
-                          body: Center(
-                            child: Text('Settings'),
-                          ),
-                        ),
+                        const StatsAndDashboard(),
                       ),
                       _buildDrawerItem(
                         context,

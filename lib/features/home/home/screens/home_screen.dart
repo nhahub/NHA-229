@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
+import 'package:mostawak/features/home/shop/screens/reward_screen.dart';
+import 'package:mostawak/features/stats_and_dashboard/stats_and_dashboard.dart';
 
 import '../../ai/screens/chat_screen.dart';
 import '../widgets/feature_card.dart';
@@ -39,24 +41,25 @@ class HomePage extends StatelessWidget {
             FeatureCard(
               imageUrl: AppAssets.itemShop,
               title:
-              'Explore and unlock extra features that enhance your experience! From advanced learning tools to exclusive content and rewards, everything you need is at your fingertips to get the most out of the app.',
+                  'Explore and unlock extra features that enhance your experience! From advanced learning tools to exclusive content and rewards, everything you need is at your fingertips to get the most out of the app.',
               buttonText: 'Item Shop',
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LearnScreen()),
+                  MaterialPageRoute(builder: (context) => const RewardScreen()),
                 );
               },
             ),
             FeatureCard(
               imageUrl: AppAssets.statistics,
               title:
-              ' Track your progress and performance all in one place! Get clear insights, see your achievements, and stay motivated with real-time statistics and an interactive dashboard.',
+                  ' Track your progress and performance all in one place! Get clear insights, see your achievements, and stay motivated with real-time statistics and an interactive dashboard.',
               buttonText: 'Stats & Dashboard',
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LearnScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const StatsAndDashboard()),
                 );
               },
             ),

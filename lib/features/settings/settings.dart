@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
@@ -19,7 +18,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       backgroundColor: MyColors.textColor,
       appBar: AppBar(
-        backgroundColor:MyColors.primary,
+        backgroundColor: MyColors.primary,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.menu, color: MyColors.accentColor),
@@ -27,7 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         title: const Icon(
           Icons.settings,
-         color: MyColors.accentColor,
+          color: MyColors.accentColor,
           size: 32,
         ),
         centerTitle: true,
@@ -39,7 +38,6 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-             
               _buildSectionTitle('App Preferences'),
               const SizedBox(height: 20),
               _buildToggleItem('notifications', notificationsEnabled, (value) {
@@ -56,8 +54,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 });
               }),
               const SizedBox(height: 40),
-              
-            
               _buildSectionTitle('Account Settings'),
               const SizedBox(height: 20),
               _buildNavigationItem('change password'),
@@ -66,8 +62,6 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(height: 16),
               _buildNavigationItem('Logout'),
               const SizedBox(height: 40),
-              
-             
               _buildSectionTitle('Legal & Info'),
               const SizedBox(height: 20),
               _buildNavigationItem('Privacy Policy'),
@@ -103,7 +97,8 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildToggleItem(String title, bool value, ValueChanged<bool> onChanged) {
+  Widget _buildToggleItem(
+      String title, bool value, ValueChanged<bool> onChanged) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -117,17 +112,17 @@ class _SettingsPageState extends State<SettingsPage> {
         Switch(
           value: value,
           onChanged: onChanged,
-          thumbColor: MaterialStateProperty.resolveWith<Color?>(
-                (states) {
-              if (states.contains(MaterialState.selected)) {
+          thumbColor: WidgetStateProperty.resolveWith<Color?>(
+            (states) {
+              if (states.contains(WidgetState.selected)) {
                 return const Color(0xFF2B7A8C);
               }
               return Colors.grey;
             },
           ),
-          trackColor: MaterialStateProperty.resolveWith<Color?>(
-                (states) {
-              if (states.contains(MaterialState.selected)) {
+          trackColor: WidgetStateProperty.resolveWith<Color?>(
+            (states) {
+              if (states.contains(WidgetState.selected)) {
                 return const Color(0xFF7AB5C1);
               }
               return Colors.grey.shade400;
@@ -161,11 +156,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 'Ar',
                 style: TextStyle(
                   fontSize: 16,
-                  color: selectedLanguage == 'Ar' 
-                      ? const Color(0xFF2B7A8C) 
+                  color: selectedLanguage == 'Ar'
+                      ? const Color(0xFF2B7A8C)
                       : const Color(0xFF9DB5BC),
-                  fontWeight: selectedLanguage == 'Ar' 
-                      ? FontWeight.bold 
+                  fontWeight: selectedLanguage == 'Ar'
+                      ? FontWeight.bold
                       : FontWeight.normal,
                 ),
               ),
@@ -187,11 +182,11 @@ class _SettingsPageState extends State<SettingsPage> {
                 'En',
                 style: TextStyle(
                   fontSize: 16,
-                  color: selectedLanguage == 'En' 
-                      ? const Color(0xFF2B7A8C) 
+                  color: selectedLanguage == 'En'
+                      ? const Color(0xFF2B7A8C)
                       : const Color(0xFF9DB5BC),
-                  fontWeight: selectedLanguage == 'En' 
-                      ? FontWeight.bold 
+                  fontWeight: selectedLanguage == 'En'
+                      ? FontWeight.bold
                       : FontWeight.normal,
                 ),
               ),
@@ -204,9 +199,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget _buildNavigationItem(String title) {
     return InkWell(
-      onTap: () {
-       
-      },
+      onTap: () {},
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
-import 'package:mostawak/core/widgets/custom_drawer.dart';
 
-import 'package:mostawak/features/home/home/widgets/custom_app_bar.dart';
 import '../../challenges/screens/coming_soon.dart';
 import '../../challenges/screens/english_challenge_room.dart';
 import 'content_cards.dart';

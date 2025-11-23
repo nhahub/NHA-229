@@ -3,7 +3,6 @@ import '../../../../data/level_advanced_data.dart';
 import '../widgets/reusable_appbar.dart';
 import 'advanced_challenge_room.dart';
 
-
 class ReadingParagraphScreen extends StatelessWidget {
   const ReadingParagraphScreen({super.key});
 
@@ -43,7 +42,7 @@ class ReadingParagraphScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 6,
                           offset: const Offset(0, 3),
                         ),
@@ -74,7 +73,7 @@ class ReadingParagraphScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF16697B),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
@@ -96,4 +95,3 @@ class ReadingParagraphScreen extends StatelessWidget {
     );
   }
 }
-

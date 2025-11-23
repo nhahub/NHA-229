@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
 import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/info_card.dart';
 
@@ -67,7 +68,7 @@ class RewardScreen extends StatelessWidget {
                 titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
                 value1: "Epic",
                 title2:
-                "A heroic style — sharp, \ndetermined, and full of energy",
+                    "A heroic style — sharp, \ndetermined, and full of energy",
                 imagePath2: "assets/images/avatar.png",
                 title3: "75",
                 imagePath3: "assets/images/coin.png",
@@ -84,7 +85,7 @@ class RewardScreen extends StatelessWidget {
                 title1: "Black and white theme",
                 value1: "Common",
                 title2:
-                "A clean black-and-white theme — minimal, \nelegant, and timeless.",
+                    "A clean black-and-white theme — minimal, \nelegant, and timeless.",
                 imagePath2: null,
                 title3: "25",
                 imagePath3: "assets/images/coin.png",
@@ -102,7 +103,7 @@ class RewardScreen extends StatelessWidget {
                 titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
                 value1: "Common",
                 title2:
-                "Get 2x points for completing levels for \nthe next 7 days",
+                    "Get 2x points for completing levels for \nthe next 7 days",
                 imagePath2: null,
                 title3: "35",
                 imagePath3: "assets/images/coin.png",
@@ -120,7 +121,7 @@ class RewardScreen extends StatelessWidget {
                 titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
                 value1: "Common",
                 title2:
-                "Get 3x points for completing levels for \nthe next 7 days",
+                    "Get 3x points for completing levels for \nthe next 7 days",
                 imagePath2: null,
                 title3: "45",
                 imagePath3: "assets/images/coin.png",
@@ -134,6 +135,7 @@ class RewardScreen extends StatelessWidget {
           ),
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

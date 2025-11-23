@@ -7,13 +7,15 @@ import '../widgets/reusable_appbar.dart';
 import 'challenge_room_result.dart';
 
 class IntermediateChallengeRoomScreen extends StatefulWidget {
-  const IntermediateChallengeRoomScreen({Key? key}) : super(key: key);
+  const IntermediateChallengeRoomScreen({super.key});
 
   @override
-  State<IntermediateChallengeRoomScreen> createState() => _IntermediateChallengeRoomScreenState();
+  State<IntermediateChallengeRoomScreen> createState() =>
+      _IntermediateChallengeRoomScreenState();
 }
 
-class _IntermediateChallengeRoomScreenState extends State<IntermediateChallengeRoomScreen> {
+class _IntermediateChallengeRoomScreenState
+    extends State<IntermediateChallengeRoomScreen> {
   late final PageController _pageController;
   late List<int?> _selectedAnswers;
   int _currentIndex = 0;

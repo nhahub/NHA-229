@@ -23,7 +23,7 @@ class ComingSoonScreen extends StatelessWidget {
             ),
 
             // Main content
-            Center(
+            const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -32,14 +32,13 @@ class ComingSoonScreen extends StatelessWidget {
                       "Coming\nSoon",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: const Color(0xFF16697B),
+                        color: Color(0xFF16697B),
                         fontSize: 48,
                         fontWeight: FontWeight.bold,
                         height: 1.2,
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
