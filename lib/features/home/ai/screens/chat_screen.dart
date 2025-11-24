@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
-import 'package:mostawak/data/models/user_model.dart';
 import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/message_bubble.dart';
 import '../../../../data/models/message_model.dart';
@@ -60,20 +59,20 @@ class _ChatScreenState extends State<ChatScreen> {
                     return FadeTransition(opacity: animation, child: child);
                   },
                   child: messages.isEmpty
-                      ? Center(
+                      ? const Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Hi, ',
+                                'Hi!',
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 40,
                                   fontFamily: 'Poppins',
                                   color: Color(0xff82C0CB),
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 'What challenge will you tackle next?',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(

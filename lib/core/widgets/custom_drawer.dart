@@ -10,6 +10,7 @@ import 'package:mostawak/features/home/shop/screens/reward_screen.dart';
 import 'package:mostawak/features/profile/profile.dart';
 import 'package:mostawak/features/settings/settings.dart';
 import 'package:mostawak/features/stats_and_dashboard/stats_and_dashboard.dart';
+import 'package:mostawak/services/auth_service.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -69,18 +70,18 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 15),
-                       Text(
+                      Text(
                         userName,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'BigShoulders',
                           fontSize: 30,
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                       Text(
+                      Text(
                         userEmail,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontSize: 12,
                           color: Color(0xff9e9e9e),
@@ -177,6 +178,7 @@ class CustomDrawer extends StatelessWidget {
         Navigator.pop(context);
 
         if (logout) {
+          AuthService().signOut();
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => page),

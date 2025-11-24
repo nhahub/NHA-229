@@ -21,7 +21,7 @@ class _BeginnerChallengeRoomScreenState
   late final PageController _pageController;
   late List<int?> _selectedAnswers;
   final QuizService _quizService = QuizService();
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
 
   final String quizId = "beginnerChallenge1";
   String? uid;
@@ -161,7 +161,7 @@ class _BeginnerChallengeRoomScreenState
         if (_isSubmitting)
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               child: const Center(
                 child: CircularProgressIndicator(
                   color: Colors.white,

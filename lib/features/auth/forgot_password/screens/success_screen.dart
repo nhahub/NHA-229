@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 
-import '../../login/screens/login_screen.dart';
 import '../../../../generated/l10n.dart';
 
 class SuccessScreen extends StatelessWidget {
@@ -51,11 +50,8 @@ class SuccessScreen extends StatelessWidget {
                     width: 309,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.pop(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                          (route) => false,
                         );
                       },
                       child: Text(

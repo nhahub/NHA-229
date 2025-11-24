@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/features/auth/forgot_password/screens/forget_password_email_screen.dart';
+import 'package:mostawak/features/auth/login/screens/login_screen.dart';
+import 'package:mostawak/services/auth_service.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -18,18 +25,22 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       backgroundColor: MyColors.textColor,
       appBar: AppBar(
-        backgroundColor: MyColors.primary,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: MyColors.accentColor),
-          onPressed: () {},
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            icon: SvgPicture.asset(
+              AppAssets.drawerIcon,
+              width: 25,
+              height: 25,
+            ),
+          ),
         ),
-        title: const Icon(
-          Icons.settings,
-          color: MyColors.accentColor,
-          size: 32,
+        title: SvgPicture.asset(
+          AppAssets.settings,
+          height: 50.h,
         ),
         centerTitle: true,
+        toolbarHeight: 80.h,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -73,6 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 
@@ -198,25 +210,74 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _buildNavigationItem(String title) {
-    return InkWell(
-      onTap: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF9DB5BC),
+    return SizedBox(
+      height: 30,
+      child: InkWell(
+        onTap: () {
+          _func(title, context);
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF9DB5BC),
+              ),
             ),
-          ),
-          const Icon(
-            Icons.arrow_forward,
-            color: Color(0xFF9DB5BC),
-            size: 20,
-          ),
-        ],
+            const Icon(
+              Icons.arrow_forward,
+              color: Color(0xFF9DB5BC),
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
+  }
+}
+
+void _func(String title, BuildContext context) async {
+  switch (title) {
+    case 'change password':
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ForgetPasswordEmailScreen(),
+        ),
+      );
+      break;
+    case 'User details':
+      // TODO: Implement navigation to User details screen
+      break;
+    case 'Logout':
+      AuthService().signOut();
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+        (route) => false,
+      );
+      break;
+    // case 'Privacy Policy':
+    //   break;
+    // case 'app info':
+    //   break;
+    // case 'Help & Support':
+    //   break;
+    default:
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Scaffold(
+            body: Center(
+              child: Text(title),
+            ),
+          ),
+        ),
+      );
+      break;
   }
 }

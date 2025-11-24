@@ -55,7 +55,8 @@ class _IntermediateChallengeRoomScreenState
   void _nextQuestion() {
     if (_selectedAnswers[_currentIndex] == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please select an answer before proceeding.")),
+        const SnackBar(
+            content: Text("Please select an answer before proceeding.")),
       );
       return;
     }
@@ -172,7 +173,7 @@ class _IntermediateChallengeRoomScreenState
         if (_isSubmitting)
           Positioned.fill(
             child: Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               child: const Center(
                 child: CircularProgressIndicator(
                   color: Colors.white,

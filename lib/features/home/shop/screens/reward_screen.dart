@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
 import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/info_card.dart';
 
@@ -114,7 +115,8 @@ class _RewardScreenState extends State<RewardScreen> {
                   SizedBox(height: 8.h),
                   Row(
                     children: [
-                      Icon(Icons.monetization_on, color: Colors.amber, size: 20.sp),
+                      Icon(Icons.monetization_on,
+                          color: Colors.amber, size: 20.sp),
                       SizedBox(width: 4.w),
                       Text(
                         "Your Balance: ",
@@ -141,13 +143,16 @@ class _RewardScreenState extends State<RewardScreen> {
                     title1: "Mostawak hero avatar",
                     titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
                     value1: "Epic",
-                    title2: "A heroic style — sharp, \ndetermined, and full of energy",
+                    title2:
+                        "A heroic style — sharp, \ndetermined, and full of energy",
                     imagePath2: "assets/images/avatar.png",
                     title3: "45",
                     imagePath3: "assets/images/coin.png",
-                    buttonText: ownedItems.contains("Mostawak hero avatar") ? "Apply Now" : "Unlock",
-                    onButtonPressed: () =>
-                        _buyOrApplyItem(cost: 45, itemName: "Mostawak hero avatar"),
+                    buttonText: ownedItems.contains("Mostawak hero avatar")
+                        ? "Apply Now"
+                        : "Unlock",
+                    onButtonPressed: () => _buyOrApplyItem(
+                        cost: 45, itemName: "Mostawak hero avatar"),
                     buttonColor: const Color(0xff16697B),
                     buttonTextColor: Colors.white,
                     cardColor: const Color(0xff489EB5),
@@ -158,13 +163,16 @@ class _RewardScreenState extends State<RewardScreen> {
                   InfoCard(
                     title1: "Black and white theme",
                     value1: "Common",
-                    title2: "A clean black-and-white theme — minimal, \nelegant, and timeless.",
+                    title2:
+                        "A clean black-and-white theme — minimal, \nelegant, and timeless.",
                     imagePath2: null,
                     title3: "25",
                     imagePath3: "assets/images/coin.png",
-                    buttonText: ownedItems.contains("Black and white theme") ? "Apply Now" : "Unlock",
-                    onButtonPressed: () =>
-                        _buyOrApplyItem(cost: 25, itemName: "Black and white theme"),
+                    buttonText: ownedItems.contains("Black and white theme")
+                        ? "Apply Now"
+                        : "Unlock",
+                    onButtonPressed: () => _buyOrApplyItem(
+                        cost: 25, itemName: "Black and white theme"),
                     buttonColor: Colors.black,
                     buttonTextColor: Colors.white,
                     cardColor: Colors.white,
@@ -176,13 +184,16 @@ class _RewardScreenState extends State<RewardScreen> {
                     title1: "Double XP Weekend",
                     titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
                     value1: "Common",
-                    title2: "Get 2x points for completing levels for \nthe next 7 days",
+                    title2:
+                        "Get 2x points for completing levels for \nthe next 7 days",
                     imagePath2: null,
                     title3: "35",
                     imagePath3: "assets/images/coin.png",
-                    buttonText: ownedItems.contains("Double XP Weekend") ? "Apply Now" : "Unlock",
-                    onButtonPressed: () =>
-                        _buyOrApplyItem(cost: 35, itemName: "Double XP Weekend"),
+                    buttonText: ownedItems.contains("Double XP Weekend")
+                        ? "Apply Now"
+                        : "Unlock",
+                    onButtonPressed: () => _buyOrApplyItem(
+                        cost: 35, itemName: "Double XP Weekend"),
                     buttonColor: const Color(0xff16697B),
                     buttonTextColor: Colors.white,
                     cardColor: const Color(0xff489EB5),
@@ -194,11 +205,14 @@ class _RewardScreenState extends State<RewardScreen> {
                     title1: "3x XP Weekend",
                     titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
                     value1: "Common",
-                    title2: "Get 3x points for completing levels for \nthe next 7 days",
+                    title2:
+                        "Get 3x points for completing levels for \nthe next 7 days",
                     imagePath2: null,
                     title3: "40",
                     imagePath3: "assets/images/coin.png",
-                    buttonText: ownedItems.contains("3x XP Weekend") ? "Apply Now" : "Unlock",
+                    buttonText: ownedItems.contains("3x XP Weekend")
+                        ? "Apply Now"
+                        : "Unlock",
                     onButtonPressed: () =>
                         _buyOrApplyItem(cost: 40, itemName: "3x XP Weekend"),
                     buttonColor: const Color(0xff16697B),
@@ -211,6 +225,7 @@ class _RewardScreenState extends State<RewardScreen> {
           },
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

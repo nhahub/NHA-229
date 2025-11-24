@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/data/preferences/preference_manager.dart';
-import 'package:mostawak/features/auth/signup/signup_screen.dart';
+import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/home/screens/main_screen.dart';
 import 'onboarding.dart';
 
@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ? const OnboardingScreen()
                       : FirebaseAuth.instance.currentUser != null
                           ? const MainScreen()
-                          : SignupScreen()),
+                          : LoginScreen()),
         );
       }
     });
