@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
@@ -6,7 +7,10 @@ import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
 import 'package:mostawak/features/auth/forgot_password/screens/forget_password_email_screen.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
+import 'package:mostawak/features/settings/controllers/switch_controller.dart';
+import 'package:mostawak/features/settings/controllers/language_controller.dart';
 import 'package:mostawak/services/auth_service.dart';
+import 'package:mostawak/services/firebase_notifications.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -16,12 +20,11 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool notificationsEnabled = true;
-  bool offlineModeEnabled = true;
-  String selectedLanguage = 'En';
-
   @override
   Widget build(BuildContext context) {
+    bool notifications = false;
+    bool offlineMode = false;
+
     return Scaffold(
       backgroundColor: MyColors.textColor,
       appBar: AppBar(
@@ -51,19 +54,37 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(height: 20),
               _buildSectionTitle('App Preferences'),
               const SizedBox(height: 20),
-              _buildToggleItem('notifications', notificationsEnabled, (value) {
-                setState(() {
-                  notificationsEnabled = value;
-                });
-              }),
+              BlocProvider(
+                create: (context) => SwitchController(notifications),
+                child: BlocBuilder<SwitchController, bool>(
+                  builder: (context, notificationsState) {
+                    return _buildToggleItem('notifications', notificationsState,
+                        (value) {
+                      context.read<SwitchController>().add(ToggleSwitch(value));
+                      if (value) {
+                        // Enable notifications
+                        FirebaseNotifications().initialize();
+                      } else {
+                        // Disable notifications
+                      }
+                    });
+                  },
+                ),
+              ),
               const SizedBox(height: 16),
               _buildLanguageItem(),
               const SizedBox(height: 16),
-              _buildToggleItem('offline mode', offlineModeEnabled, (value) {
-                setState(() {
-                  offlineModeEnabled = value;
-                });
-              }),
+              BlocProvider(
+                create: (context) => SwitchController(offlineMode),
+                child: BlocBuilder<SwitchController, bool>(
+                  builder: (context, offlineModeState) {
+                    return _buildToggleItem('offline mode', offlineModeState,
+                        (value) {
+                      context.read<SwitchController>().add(ToggleSwitch(value));
+                    });
+                  },
+                ),
+              ),
               const SizedBox(height: 40),
               _buildSectionTitle('Account Settings'),
               const SizedBox(height: 20),
@@ -118,7 +139,7 @@ class _SettingsPageState extends State<SettingsPage> {
           title,
           style: const TextStyle(
             fontSize: 16,
-            color: Color(0xFF9DB5BC),
+            color: Color(0xFF82C0CB),
           ),
         ),
         Switch(
@@ -127,7 +148,7 @@ class _SettingsPageState extends State<SettingsPage> {
           thumbColor: WidgetStateProperty.resolveWith<Color?>(
             (states) {
               if (states.contains(WidgetState.selected)) {
-                return const Color(0xFF2B7A8C);
+                return const Color(0xFFECE7E3);
               }
               return Colors.grey;
             },
@@ -135,9 +156,9 @@ class _SettingsPageState extends State<SettingsPage> {
           trackColor: WidgetStateProperty.resolveWith<Color?>(
             (states) {
               if (states.contains(WidgetState.selected)) {
-                return const Color(0xFF7AB5C1);
+                return const Color(0xFF16697B);
               }
-              return Colors.grey.shade400;
+              return const Color(0xFFECE7E3);
             },
           ),
         ),
@@ -153,57 +174,61 @@ class _SettingsPageState extends State<SettingsPage> {
           'language',
           style: TextStyle(
             fontSize: 16,
-            color: Color(0xFF9DB5BC),
+            color: Color(0xFF82C0CB),
           ),
         ),
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedLanguage = 'Ar';
-                });
-              },
-              child: Text(
-                'Ar',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: selectedLanguage == 'Ar'
-                      ? const Color(0xFF2B7A8C)
-                      : const Color(0xFF9DB5BC),
-                  fontWeight: selectedLanguage == 'Ar'
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+        BlocBuilder<LanguageController, String>(
+          builder: (context, languageState) {
+            return Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    context
+                        .read<LanguageController>()
+                        .add(ChangeLanguage('ar'));
+                  },
+                  child: Text(
+                    'Ar',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: languageState == 'ar'
+                          ? const Color(0xFF2B7A8C)
+                          : const Color(0xFF82C0CB),
+                      fontWeight: languageState == 'ar'
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            const Text(
-              ' | ',
-              style: TextStyle(
-                fontSize: 16,
-                color: Color(0xFF9DB5BC),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedLanguage = 'En';
-                });
-              },
-              child: Text(
-                'En',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: selectedLanguage == 'En'
-                      ? const Color(0xFF2B7A8C)
-                      : const Color(0xFF9DB5BC),
-                  fontWeight: selectedLanguage == 'En'
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                const Text(
+                  ' | ',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF82C0CB),
+                  ),
                 ),
-              ),
-            ),
-          ],
+                GestureDetector(
+                  onTap: () {
+                    context
+                        .read<LanguageController>()
+                        .add(ChangeLanguage('en'));
+                  },
+                  child: Text(
+                    'En',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: languageState == 'en'
+                          ? const Color(0xFF2B7A8C)
+                          : const Color(0xFF82C0CB),
+                      fontWeight: languageState == 'en'
+                          ? FontWeight.bold
+                          : FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ],
     );
@@ -223,12 +248,12 @@ class _SettingsPageState extends State<SettingsPage> {
               title,
               style: const TextStyle(
                 fontSize: 16,
-                color: Color(0xFF9DB5BC),
+                color: Color(0xFF82C0CB),
               ),
             ),
             const Icon(
               Icons.arrow_forward,
-              color: Color(0xFF9DB5BC),
+              color: Color(0xFF82C0CB),
               size: 20,
             ),
           ],
