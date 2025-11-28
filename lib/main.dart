@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mostawak/data/preferences/preference_manager.dart';
+import 'package:mostawak/features/profile/profile.dart';
 import 'package:mostawak/features/settings/controllers/language_controller.dart';
 import 'firebase_options.dart';
 import 'core/theme/light_theme.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
                 title: 'Flutter Demo',
                 debugShowCheckedModeBanner: false,
                 theme: LightTheme.theme(Locale(languageState)),
-                home: const SplashScreen(),
+                home: ProfilePage(),
                 localizationsDelegates: const [
                   S.delegate,
                   GlobalMaterialLocalizations.delegate,
