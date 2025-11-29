@@ -26,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController password = TextEditingController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  
   bool isLoading = false;
 
   @override
@@ -43,7 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-        
           SafeArea(
             top: false,
             child: SingleChildScrollView(
@@ -128,7 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             text: "Login",
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                               
                                 setState(() {
                                   isLoading = true;
                                 });
@@ -153,7 +150,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (e is FirebaseAuthException) {
                                     switch (e.code) {
                                       case 'user-not-found':
-                                        message = 'No user found for this email';
+                                        message =
+                                            'No user found for this email';
                                         break;
                                       case 'wrong-password':
                                         message = 'Incorrect password';
@@ -171,7 +169,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SnackBar(content: Text(message)),
                                   );
                                 } finally {
-                                 
                                   if (mounted) {
                                     setState(() {
                                       isLoading = false;
@@ -189,7 +186,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           builder: (googleContext) => GoogleSignButton(
                             text: "Login with Google",
                             onPressed: () async {
-                             
                               setState(() {
                                 isLoading = true;
                               });
@@ -214,11 +210,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 }
                               } catch (e) {
-                                ScaffoldMessenger.of(googleContext).showSnackBar(
+                                ScaffoldMessenger.of(googleContext)
+                                    .showSnackBar(
                                   SnackBar(content: Text(e.toString())),
                                 );
                               } finally {
-                              
                                 if (mounted) {
                                   setState(() {
                                     isLoading = false;
@@ -237,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignupScreen(),
+                                builder: (context) => const SignupScreen(),
                               ),
                             );
                           },
@@ -250,11 +246,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-
-         
           if (isLoading)
             Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               child: const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

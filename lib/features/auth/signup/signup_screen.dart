@@ -25,7 +25,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
 
-
   bool isLoading = false;
 
   @override
@@ -52,7 +51,6 @@ class _SignupScreenState extends State<SignupScreen> {
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-  
           SafeArea(
             top: false,
             child: SingleChildScrollView(
@@ -117,7 +115,6 @@ class _SignupScreenState extends State<SignupScreen> {
                           text: "Sign Up",
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                          
                               setState(() {
                                 isLoading = true;
                               });
@@ -141,7 +138,6 @@ class _SignupScreenState extends State<SignupScreen> {
                               } catch (e) {
                                 _showSnackBar(e.toString());
                               } finally {
-                              
                                 if (mounted) {
                                   setState(() {
                                     isLoading = false;
@@ -157,7 +153,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         GoogleSignButton(
                           text: "Sign Up with Google",
                           onPressed: () async {
-                        
                             setState(() {
                               isLoading = true;
                             });
@@ -178,7 +173,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             } catch (e) {
                               _showSnackBar(e.toString());
                             } finally {
-                           
                               if (mounted) {
                                 setState(() {
                                   isLoading = false;
@@ -200,7 +194,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
+                                  builder: (context) => const LoginScreen(),
                                 ),
                               );
                             },
@@ -213,11 +207,9 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
           ),
-
-        
           if (isLoading)
             Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               child: const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

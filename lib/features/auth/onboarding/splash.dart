@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       ? const OnboardingScreen()
                       : FirebaseAuth.instance.currentUser != null
                           ? const MainScreen()
-                          : LoginScreen()),
+                          : const LoginScreen()),
         );
       }
     });
