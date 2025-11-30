@@ -8,23 +8,41 @@ class Course {
   Course(this.title, this.imagePath);
 }
 
-final List<Course> courses = [
+final List<Course> rankedCourses = [
   Course('English', 'assets/images/English.svg'),
   Course('Programming', 'assets/images/Programming.svg'),
   Course('Science', 'assets/images/Science.svg'),
   Course('Mathematics', 'assets/images/Mathematics.svg'),
+  Course('English', 'assets/images/English.svg'),
+  Course('Programming', 'assets/images/Programming.svg'),
 ];
 
-class CoursesGrid extends StatelessWidget {
+final List<Course> unrankedCourses = [
+  Course('English', 'assets/images/English.svg'),
+  Course('Programming', 'assets/images/Programming.svg'),
+  Course('Science', 'assets/images/Science.svg'),
+  Course('Mathematics', 'assets/images/Mathematics.svg'),
+  Course('English', 'assets/images/English.svg'),
+  Course('Programming', 'assets/images/Programming.svg'),
+];
+
+class CoursesGrid extends StatefulWidget {
+  final List<Course> courses;
   final int selectedIndex;
   final Function(int) onCourseSelected;
 
   const CoursesGrid({
     super.key,
+    required this.courses,
     required this.selectedIndex,
     required this.onCourseSelected,
   });
 
+  @override
+  State<CoursesGrid> createState() => _CoursesGridState();
+}
+
+class _CoursesGridState extends State<CoursesGrid> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -37,19 +55,22 @@ class CoursesGrid extends StatelessWidget {
         crossAxisSpacing: 15.0,
         mainAxisSpacing: 15.0,
       ),
-      itemCount: 6,
+      itemCount: widget.courses.length,
       itemBuilder: (context, index) {
-        final course = courses[index % courses.length];
-        final bool isSelected = index == selectedIndex;
+        final course = widget.courses[index];
+        final bool isSelected = index == widget.selectedIndex;
 
         const Color selectedBorderColor = Color(0xFFFE9C04);
         const Color unselectedBorderColor = Color(0xFF16697B);
+        const Color textUnselectedColor = Color(0xFF16697B);
 
         return Column(
           children: [
             Expanded(
               child: InkWell(
-                onTap: () => onCourseSelected(index),
+                onTap: () {
+                  widget.onCourseSelected(index);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -58,11 +79,8 @@ class CoursesGrid extends StatelessWidget {
                         : Border.all(color: unselectedBorderColor, width: 3.0),
                   ),
                   child: Center(
-                    child: SvgPicture.asset(
-                      course.imagePath,
-                      height: 180,
-                      width: 180,
-                    ),
+                    child: SvgPicture.asset(course.imagePath,
+                        height: 180, width: 180),
                   ),
                 ),
               ),
@@ -74,7 +92,7 @@ class CoursesGrid extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: isSelected ? selectedBorderColor : unselectedBorderColor,
+                color: isSelected ? selectedBorderColor : textUnselectedColor,
               ),
             ),
           ],

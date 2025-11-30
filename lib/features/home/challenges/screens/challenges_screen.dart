@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'courses_grid.dart';
+import 'courses_grid.dart' show CoursesGrid, rankedCourses, unrankedCourses;
 import 'action_area.dart';
 import 'english_challenge_room.dart';
 import '../screens/coming_soon.dart';
@@ -25,7 +25,7 @@ class _ChallengesScreenState extends State<ChallengesScreen>
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
-        selectedIndex = -1; // يلغي الاختيار لما التاب يتغير
+        selectedIndex = -1;
       });
     });
   }
@@ -39,11 +39,11 @@ class _ChallengesScreenState extends State<ChallengesScreen>
   void _navigateToSelected() {
     if (selectedIndex == -1) return;
 
-    // عند استخدام شبكة مكررة (6 عناصر)، نحسب المؤشر الأصلي عبر modulo
-    final baseIndex = selectedIndex % courses.length;
-    final selectedCourse = courses[baseIndex].title;
+    final currentCourses =
+        _tabController.index == 0 ? rankedCourses : unrankedCourses;
+    final selectedCourse = currentCourses[selectedIndex];
 
-    if (selectedCourse == "English") {
+    if (selectedCourse.title == "English") {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const EnglishChallengeRoomScreen()),
@@ -106,17 +106,19 @@ class _ChallengesScreenState extends State<ChallengesScreen>
                   onCourseSelected: (index) {
                     setState(() => selectedIndex = index);
                   },
+                  courses: rankedCourses,
                 ),
                 CoursesGrid(
                   selectedIndex: selectedIndex,
                   onCourseSelected: (index) {
                     setState(() => selectedIndex = index);
                   },
+                  courses: unrankedCourses,
                 ),
               ],
             ),
           ),
-          ActionArea(onPressed: _navigateToSelected),
+          actionArea(onPressed: _navigateToSelected),
         ],
       ),
     );
