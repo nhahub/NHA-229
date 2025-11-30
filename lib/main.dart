@@ -3,13 +3,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mostawak/data/preferences/preference_manager.dart';
-import 'package:mostawak/features/auth/login/screens/login_screen.dart';
-import 'package:mostawak/features/home/home/screens/main_screen.dart';
-import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
+import 'package:mostawak/features/settings/controllers/language_controller.dart';
 import 'firebase_options.dart';
 import 'core/theme/light_theme.dart';
 import 'generated/l10n.dart';
 import 'features/auth/onboarding/splash.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,19 +34,26 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          theme: LightTheme.theme(_language),
-          home: const LearnScreen(),
-          localizationsDelegates: const [
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          locale: _language,
+        return BlocProvider(
+          create: (context) => LanguageController(_language.languageCode),
+          child: BlocBuilder<LanguageController, String>(
+            builder: (context, languageState) {
+              return MaterialApp(
+                title: 'Flutter Demo',
+                debugShowCheckedModeBanner: false,
+                theme: LightTheme.theme(Locale(languageState)),
+                home: const SplashScreen(),
+                localizationsDelegates: const [
+                  S.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: S.delegate.supportedLocales,
+                locale: Locale(languageState),
+              );
+            },
+          ),
         );
       },
     );

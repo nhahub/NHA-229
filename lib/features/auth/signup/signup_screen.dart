@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mostawak/generated/l10n.dart';
 import 'package:mostawak/services/auth_service.dart';
 import '../../home/home/screens/main_screen.dart';
 import '../login/screens/login_screen.dart';
@@ -24,7 +25,6 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
-
 
   bool isLoading = false;
 
@@ -52,7 +52,6 @@ class _SignupScreenState extends State<SignupScreen> {
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-  
           SafeArea(
             top: false,
             child: SingleChildScrollView(
@@ -69,22 +68,22 @@ class _SignupScreenState extends State<SignupScreen> {
                         const HeaderStack(),
                         CustomTextFormField(
                           controller: name,
-                          hintText: "Full Name",
+                          hintText: S.current.fullName,
                         ),
                         SizedBox(height: 20.h),
                         CustomTextFormField(
-                            controller: email, hintText: "Email"),
+                            controller: email, hintText: S.current.email),
                         SizedBox(height: 20.h),
                         CustomTextFormField(
                           controller: password,
-                          hintText: "Password",
+                          hintText: S.current.password,
                           showVisibilityButton: true,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'This field cannot be empty';
+                              return S.current.fieldRequired;
                             }
                             if (value.trim().length < 6) {
-                              return 'Password must be at least 6 characters';
+                              return S.current.passwordLength;
                             }
                             return null;
                           },
@@ -92,32 +91,32 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(height: 20.h),
                         CustomTextFormField(
                           controller: confirmPassword,
-                          hintText: "Confirm Password",
+                          hintText:
+                              "${S.current.confirm} ${S.current.password}",
                           showVisibilityButton: true,
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'This field cannot be empty';
+                              return S.current.fieldRequired;
                             }
                             if (value.trim() != password.text.trim()) {
-                              return "Passwords don't match";
+                              return S.current.passwordsNotMatch;
                             }
                             return null;
                           },
                         ),
                         SizedBox(height: 30.h),
                         RowStatements(
-                          normalText: "I accept ",
-                          linkText: "Terms and Conditions",
+                          normalText: "${S.current.accept} ",
+                          linkText: S.current.termsConditions,
                           onLinkTap: () {
-                            _showSnackBar("Terms & Conditions");
+                            _showSnackBar(S.current.termsConditions);
                           },
                         ),
                         const SizedBox(height: 20),
                         CustomButton(
-                          text: "Sign Up",
+                          text: S.current.signUp,
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                          
                               setState(() {
                                 isLoading = true;
                               });
@@ -141,7 +140,6 @@ class _SignupScreenState extends State<SignupScreen> {
                               } catch (e) {
                                 _showSnackBar(e.toString());
                               } finally {
-                              
                                 if (mounted) {
                                   setState(() {
                                     isLoading = false;
@@ -155,9 +153,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         const OrDivider(),
                         const SizedBox(height: 20),
                         GoogleSignButton(
-                          text: "Sign Up with Google",
+                          text: S.current.continueWithGoogle,
                           onPressed: () async {
-                        
                             setState(() {
                               isLoading = true;
                             });
@@ -173,12 +170,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ),
                                 );
                               } else {
-                                _showSnackBar("Google Sign-Up failed");
+                                _showSnackBar(S.current.failedToSignUp);
                               }
                             } catch (e) {
                               _showSnackBar(e.toString());
                             } finally {
-                           
                               if (mounted) {
                                 setState(() {
                                   isLoading = false;
@@ -194,13 +190,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           ),
                           child: RowStatements(
                             showCheckbox: false,
-                            normalText: "Already have an account? ",
-                            linkText: "Login",
+                            normalText: "${S.current.alreadyHaveAccount} ",
+                            linkText: S.current.login,
                             onLinkTap: () {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
+                                  builder: (context) => const LoginScreen(),
                                 ),
                               );
                             },
@@ -213,11 +209,9 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
           ),
-
-        
           if (isLoading)
             Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withValues(alpha: 0.5),
               child: const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),

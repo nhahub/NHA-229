@@ -7,6 +7,7 @@ import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
 import 'package:mostawak/features/auth/forgot_password/screens/forget_password_email_screen.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
+import 'package:mostawak/features/profile/profile.dart';
 import 'package:mostawak/features/settings/controllers/switch_controller.dart';
 import 'package:mostawak/features/settings/controllers/language_controller.dart';
 import 'package:mostawak/services/auth_service.dart';
@@ -274,14 +275,19 @@ void _func(String title, BuildContext context) async {
       );
       break;
     case 'User details':
-      // TODO: Implement navigation to User details screen
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const ProfilePage(),
+        ),
+      );
       break;
     case 'Logout':
       AuthService().signOut();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => LoginScreen(),
+          builder: (context) => const LoginScreen(),
         ),
         (route) => false,
       );

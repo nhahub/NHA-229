@@ -7,7 +7,7 @@ import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/ai/screens/chat_screen.dart';
 import 'package:mostawak/features/home/home/screens/main_screen.dart';
 import 'package:mostawak/features/home/shop/screens/reward_screen.dart';
-import 'package:mostawak/features/profile/profile.dart' hide LoginScreen;
+import 'package:mostawak/features/profile/profile.dart';
 import 'package:mostawak/features/settings/settings.dart';
 import 'package:mostawak/features/stats_and_dashboard/stats_and_dashboard.dart';
 import 'package:mostawak/services/auth_service.dart';
