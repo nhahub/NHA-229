@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mostawak/generated/l10n.dart';
 import 'package:mostawak/services/auth_service.dart';
 import '../../login/widgets/custom_textfield.dart';
 import '../../login/widgets/custom_button.dart';
@@ -37,15 +38,15 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
                         textAlign: TextAlign.start,
-                        "Forgot password",
+                        S.current.resetPassword,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Text(
-                        "please enter your email to reset the password",
-                        style: TextStyle(
+                        S.current.resetPasswordMessage,
+                        style: const TextStyle(
                           color: Color(0xFF9E9E9E),
                           fontWeight: FontWeight.w400,
                           fontSize: 20,
@@ -60,19 +61,19 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                         hPadding: false,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
+                            return S.current.fieldRequired;
                           }
                           if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                            return 'Please enter a valid email';
+                            return S.current.validEmail;
                           }
                           return null;
                         },
-                        hintText: "Email",
+                        hintText: S.current.email,
                       ),
                     ),
                     const SizedBox(height: 24),
                     CustomButton(
-                      text: "Reset Password",
+                      text: S.current.sendResetLink,
                       hPadding: false,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {

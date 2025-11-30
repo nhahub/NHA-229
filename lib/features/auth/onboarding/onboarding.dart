@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/data/preferences/preference_manager.dart';
+import 'package:mostawak/generated/l10n.dart';
 import '../signup/signup_screen.dart';
 import '../login/widgets/custom_button.dart';
 
@@ -21,25 +22,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     {
       "image": AppAssets.onboarding1,
       "isSvg": true,
-      "title": "Welcome to ",
-      "titleHighlight": "Mostawak !",
-      "description": "Your place to learn and develop in simple and easy steps",
+      "title": S.current.welcome,
+      "titleHighlight": " Mostawak",
+      "description": S.current.welcomeMessage,
     },
     {
       "image": AppAssets.onboarding2,
       "isSvg": true,
-      "title": "Challenge Your Friends !",
+      "title": S.current.challengeYourFriends,
       "titleHighlight": "",
-      "description":
-          "Compete with your friend your knowledge, and make learning more exciting.",
+      "description": S.current.challengeYourFriendsMessage,
     },
     {
       "image": AppAssets.onboarding3,
       "isSvg": true,
-      "title": "Learn with Fun",
+      "title": S.current.learnWithFun,
       "titleHighlight": "",
-      "description":
-          "Enjoy a different educational journey, full of interaction and fun.",
+      "description": S.current.learnWithFunMessage,
     },
   ];
 
@@ -121,6 +120,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           color: Color(0XFF16697B),
                                         ),
                                       ),
+                                      const TextSpan(text: ' !'),
                                     ],
                                   ),
                                 )
@@ -162,7 +162,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: CustomButton(
-                  text: ' Get Started ',
+                  text: S.current.getStarted,
                   onPressed: () async {
                     Navigator.pushReplacement(
                       context,
@@ -199,9 +199,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         await PreferenceManager()
                             .setBool("isFirstLaunch", false);
                       },
-                      child: const Text(
-                        "Skip",
-                        style: TextStyle(
+                      child: Text(
+                        S.current.skip,
+                        style: const TextStyle(
                           color: Color(0XFFECE7E3),
                           fontFamily: "BigShoulders",
                           fontSize: 24,
