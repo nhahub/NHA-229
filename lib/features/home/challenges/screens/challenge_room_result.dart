@@ -85,9 +85,7 @@ class ChallengeRoomResultResultScreen extends StatelessWidget {
               Column(
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      // TODO: share or restart logic
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: MyColors.primary,
                       minimumSize: const Size(double.infinity, 50),

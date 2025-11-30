@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'courses_grid.dart' show CoursesGrid, rankedCourses, unrankedCourses;
 import 'action_area.dart';
 import 'english_challenge_room.dart';
@@ -77,9 +78,9 @@ class _ChallengesScreenState extends State<ChallengesScreen>
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: RankCard(
               rankText: "Plat V",
               rankIcon: SvgPicture.asset("assets/images/challenge_icon.svg"),
@@ -93,11 +94,11 @@ class _ChallengesScreenState extends State<ChallengesScreen>
               },
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           _buildTabBar(),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           SizedBox(
-            height: 400,
+            height: 400.h,
             child: TabBarView(
               controller: _tabController,
               children: [

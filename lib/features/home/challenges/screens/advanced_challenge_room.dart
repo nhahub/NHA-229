@@ -89,7 +89,8 @@ class _AdvancedChallengeRoomScreenState
 
     int score = 0;
     for (int i = 0; i < advancedReadingQuizQuestions.length; i++) {
-      if (_selectedAnswers[i] == advancedReadingQuizQuestions[i]['correct']) score++;
+      if (_selectedAnswers[i] == advancedReadingQuizQuestions[i]['correct'])
+        score++;
     }
 
     setState(() => _isSubmitting = true);
