@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
@@ -18,13 +17,12 @@ class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
-                                                                                                                      
+
 class _ProfilePageState extends State<ProfilePage> {
   bool isLoading = true;
   File? _profileImage;
   final ImagePicker _picker = ImagePicker();
 
- 
   String userName = 'Loading...';
   String userEmail = '';
   int userCoins = 0;
@@ -36,17 +34,12 @@ class _ProfilePageState extends State<ProfilePage> {
     _loadUserData();
   }
 
-  
   Future<void> _loadUserData() async {
-
- 
-
-    setState(() {
-      isLoading = true;
-     
-    },
-   
-);
+    setState(
+      () {
+        isLoading = true;
+      },
+    );
 
     try {
       final userId = FirebaseAuth.instance.currentUser?.uid;
@@ -169,10 +162,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         centerTitle: true,
-
       ),
       body: Stack(
-        
         children: [
           SingleChildScrollView(
             child: Column(
@@ -240,8 +231,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 const SizedBox(height: 15),
-
-                
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Row(
@@ -262,7 +251,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -325,8 +313,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               });
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                    content: Text(
-                                        'Logout failed: ${e.toString()}')),
+                                    content:
+                                        Text('Logout failed: ${e.toString()}')),
                               );
                             }
                           }
@@ -339,8 +327,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-
-         
           if (isLoading)
             Container(
               color: Colors.black.withOpacity(0.5),

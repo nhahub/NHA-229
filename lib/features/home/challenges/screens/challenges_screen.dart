@@ -2,29 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'courses_grid.dart';
 import 'action_area.dart';
+import 'english_challenge_room.dart';
+import '../screens/coming_soon.dart';
 import 'rank_card.dart';
+import 'package:mostawak/features/stats_and_dashboard/stats_and_dashboard.dart';
 
 class ChallengesScreen extends StatefulWidget {
   const ChallengesScreen({super.key});
 
   @override
-  ChallengesScreenState createState() => ChallengesScreenState();
+  State<ChallengesScreen> createState() => _ChallengesScreenState();
 }
 
-class ChallengesScreenState extends State<ChallengesScreen>
+class _ChallengesScreenState extends State<ChallengesScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-  final Color selectedTabColor = const Color(0xFFFE9C04);
-  final Color unselectedTextColor = const Color(0xFF9E9E9E);
+  int selectedIndex = -1;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-
     _tabController.addListener(() {
-      setState(() {});
+      setState(() {
+        selectedIndex = -1; // يلغي الاختيار لما التاب يتغير
+      });
     });
   }
 
@@ -34,81 +36,88 @@ class ChallengesScreenState extends State<ChallengesScreen>
     super.dispose();
   }
 
-  Widget _buildCustomTabBar() {
-    return Container(
-      height: 50,
-      decoration: BoxDecoration(
-        // color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: TabBar(
-        controller: _tabController,
-        indicatorWeight: 0.1,
-        indicator: BoxDecoration(
-          color: selectedTabColor.withValues(alpha: 200),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        indicatorSize: TabBarIndicatorSize.tab,
-        tabs: [
-          Tab(
-            child: Text(
-              'Ranked',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: _tabController.index == 0
-                    ? selectedTabColor
-                    : unselectedTextColor,
-              ),
-            ),
-          ),
-          Tab(
-            child: Text(
-              'Unranked',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: _tabController.index == 1
-                    ? selectedTabColor
-                    : unselectedTextColor,
-              ),
-            ),
-          ),
-        ],
-      ),
+  void _navigateToSelected() {
+    if (selectedIndex == -1) return;
+
+    // عند استخدام شبكة مكررة (6 عناصر)، نحسب المؤشر الأصلي عبر modulo
+    final baseIndex = selectedIndex % courses.length;
+    final selectedCourse = courses[baseIndex].title;
+
+    if (selectedCourse == "English") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const EnglishChallengeRoomScreen()),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const ComingSoonScreen()),
+      );
+    }
+  }
+
+  Widget _buildTabBar() {
+    const selectedColor = Color(0xFFFE9C04);
+    const unselectedColor = Color(0xFF9E9E9E);
+
+    return TabBar(
+      controller: _tabController,
+      indicatorColor: selectedColor,
+      tabs: const [
+        Tab(text: 'Ranked'),
+        Tab(text: 'Unranked'),
+      ],
+      labelColor: selectedColor,
+      unselectedLabelColor: unselectedColor,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            RankCard(
-                rankText: "plat V",
-                rankIcon: SvgPicture.asset("assets/images/challenge_icon.svg"),
-                onButtonPressed: () {}),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: _buildCustomTabBar(),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: RankCard(
+              rankText: "Plat V",
+              rankIcon: SvgPicture.asset("assets/images/challenge_icon.svg"),
+              onButtonPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const StatsAndDashboard(),
+                  ),
+                );
+              },
             ),
-            const SizedBox(height: 20),
-            SizedBox(
-              height: 400,
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  CoursesGrid(courses: rankedCourses),
-                  CoursesGrid(courses: unrankedCourses),
-                ],
-              ),
+          ),
+          const SizedBox(height: 20),
+          _buildTabBar(),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 400,
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                CoursesGrid(
+                  selectedIndex: selectedIndex,
+                  onCourseSelected: (index) {
+                    setState(() => selectedIndex = index);
+                  },
+                ),
+                CoursesGrid(
+                  selectedIndex: selectedIndex,
+                  onCourseSelected: (index) {
+                    setState(() => selectedIndex = index);
+                  },
+                ),
+              ],
             ),
-            actionArea(),
-          ],
-        ),
+          ),
+          ActionArea(onPressed: _navigateToSelected),
+        ],
       ),
     );
   }
