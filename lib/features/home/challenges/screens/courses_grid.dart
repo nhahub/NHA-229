@@ -8,24 +8,6 @@ class Course {
   Course(this.title, this.imagePath);
 }
 
-final List<Course> rankedCourses = [
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-  Course('Science', 'assets/images/Science.svg'),
-  Course('Mathematics', 'assets/images/Mathematics.svg'),
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-];
-
-final List<Course> unrankedCourses = [
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-  Course('Science', 'assets/images/Science.svg'),
-  Course('Mathematics', 'assets/images/Mathematics.svg'),
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-];
-
 class CoursesGrid extends StatefulWidget {
   final List<Course> courses;
   final int selectedIndex;

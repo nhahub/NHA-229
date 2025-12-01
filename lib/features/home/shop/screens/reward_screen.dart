@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/generated/l10n.dart';
 import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/info_card.dart';
 
@@ -108,7 +109,7 @@ class _RewardScreenState extends State<RewardScreen> {
                   Padding(
                     padding: EdgeInsets.all(8.w),
                     child: Text(
-                      "Use your points to unlock cool rewards and power-ups.",
+                      S.current.shopMessage,
                       style: TextStyle(color: Colors.grey, fontSize: 14.sp),
                     ),
                   ),
@@ -119,7 +120,7 @@ class _RewardScreenState extends State<RewardScreen> {
                           color: Colors.amber, size: 20.sp),
                       SizedBox(width: 4.w),
                       Text(
-                        "Your Balance: ",
+                        '${S.current.yourBalance}: ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: MyColors.primary,
@@ -127,7 +128,7 @@ class _RewardScreenState extends State<RewardScreen> {
                         ),
                       ),
                       Text(
-                        " $coins coins",
+                        " $coins ${S.current.coins}",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.amber,
@@ -140,17 +141,17 @@ class _RewardScreenState extends State<RewardScreen> {
 
                   /// 🔹 First Card
                   InfoCard(
-                    title1: "Mostawak hero avatar",
+                    title1: S.current.mostawakHeroAvatar,
                     titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
-                    value1: "Epic",
+                    value1: S.current.epic,
                     title2:
-                        "A heroic style — sharp, \ndetermined, and full of energy",
+                        S.current.aHeroicStyle,
                     imagePath2: "assets/images/avatar.png",
                     title3: "45",
                     imagePath3: "assets/images/coin.png",
                     buttonText: ownedItems.contains("Mostawak hero avatar")
-                        ? "Apply Now"
-                        : "Unlock",
+                        ? S.current.applyNow
+                        : S.current.unlock,
                     onButtonPressed: () => _buyOrApplyItem(
                         cost: 45, itemName: "Mostawak hero avatar"),
                     buttonColor: const Color(0xff16697B),
@@ -161,16 +162,16 @@ class _RewardScreenState extends State<RewardScreen> {
 
                   /// 🔹 Second Card
                   InfoCard(
-                    title1: "Black and white theme",
-                    value1: "Common",
+                    title1: S.current.blackAndWhiteTheme,
+                    value1: S.current.common,
                     title2:
-                        "A clean black-and-white theme — minimal, \nelegant, and timeless.",
+                        S.current.aCleanBlackAndWhiteTheme,
                     imagePath2: null,
                     title3: "25",
                     imagePath3: "assets/images/coin.png",
                     buttonText: ownedItems.contains("Black and white theme")
-                        ? "Apply Now"
-                        : "Unlock",
+                        ? S.current.applyNow
+                        : S.current.unlock,
                     onButtonPressed: () => _buyOrApplyItem(
                         cost: 25, itemName: "Black and white theme"),
                     buttonColor: Colors.black,
@@ -181,17 +182,17 @@ class _RewardScreenState extends State<RewardScreen> {
 
                   /// 🔹 Third Card
                   InfoCard(
-                    title1: "Double XP Weekend",
+                    title1: S.current.doubleXP,
                     titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
-                    value1: "Common",
+                    value1: S.current.common,
                     title2:
-                        "Get 2x points for completing levels for \nthe next 7 days",
+                        S.current.doubleXPMessage,
                     imagePath2: null,
                     title3: "35",
                     imagePath3: "assets/images/coin.png",
                     buttonText: ownedItems.contains("Double XP Weekend")
-                        ? "Apply Now"
-                        : "Unlock",
+                        ? S.current.applyNow
+                        : S.current.unlock,
                     onButtonPressed: () => _buyOrApplyItem(
                         cost: 35, itemName: "Double XP Weekend"),
                     buttonColor: const Color(0xff16697B),
@@ -202,17 +203,17 @@ class _RewardScreenState extends State<RewardScreen> {
 
                   /// 🔹 Fourth Card
                   InfoCard(
-                    title1: "3x XP Weekend",
+                    title1: S.current.tripleXP,
                     titleStyle: TextStyle(fontSize: 12.sp, color: Colors.white),
-                    value1: "Common",
+                    value1: S.current.common,
                     title2:
-                        "Get 3x points for completing levels for \nthe next 7 days",
+                        S.current.tripleXPMessage,
                     imagePath2: null,
                     title3: "40",
                     imagePath3: "assets/images/coin.png",
                     buttonText: ownedItems.contains("3x XP Weekend")
-                        ? "Apply Now"
-                        : "Unlock",
+                        ? S.current.applyNow
+                        : S.current.unlock,
                     onButtonPressed: () =>
                         _buyOrApplyItem(cost: 40, itemName: "3x XP Weekend"),
                     buttonColor: const Color(0xff16697B),

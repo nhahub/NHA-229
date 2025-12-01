@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
-
+import 'package:mostawak/generated/l10n.dart';
 
 class AchievementPage extends StatelessWidget {
   const AchievementPage({super.key});
@@ -19,40 +20,9 @@ class AchievementPage extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'STATS',
-                style: TextStyle(
-                  fontSize: 22,
-                   fontWeight: FontWeight.bold,
-                  color: MyColors.shadowColor,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 1.2,
-                ),
-              ),
-              TextSpan(
-                text: ' & ',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.accentColor,
-                  fontStyle: FontStyle.normal,
-                ),
-              ),
-              TextSpan(
-                text: 'DASHBOARD',
-                style: TextStyle(
-                  fontSize: 22,
-                fontWeight: FontWeight.bold,
-                  color: MyColors.shadowColor,
-                 fontStyle: FontStyle.normal,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ],
-          ),
+        title: SvgPicture.asset(
+          'assets/images/statsAndDashboard.svg',
+          width: 250.w,
         ),
       ),
       body: Padding(
@@ -61,13 +31,12 @@ class AchievementPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 30),
-           
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Achievements',
-                  style: TextStyle(
+                Text(
+                  S.current.achievements,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                     color: MyColors.primary,
@@ -81,48 +50,39 @@ class AchievementPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 30),
-            
-         
             _buildStatItem(
-              label: 'Coins Gained',
+              label: S.current.coinsGained,
               value: '1205',
               valueColor: MyColors.accentColor,
               icon: Icons.monetization_on,
             ),
-             SizedBox(height: 35.h),
-            
+            SizedBox(height: 35.h),
             _buildStatItem(
-              label: 'Completed Tests',
+              label: S.current.completedTests,
               value: '41',
               valueColor: MyColors.accentColor,
             ),
-           SizedBox(height: 35.h),
-            
-            
+            SizedBox(height: 35.h),
             _buildStatItem(
-              label: 'Success Rate',
+              label: S.current.successRate,
               value: '80%',
               valueColor: MyColors.accentColor,
             ),
             SizedBox(height: 35.h),
-            
             _buildStatItem(
-              label: 'Daily Streak',
-              value: '31 day',
+              label: S.current.dailyStreak,
+              value: '31',
               valueColor: MyColors.accentColor,
             ),
-          SizedBox(height: 35.h),
-             
+            SizedBox(height: 35.h),
             _buildStatItem(
-              label: 'Completed Lessons',
+              label: S.current.completedLessons,
               value: '17',
               valueColor: MyColors.accentColor,
             ),
-           SizedBox(height: 35.h),
-            
-            
+            SizedBox(height: 35.h),
             _buildStatItem(
-              label: 'Completed Courses',
+              label: S.current.completedCourses,
               value: '0',
               valueColor: MyColors.accentColor,
             ),

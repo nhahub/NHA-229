@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/generated/l10n.dart';
 
 class ProgressOverviewPage extends StatelessWidget {
   const ProgressOverviewPage({super.key});
@@ -17,40 +20,9 @@ class ProgressOverviewPage extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'STATS',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.shadowColor,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 1.2,
-                ),
-              ),
-              TextSpan(
-                text: ' & ',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.accentColor,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              TextSpan(
-                text: 'DASHBOARD',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.shadowColor,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ],
-          ),
+        title: SvgPicture.asset(
+          'assets/images/statsAndDashboard.svg',
+          width: 250.w,
         ),
       ),
       body: SingleChildScrollView(
@@ -63,9 +35,9 @@ class ProgressOverviewPage extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Progress Overview',
-                    style: TextStyle(
+                  Text(
+                    S.current.progressOverview,
+                    style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w600,
                       color: MyColors.primary,
@@ -80,25 +52,25 @@ class ProgressOverviewPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               _buildCourseSection(
-                courseName: 'Math',
+                courseName: S.current.math,
                 lectureCount: 4,
                 completedPercentage: 45,
               ),
               const SizedBox(height: 30),
               _buildCourseSection(
-                courseName: 'Science',
+                courseName: S.current.science,
                 lectureCount: 2,
                 completedPercentage: 25,
               ),
               const SizedBox(height: 30),
               _buildCourseSection(
-                courseName: 'Programming',
+                courseName: S.current.programming,
                 lectureCount: 7,
                 completedPercentage: 75,
               ),
               const SizedBox(height: 30),
               _buildCourseSection(
-                courseName: 'English',
+                courseName: S.current.english,
                 lectureCount: 12,
                 completedPercentage: 100,
               ),
@@ -130,9 +102,9 @@ class ProgressOverviewPage extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              const TextSpan(
-                text: 'Lecture : ',
-                style: TextStyle(
+              TextSpan(
+                text: '${S.current.lecture}: ',
+                style: const TextStyle(
                   fontSize: 16,
                   color: MyColors.shadowColor,
                   fontWeight: FontWeight.w400,
@@ -153,9 +125,9 @@ class ProgressOverviewPage extends StatelessWidget {
         RichText(
           text: TextSpan(
             children: [
-              const TextSpan(
-                text: 'Completed : ',
-                style: TextStyle(
+              TextSpan(
+                text: '${S.current.completed}: ',
+                style: const TextStyle(
                   fontSize: 16,
                   color: MyColors.shadowColor,
                   fontWeight: FontWeight.w400,

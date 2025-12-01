@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mostawak/features/home/challenges/widgets/reusable_appbar.dart';
+import 'package:mostawak/generated/l10n.dart';
 import 'beginner_challenge_room.dart';
 import 'intermediate_challenge_room.dart';
 import 'paragraph_reading.dart';
@@ -10,9 +11,9 @@ class Content {
 }
 
 final List<Content> contentList = [
-  Content('Beginner'),
-  Content('Intermediate'),
-  Content('Advanced'),
+  Content(S.current.beginner),
+  Content(S.current.intermediate),
+  Content(S.current.advanced),
 ];
 
 class EnglishChallengeRoomScreen extends StatefulWidget {
@@ -32,18 +33,18 @@ class _EnglishChallengeRoomScreenState
 
     final selectedTitle = contentList[selectedIndex].title;
 
-    if (selectedTitle == "Beginner") {
+    if (selectedTitle == S.current.beginner) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const BeginnerChallengeRoomScreen()),
       );
-    } else if (selectedTitle == "Intermediate") {
+    } else if (selectedTitle == S.current.intermediate) {
       Navigator.push(
         context,
         MaterialPageRoute(
             builder: (_) => const IntermediateChallengeRoomScreen()),
       );
-    } else if (selectedTitle == "Advanced") {
+    } else if (selectedTitle == S.current.advanced) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const ReadingParagraphScreen()),
@@ -65,9 +66,9 @@ class _EnglishChallengeRoomScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "English Challenge Room",
-                style: TextStyle(
+              Text(
+                S.current.englishChallengeRoom,
+                style: const TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF16697B),
@@ -146,9 +147,9 @@ class _EnglishChallengeRoomScreenState
                     ),
                     elevation: 5,
                   ),
-                  child: const Text(
-                    "Start Learning",
-                    style: TextStyle(
+                  child: Text(
+                    S.current.startLearning,
+                    style: const TextStyle(
                       fontSize: 20,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mostawak/generated/l10n.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../auth/login/widgets/or_divider.dart';
 
@@ -17,13 +18,12 @@ class ChallengeRoomResultResultScreen extends StatelessWidget {
     bool passed = score >= (totalQuestions / 2);
 
     // Colors and texts depending on result
-    String title = passed ? "CONGRATULATIONS" : "KEEP TRYING";
+    String title = passed ? S.current.congratulations : S.current.keepTrying;
     Color titleColor = passed ? MyColors.primary : MyColors.primary;
     Color scoreColor = passed ? MyColors.primary : Colors.red.shade800;
 
-    String message = passed
-        ? "Great job! You did it!"
-        : "Keep trying – failure is just a step toward success";
+    String message =
+        passed ? S.current.greatJobMessage : S.current.keepTryingMessage;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9F6F2),
@@ -45,7 +45,7 @@ class ChallengeRoomResultResultScreen extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               Text(
-                "Your Score",
+                S.current.yourScore,
                 style: TextStyle(
                   fontSize: 40,
                   fontFamily: "BigShoulders",
@@ -94,7 +94,7 @@ class ChallengeRoomResultResultScreen extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      passed ? "Share" : "Try Again",
+                      passed ? S.current.share : S.current.tryAgain,
                       style: const TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
@@ -112,9 +112,9 @@ class ChallengeRoomResultResultScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      "Continue",
-                      style: TextStyle(
+                    child: Text(
+                      S.current.cont,
+                      style: const TextStyle(
                         fontSize: 18,
                         color: MyColors.primary,
                       ),

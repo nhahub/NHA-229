@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
 import 'package:mostawak/features/stats_and_dashboard/achievement/achievement.dart';
 import 'package:mostawak/features/stats_and_dashboard/progress_overview/progress_overview.dart';
+import 'package:mostawak/generated/l10n.dart';
 import 'radar_triangle_widget.dart';
 
 class StatsAndDashboard extends StatelessWidget {
@@ -14,46 +19,19 @@ class StatsAndDashboard extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: MyColors.primary,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: MyColors.textColor),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'STATS',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.shadowColor,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 1.2,
-                ),
-              ),
-              TextSpan(
-                text: ' & ',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.accentColor,
-                  fontStyle: FontStyle.normal,
-                ),
-              ),
-              TextSpan(
-                text: 'DASHBOARD',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.shadowColor,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ],
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            icon: SvgPicture.asset(
+              AppAssets.drawerIcon,
+              width: 25,
+              height: 25,
+            ),
           ),
+        ),
+        title: SvgPicture.asset(
+          'assets/images/statsAndDashboard.svg',
+          width: 250.w,
         ),
       ),
       body: SingleChildScrollView(
@@ -61,9 +39,9 @@ class StatsAndDashboard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 41, horizontal: 47),
           child: Column(
             children: [
-              const Text(
-                'Achievements',
-                style: TextStyle(
+              Text(
+                S.current.achievements,
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins',
@@ -77,12 +55,12 @@ class StatsAndDashboard extends StatelessWidget {
                 achievements: 1,
               ),
               const SizedBox(height: 7),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Rank',
-                    style: TextStyle(
+                    S.current.rank,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins',
@@ -90,8 +68,8 @@ class StatsAndDashboard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Progress',
-                    style: TextStyle(
+                    S.current.progress,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins',
@@ -102,7 +80,7 @@ class StatsAndDashboard extends StatelessWidget {
               ),
               const SizedBox(height: 114),
               DashboardMenuItem(
-                title: 'Progress',
+                title: S.current.progress,
                 onTap: () {
                   Navigator.push(
                     context,
@@ -114,12 +92,12 @@ class StatsAndDashboard extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               DashboardMenuItem(
-                title: 'My Rank',
+                title: S.current.myRank,
                 onTap: () {},
               ),
               const SizedBox(height: 12),
               DashboardMenuItem(
-                title: 'Achievements',
+                title: S.current.achievements,
                 onTap: () {
                   Navigator.push(
                     context,
@@ -133,6 +111,7 @@ class StatsAndDashboard extends StatelessWidget {
           ),
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

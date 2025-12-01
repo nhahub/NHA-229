@@ -25,8 +25,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  final Locale _language = const Locale('en');
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return BlocProvider(
-          create: (context) => LanguageController(_language.languageCode),
+          create: (context) => LanguageController(PreferenceManager().getString('languageCode') ?? 'ar'),
           child: BlocBuilder<LanguageController, String>(
             builder: (context, languageState) {
               return MaterialApp(

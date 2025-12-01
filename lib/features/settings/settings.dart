@@ -10,6 +10,7 @@ import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/profile/profile.dart';
 import 'package:mostawak/features/settings/controllers/switch_controller.dart';
 import 'package:mostawak/features/settings/controllers/language_controller.dart';
+import 'package:mostawak/generated/l10n.dart';
 import 'package:mostawak/services/auth_service.dart';
 import 'package:mostawak/services/firebase_notifications.dart';
 
@@ -26,87 +27,96 @@ class _SettingsPageState extends State<SettingsPage> {
     bool notifications = false;
     bool offlineMode = false;
 
-    return Scaffold(
-      backgroundColor: MyColors.textColor,
-      appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            onPressed: () => Scaffold.of(context).openDrawer(),
-            icon: SvgPicture.asset(
-              AppAssets.drawerIcon,
-              width: 25,
-              height: 25,
+    return BlocBuilder<LanguageController, String>(
+      builder: (context, languageState) {
+        return Scaffold(
+          backgroundColor: MyColors.textColor,
+          appBar: AppBar(
+            leading: Builder(
+              builder: (context) => IconButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                icon: SvgPicture.asset(
+                  AppAssets.drawerIcon,
+                  width: 25,
+                  height: 25,
+                ),
+              ),
+            ),
+            title: SvgPicture.asset(
+              AppAssets.settings,
+              height: 50.h,
+            ),
+            centerTitle: true,
+            toolbarHeight: 80.h,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  _buildSectionTitle(S.current.appPreferences),
+                  const SizedBox(height: 20),
+                  BlocProvider(
+                    create: (context) => SwitchController(notifications),
+                    child: BlocBuilder<SwitchController, bool>(
+                      builder: (context, notificationsState) {
+                        return _buildToggleItem(
+                            S.current.notifications, notificationsState,
+                            (value) {
+                          context
+                              .read<SwitchController>()
+                              .add(ToggleSwitch(value));
+                          if (value) {
+                            // Enable notifications
+                            FirebaseNotifications().initialize();
+                          } else {
+                            // Disable notifications
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildLanguageItem(),
+                  const SizedBox(height: 16),
+                  BlocProvider(
+                    create: (context) => SwitchController(offlineMode),
+                    child: BlocBuilder<SwitchController, bool>(
+                      builder: (context, offlineModeState) {
+                        return _buildToggleItem(
+                            S.current.offlineMode, offlineModeState, (value) {
+                          context
+                              .read<SwitchController>()
+                              .add(ToggleSwitch(value));
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  _buildSectionTitle(S.current.accountSettings),
+                  const SizedBox(height: 20),
+                  _buildNavigationItem(S.current.changePassword),
+                  const SizedBox(height: 16),
+                  _buildNavigationItem(S.current.userDetails),
+                  const SizedBox(height: 16),
+                  _buildNavigationItem(S.current.logout),
+                  const SizedBox(height: 40),
+                  _buildSectionTitle(S.current.legalInfo),
+                  const SizedBox(height: 20),
+                  _buildNavigationItem(S.current.privacyPolicy),
+                  const SizedBox(height: 16),
+                  _buildNavigationItem(S.current.appInfo),
+                  const SizedBox(height: 16),
+                  _buildNavigationItem(S.current.helpSupport),
+                ],
+              ),
             ),
           ),
-        ),
-        title: SvgPicture.asset(
-          AppAssets.settings,
-          height: 50.h,
-        ),
-        centerTitle: true,
-        toolbarHeight: 80.h,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              _buildSectionTitle('App Preferences'),
-              const SizedBox(height: 20),
-              BlocProvider(
-                create: (context) => SwitchController(notifications),
-                child: BlocBuilder<SwitchController, bool>(
-                  builder: (context, notificationsState) {
-                    return _buildToggleItem('notifications', notificationsState,
-                        (value) {
-                      context.read<SwitchController>().add(ToggleSwitch(value));
-                      if (value) {
-                        // Enable notifications
-                        FirebaseNotifications().initialize();
-                      } else {
-                        // Disable notifications
-                      }
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(height: 16),
-              _buildLanguageItem(),
-              const SizedBox(height: 16),
-              BlocProvider(
-                create: (context) => SwitchController(offlineMode),
-                child: BlocBuilder<SwitchController, bool>(
-                  builder: (context, offlineModeState) {
-                    return _buildToggleItem('offline mode', offlineModeState,
-                        (value) {
-                      context.read<SwitchController>().add(ToggleSwitch(value));
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(height: 40),
-              _buildSectionTitle('Account Settings'),
-              const SizedBox(height: 20),
-              _buildNavigationItem('change password'),
-              const SizedBox(height: 16),
-              _buildNavigationItem('User details'),
-              const SizedBox(height: 16),
-              _buildNavigationItem('Logout'),
-              const SizedBox(height: 40),
-              _buildSectionTitle('Legal & Info'),
-              const SizedBox(height: 20),
-              _buildNavigationItem('Privacy Policy'),
-              const SizedBox(height: 16),
-              _buildNavigationItem('app info'),
-              const SizedBox(height: 16),
-              _buildNavigationItem('Help & Support'),
-            ],
-          ),
-        ),
-      ),
-      drawer: const CustomDrawer(),
+          drawer: const CustomDrawer(),
+        );
+      },
     );
   }
 
@@ -171,9 +181,9 @@ class _SettingsPageState extends State<SettingsPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          'language',
-          style: TextStyle(
+        Text(
+          S.current.language,
+          style: const TextStyle(
             fontSize: 16,
             color: Color(0xFF82C0CB),
           ),

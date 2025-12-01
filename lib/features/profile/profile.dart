@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/features/settings/controllers/language_controller.dart';
 import 'package:mostawak/features/settings/settings.dart';
+import 'package:mostawak/generated/l10n.dart';
 import 'package:mostawak/services/auth_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   File? _profileImage;
   final ImagePicker _picker = ImagePicker();
 
-  String userName = 'Loading...';
+  String userName = S.current.loading;
   String userEmail = '';
   int userCoins = 0;
   int userPoints = 0;
@@ -54,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
           final data = userDoc.data() as Map<String, dynamic>;
 
           setState(() {
-            userName = data['name'] ?? 'User';
+            userName = data['name'] ?? S.current.user;
             userEmail = data['email'] ?? '';
             userCoins = data['coins'] ?? 0;
             userPoints = data['points'] ?? 0;
@@ -64,7 +68,9 @@ class _ProfilePageState extends State<ProfilePage> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to load data: ${e.toString()}')),
+          SnackBar(
+              content:
+                  Text('${S.current.failedToLoadUserData}: ${e.toString()}')),
         );
       }
     } finally {
@@ -79,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
       final source = await showDialog<ImageSource>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Choose Image Source'),
+          title: Text(S.current.chooseImage),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -114,7 +120,8 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to pick image: ${e.toString()}')),
+        SnackBar(
+            content: Text('${S.current.failedToPickImage}: ${e.toString()}')),
       );
     }
   }
@@ -137,194 +144,179 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-        title: RichText(
-          text: const TextSpan(
-            children: [
-              TextSpan(
-                text: 'MY',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w300,
-                  color: MyColors.shadowColor,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              TextSpan(
-                text: ' PROFILE',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.accentColor,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],
-          ),
+        title: SvgPicture.asset(
+          'assets/images/myProfile.svg',
+          height: 30.h,
         ),
         centerTitle: true,
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 60),
-                Stack(
+            child: BlocBuilder<LanguageController, String>(
+              builder: (context, state) {
+                return Column(
                   children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 4),
-                      ),
-                      child: ClipOval(
-                        child: _profileImage != null
-                            ? Image.file(
-                                _profileImage!,
-                                fit: BoxFit.cover,
-                              )
-                            : SvgPicture.asset(
-                                'assets/images/person.svg',
-                                fit: BoxFit.cover,
-                              ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: GestureDetector(
-                        onTap: _pickImage,
-                        child: Container(
-                          width: 36,
-                          height: 36,
+                    const SizedBox(height: 60),
+                    Stack(
+                      children: [
+                        Container(
+                          width: 120,
+                          height: 120,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF7AB5C1),
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 2),
+                            border: Border.all(color: Colors.white, width: 4),
                           ),
-                          child: const Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                            size: 18,
+                          child: ClipOval(
+                            child: _profileImage != null
+                                ? Image.file(
+                                    _profileImage!,
+                                    fit: BoxFit.cover,
+                                  )
+                                : SvgPicture.asset(
+                                    'assets/images/person.svg',
+                                    fit: BoxFit.cover,
+                                  ),
                           ),
                         ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: _pickImage,
+                            child: Container(
+                              width: 36,
+                              height: 36,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF7AB5C1),
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.white, width: 2),
+                              ),
+                              child: const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      userName,
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2B7A8C),
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  userName,
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2B7A8C),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  userEmail,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF9DB5BC),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      _buildStatCard(
-                        icon: Icons.monetization_on,
-                        label: 'Coins',
-                        value: userCoins.toString(),
-                        color: const Color(0xFFFFD700),
+                    const SizedBox(height: 8),
+                    Text(
+                      userEmail,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF9DB5BC),
                       ),
-                      _buildStatCard(
-                        icon: Icons.stars,
-                        label: 'Points',
-                        value: userPoints.toString(),
-                        color: const Color(0xFF9C7FB8),
+                    ),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _buildStatCard(
+                            icon: Icons.monetization_on,
+                            label: S.current.coins,
+                            value: userCoins.toString(),
+                            color: const Color(0xFFFFD700),
+                          ),
+                          _buildStatCard(
+                            icon: Icons.stars,
+                            label: S.current.points,
+                            value: userPoints.toString(),
+                            color: const Color(0xFF9C7FB8),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 50),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Profile Info',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF2B7A8C),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        height: 2,
-                        color: const Color(0xFF2B7A8C),
-                      ),
-                      const SizedBox(height: 20),
-                      _buildMenuItem(
-                        context,
-                        'Settings',
-                        Icons.settings,
-                        () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SettingsPage(),
+                    ),
+                    const SizedBox(height: 50),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            S.current.profileInfo,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF2B7A8C),
                             ),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      _buildMenuItem(
-                        context,
-                        'Logout',
-                        Icons.logout,
-                        () async {
-                          setState(() {
-                            isLoading = true;
-                          });
-
-                          try {
-                            await AuthService().signOut();
-
-                            if (mounted) {
-                              Navigator.pushAndRemoveUntil(
+                          ),
+                          const SizedBox(height: 8),
+                          Container(
+                            height: 2,
+                            color: const Color(0xFF2B7A8C),
+                          ),
+                          const SizedBox(height: 20),
+                          _buildMenuItem(
+                            context,
+                            S.current.settings,
+                            Icons.settings,
+                            () {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
+                                  builder: (context) => const SettingsPage(),
                                 ),
-                                (route) => false,
                               );
-                            }
-                          } catch (e) {
-                            if (mounted) {
+                            },
+                          ),
+                          const SizedBox(height: 16),
+                          _buildMenuItem(
+                            context,
+                            S.current.logout,
+                            Icons.logout,
+                            () async {
                               setState(() {
-                                isLoading = false;
+                                isLoading = true;
                               });
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content:
-                                        Text('Logout failed: ${e.toString()}')),
-                              );
-                            }
-                          }
-                        },
+
+                              try {
+                                await AuthService().signOut();
+
+                                if (mounted) {
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginScreen(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                }
+                              } catch (e) {
+                                if (mounted) {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            '${S.current.logoutFailed}: ${e.toString()}')),
+                                  );
+                                }
+                              }
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-              ],
+                    ),
+                    const SizedBox(height: 40),
+                  ],
+                );
+              },
             ),
           ),
           if (isLoading)

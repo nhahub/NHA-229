@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'courses_grid.dart' show CoursesGrid, rankedCourses, unrankedCourses;
+import 'package:mostawak/features/settings/controllers/language_controller.dart';
+import 'package:mostawak/generated/l10n.dart';
+import 'courses_grid.dart';
 import 'action_area.dart';
 import 'english_challenge_room.dart';
 import '../screens/coming_soon.dart';
@@ -37,14 +40,12 @@ class _ChallengesScreenState extends State<ChallengesScreen>
     super.dispose();
   }
 
-  void _navigateToSelected() {
+  void _navigateToSelected(List<Course> courses) {
     if (selectedIndex == -1) return;
 
-    final currentCourses =
-        _tabController.index == 0 ? rankedCourses : unrankedCourses;
-    final selectedCourse = currentCourses[selectedIndex];
+    final selectedCourse = courses[selectedIndex];
 
-    if (selectedCourse.title == "English") {
+    if (selectedCourse.title == S.current.english) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => const EnglishChallengeRoomScreen()),
@@ -64,9 +65,9 @@ class _ChallengesScreenState extends State<ChallengesScreen>
     return TabBar(
       controller: _tabController,
       indicatorColor: selectedColor,
-      tabs: const [
-        Tab(text: 'Ranked'),
-        Tab(text: 'Unranked'),
+      tabs: [
+        Tab(text: S.current.ranked),
+        Tab(text: S.current.unranked),
       ],
       labelColor: selectedColor,
       unselectedLabelColor: unselectedColor,
@@ -76,51 +77,64 @@ class _ChallengesScreenState extends State<ChallengesScreen>
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(height: 10.h),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w),
-            child: RankCard(
-              rankText: "Plat V",
-              rankIcon: SvgPicture.asset("assets/images/challenge_icon.svg"),
-              onButtonPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const StatsAndDashboard(),
-                  ),
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 20.h),
-          _buildTabBar(),
-          SizedBox(height: 20.h),
-          SizedBox(
-            height: 400.h,
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                CoursesGrid(
-                  selectedIndex: selectedIndex,
-                  onCourseSelected: (index) {
-                    setState(() => selectedIndex = index);
+      child: BlocBuilder<LanguageController, String>(
+        builder: (context, state) {
+          final List<Course> courses = [
+            Course(S.current.english, 'assets/images/English.svg'),
+            Course(S.current.programming, 'assets/images/Programming.svg'),
+            Course(S.current.science, 'assets/images/Science.svg'),
+            Course(S.current.math, 'assets/images/Mathematics.svg'),
+            Course(S.current.english, 'assets/images/English.svg'),
+            Course(S.current.programming, 'assets/images/Programming.svg'),
+          ];
+          return Column(
+            children: [
+              SizedBox(height: 10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: RankCard(
+                  rankText: "Plat V",
+                  rankIcon:
+                      SvgPicture.asset("assets/images/challenge_icon.svg"),
+                  onButtonPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const StatsAndDashboard(),
+                      ),
+                    );
                   },
-                  courses: rankedCourses,
                 ),
-                CoursesGrid(
-                  selectedIndex: selectedIndex,
-                  onCourseSelected: (index) {
-                    setState(() => selectedIndex = index);
-                  },
-                  courses: unrankedCourses,
+              ),
+              SizedBox(height: 20.h),
+              _buildTabBar(),
+              SizedBox(height: 20.h),
+              SizedBox(
+                height: 300.h,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    CoursesGrid(
+                      selectedIndex: selectedIndex,
+                      onCourseSelected: (index) {
+                        setState(() => selectedIndex = index);
+                      },
+                      courses: courses,
+                    ),
+                    CoursesGrid(
+                      selectedIndex: selectedIndex,
+                      onCourseSelected: (index) {
+                        setState(() => selectedIndex = index);
+                      },
+                      courses: courses,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          actionArea(onPressed: _navigateToSelected),
-        ],
+              ),
+              actionArea(onPressed: () => _navigateToSelected(courses)),
+            ],
+          );
+        },
       ),
     );
   }

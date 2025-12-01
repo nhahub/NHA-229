@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/generated/l10n.dart';
 import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/message_bubble.dart';
 import '../../../../data/models/message_model.dart';
@@ -59,23 +60,23 @@ class _ChatScreenState extends State<ChatScreen> {
                     return FadeTransition(opacity: animation, child: child);
                   },
                   child: messages.isEmpty
-                      ? const Center(
+                      ? Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Hi!',
+                                S.current.hi,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 40,
                                   fontFamily: 'Poppins',
                                   color: Color(0xff82C0CB),
                                 ),
                               ),
                               Text(
-                                'What challenge will you tackle next?',
+                                S.current.chatGreeting,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 15,
                                   fontFamily: 'Poppins',
                                   color: Color(0xff82C0CB),
@@ -116,9 +117,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           fontFamily: 'Poppins',
                           fontSize: 12,
                         ),
-                        decoration: const InputDecoration(
-                          hintText: 'Ask Sensei',
-                          hintStyle: TextStyle(
+                        decoration: InputDecoration(
+                          hintText: S.current.askSensei,
+                          hintStyle: const TextStyle(
                             color: Color(0xFF9E9E9E),
                             fontSize: 12,
                             fontFamily: 'Poppins',

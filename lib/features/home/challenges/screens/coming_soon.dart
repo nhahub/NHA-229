@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mostawak/generated/l10n.dart';
 
 class ComingSoonScreen extends StatelessWidget {
   const ComingSoonScreen({super.key});
@@ -23,15 +24,15 @@ class ComingSoonScreen extends StatelessWidget {
             ),
 
             // Main content
-            const Center(
+            Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
                     child: Text(
-                      "Coming\nSoon",
+                      S.current.comingSoon,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF16697B),
                         fontSize: 48,
                         fontWeight: FontWeight.bold,

@@ -60,108 +60,73 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: 1.sh),
-                child: IntrinsicHeight(
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        const HeaderStack(),
-                        CustomTextFormField(
-                          controller: name,
-                          hintText: S.current.fullName,
-                        ),
-                        SizedBox(height: 20.h),
-                        CustomTextFormField(
-                            controller: email, hintText: S.current.email),
-                        SizedBox(height: 20.h),
-                        CustomTextFormField(
-                          controller: password,
-                          hintText: S.current.password,
-                          showVisibilityButton: true,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return S.current.fieldRequired;
-                            }
-                            if (value.trim().length < 6) {
-                              return S.current.passwordLength;
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20.h),
-                        CustomTextFormField(
-                          controller: confirmPassword,
-                          hintText:
-                              "${S.current.confirm} ${S.current.password}",
-                          showVisibilityButton: true,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return S.current.fieldRequired;
-                            }
-                            if (value.trim() != password.text.trim()) {
-                              return S.current.passwordsNotMatch;
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 30.h),
-                        RowStatements(
-                          normalText: "${S.current.accept} ",
-                          linkText: S.current.termsConditions,
-                          onLinkTap: () {
-                            _showSnackBar(S.current.termsConditions);
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        CustomButton(
-                          text: S.current.signUp,
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() {
-                                isLoading = true;
-                              });
-
-                              try {
-                                final user = await AuthService()
-                                    .signUpWithEmailAndPassword(
-                                  email.text.trim(),
-                                  password.text.trim(),
-                                  name.text.trim(),
-                                );
-
-                                if (user != null) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const MainScreen(),
-                                    ),
-                                  );
-                                }
-                              } catch (e) {
-                                _showSnackBar(e.toString());
-                              } finally {
-                                if (mounted) {
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                }
-                              }
-                            }
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        const OrDivider(),
-                        const SizedBox(height: 20),
-                        GoogleSignButton(
-                          text: S.current.continueWithGoogle,
-                          onPressed: () async {
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const HeaderStack(),
+                      CustomTextFormField(
+                        controller: name,
+                        hintText: S.current.fullName,
+                      ),
+                      SizedBox(height: 20.h),
+                      CustomTextFormField(
+                          controller: email, hintText: S.current.email),
+                      SizedBox(height: 20.h),
+                      CustomTextFormField(
+                        controller: password,
+                        hintText: S.current.password,
+                        showVisibilityButton: true,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return S.current.fieldRequired;
+                          }
+                          if (value.trim().length < 6) {
+                            return S.current.passwordLength;
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 20.h),
+                      CustomTextFormField(
+                        controller: confirmPassword,
+                        hintText: "${S.current.confirm} ${S.current.password}",
+                        showVisibilityButton: true,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return S.current.fieldRequired;
+                          }
+                          if (value.trim() != password.text.trim()) {
+                            return S.current.passwordsNotMatch;
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 30.h),
+                      RowStatements(
+                        normalText: "${S.current.accept} ",
+                        linkText: S.current.termsConditions,
+                        onLinkTap: () {
+                          _showSnackBar(S.current.termsConditions);
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      CustomButton(
+                        text: S.current.signUp,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
                             setState(() {
                               isLoading = true;
                             });
 
                             try {
-                              final user =
-                                  await AuthService().signInWithGoogle();
+                              final user = await AuthService()
+                                  .signUpWithEmailAndPassword(
+                                email.text.trim(),
+                                password.text.trim(),
+                                name.text.trim(),
+                              );
+
                               if (user != null) {
                                 Navigator.pushReplacement(
                                   context,
@@ -169,8 +134,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                     builder: (context) => const MainScreen(),
                                   ),
                                 );
-                              } else {
-                                _showSnackBar(S.current.failedToSignUp);
                               }
                             } catch (e) {
                               _showSnackBar(e.toString());
@@ -181,29 +144,62 @@ class _SignupScreenState extends State<SignupScreen> {
                                 });
                               }
                             }
-                          },
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 30.w,
-                            vertical: 20.h,
-                          ),
-                          child: RowStatements(
-                            showCheckbox: false,
-                            normalText: "${S.current.alreadyHaveAccount} ",
-                            linkText: S.current.login,
-                            onLinkTap: () {
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      const OrDivider(),
+                      const SizedBox(height: 20),
+                      GoogleSignButton(
+                        text: S.current.continueWithGoogle,
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+
+                          try {
+                            final user = await AuthService().signInWithGoogle();
+                            if (user != null) {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
+                                  builder: (context) => const MainScreen(),
                                 ),
                               );
-                            },
-                          ),
+                            } else {
+                              _showSnackBar(S.current.failedToSignUp);
+                            }
+                          } catch (e) {
+                            _showSnackBar(e.toString());
+                          } finally {
+                            if (mounted) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          }
+                        },
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 30.w,
+                          vertical: 20.h,
                         ),
-                      ],
-                    ),
+                        child: RowStatements(
+                          showCheckbox: false,
+                          normalText: "${S.current.alreadyHaveAccount} ",
+                          linkText: S.current.login,
+                          onLinkTap: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

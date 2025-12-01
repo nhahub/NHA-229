@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/ai/screens/chat_screen.dart';
@@ -10,6 +11,7 @@ import 'package:mostawak/features/home/shop/screens/reward_screen.dart';
 import 'package:mostawak/features/profile/profile.dart';
 import 'package:mostawak/features/settings/settings.dart';
 import 'package:mostawak/features/stats_and_dashboard/stats_and_dashboard.dart';
+import 'package:mostawak/generated/l10n.dart';
 import 'package:mostawak/services/auth_service.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -22,16 +24,31 @@ class CustomDrawer extends StatelessWidget {
     final userEmail = user?.email ?? 'user@example.com';
 
     return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xFF16697B),
+      decoration: BoxDecoration(
+        color: const Color(0xFF16697B),
         border: Border(
-          top: BorderSide(color: Color(0XFFFFA62B), width: 3),
-          right: BorderSide(color: Color(0XFFFFA62B), width: 3),
-          bottom: BorderSide(color: Color(0XFFFFA62B), width: 3),
+          top: const BorderSide(color: Color(0XFFFFA62B), width: 3),
+          bottom: const BorderSide(color: Color(0XFFFFA62B), width: 3),
+          right: Intl.getCurrentLocale() == 'en'
+              ? const BorderSide(color: Color(0XFFFFA62B), width: 3)
+              : BorderSide.none,
+          left: Intl.getCurrentLocale() == 'ar'
+              ? const BorderSide(color: Color(0XFFFFA62B), width: 3)
+              : BorderSide.none,
         ),
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(40),
-          bottomRight: Radius.circular(40),
+          topRight: Intl.getCurrentLocale() == 'en'
+              ? const Radius.circular(40)
+              : Radius.zero,
+          bottomRight: Intl.getCurrentLocale() == 'en'
+              ? const Radius.circular(40)
+              : Radius.zero,
+          topLeft: Intl.getCurrentLocale() == 'ar'
+              ? const Radius.circular(40)
+              : Radius.zero,
+          bottomLeft: Intl.getCurrentLocale() == 'ar'
+              ? const Radius.circular(40)
+              : Radius.zero,
         ),
       ),
       child: ClipRRect(
@@ -101,44 +118,44 @@ class CustomDrawer extends StatelessWidget {
                       _buildDrawerItem(
                         context,
                         AppAssets.home,
-                        'Home',
+                        S.current.home,
                         const MainScreen(),
                       ),
                       _buildDrawerItem(
                         context,
                         AppAssets.shop,
-                        'Shop',
+                        S.current.shop,
                         const RewardScreen(),
                       ),
                       _buildDrawerItem(
                         context,
                         AppAssets.stats,
-                        'Stats & Dashboard',
+                        S.current.statsDashboard,
                         const StatsAndDashboard(),
                       ),
                       _buildDrawerItem(
                         context,
                         AppAssets.chat,
-                        'Chat with AI',
+                        S.current.chatWithAI,
                         const ChatScreen(),
                       ),
                       _buildDrawerItem(
                         context,
                         AppAssets.profile,
-                        'Profile',
+                        S.current.profile,
                         const ProfilePage(),
                       ),
                       _buildDrawerItem(
                         context,
                         AppAssets.settings,
-                        'Settings',
+                        S.current.settings,
                         const SettingsPage(),
                       ),
                       _buildDrawerItem(
                         context,
                         AppAssets.logout,
-                        'Logout',
-                       const LoginScreen(),
+                        S.current.logout,
+                        const LoginScreen(),
                         logout: true,
                       ),
                     ],
