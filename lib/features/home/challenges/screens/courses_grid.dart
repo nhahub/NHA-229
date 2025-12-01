@@ -8,36 +8,23 @@ class Course {
   Course(this.title, this.imagePath);
 }
 
-final List<Course> rankedCourses = [
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-  Course('Science', 'assets/images/Science.svg'),
-  Course('Mathematics', 'assets/images/Mathematics.svg'),
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-];
-
-final List<Course> unrankedCourses = [
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-  Course('Science', 'assets/images/Science.svg'),
-  Course('Mathematics', 'assets/images/Mathematics.svg'),
-  Course('English', 'assets/images/English.svg'),
-  Course('Programming', 'assets/images/Programming.svg'),
-];
-
 class CoursesGrid extends StatefulWidget {
   final List<Course> courses;
+  final int selectedIndex;
+  final Function(int) onCourseSelected;
 
-  const CoursesGrid({super.key, required this.courses});
+  const CoursesGrid({
+    super.key,
+    required this.courses,
+    required this.selectedIndex,
+    required this.onCourseSelected,
+  });
 
   @override
   State<CoursesGrid> createState() => _CoursesGridState();
 }
 
 class _CoursesGridState extends State<CoursesGrid> {
-  int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -53,20 +40,18 @@ class _CoursesGridState extends State<CoursesGrid> {
       itemCount: widget.courses.length,
       itemBuilder: (context, index) {
         final course = widget.courses[index];
-        final bool isSelected = index == selectedIndex;
+        final bool isSelected = index == widget.selectedIndex;
 
-        final Color selectedBorderColor = const Color(0xFFFE9C04);
-        final Color unselectedBorderColor = const Color(0xFF16697B);
-        final Color textUnselectedColor = const Color(0xFF16697B);
+        const Color selectedBorderColor = Color(0xFFFE9C04);
+        const Color unselectedBorderColor = Color(0xFF16697B);
+        const Color textUnselectedColor = Color(0xFF16697B);
 
         return Column(
           children: [
             Expanded(
               child: InkWell(
                 onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
+                  widget.onCourseSelected(index);
                 },
                 child: Container(
                   decoration: BoxDecoration(

@@ -1,0 +1,153 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
+import 'package:mostawak/core/constants/app_colors.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/features/stats_and_dashboard/achievement/achievement.dart';
+import 'package:mostawak/features/stats_and_dashboard/progress_overview/progress_overview.dart';
+import 'package:mostawak/generated/l10n.dart';
+import 'radar_triangle_widget.dart';
+
+class StatsAndDashboard extends StatelessWidget {
+  const StatsAndDashboard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFECE7E3),
+      appBar: AppBar(
+        backgroundColor: MyColors.primary,
+        elevation: 0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            icon: SvgPicture.asset(
+              AppAssets.drawerIcon,
+              width: 25,
+              height: 25,
+            ),
+          ),
+        ),
+        title: SvgPicture.asset(
+          'assets/images/statsAndDashboard.svg',
+          width: 250.w,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 41, horizontal: 47),
+          child: Column(
+            children: [
+              Text(
+                S.current.achievements,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                  color: Color(0xFFFFA62B),
+                ),
+              ),
+              const SizedBox(height: 6),
+              const RadarTriangleWidget(
+                progress: 0.5,
+                rank: 0.7,
+                achievements: 1,
+              ),
+              const SizedBox(height: 7),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    S.current.rank,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFFFA62B),
+                    ),
+                  ),
+                  Text(
+                    S.current.progress,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFFFA62B),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 114),
+              DashboardMenuItem(
+                title: S.current.progress,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProgressOverviewPage(),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+              DashboardMenuItem(
+                title: S.current.myRank,
+                onTap: () {},
+              ),
+              const SizedBox(height: 12),
+              DashboardMenuItem(
+                title: S.current.achievements,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AchievementPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      drawer: const CustomDrawer(),
+    );
+  }
+}
+
+class DashboardMenuItem extends StatelessWidget {
+  final String title;
+  final VoidCallback onTap;
+
+  const DashboardMenuItem({
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 30,
+            fontFamily: 'BigShoulders',
+            color: Color(0xff16697B),
+          ),
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.arrow_forward,
+            color: Color(0xff16697B),
+            size: 24,
+          ),
+          onPressed: onTap,
+        ),
+      ],
+    );
+  }
+}

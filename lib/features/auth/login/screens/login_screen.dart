@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
-import 'package:mostawak/data/preferences/preference_manager.dart';
-
+import 'package:mostawak/generated/l10n.dart';
+import 'package:mostawak/services/auth_service.dart';
 import '../widgets/or_divider.dart';
 import '../widgets/google_button.dart';
 import '../../signup/signup_screen.dart';
@@ -13,26 +14,41 @@ import '../widgets/custom_textfield.dart';
 import '../../../home/home/screens/main_screen.dart';
 import '../../forgot_password/screens/forget_password_email_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  LoginScreen({super.key});
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: 1.sh),
-            child: IntrinsicHeight(
+      body: Stack(
+        children: [
+          SafeArea(
+            top: false,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -49,14 +65,14 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: 10.h),
                     CustomTextFormField(
                       controller: email,
-                      hintText: "Email",
+                      hintText: S.current.email,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Email is required';
+                          return S.current.fieldRequired;
                         }
                         final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
                         if (!emailRegex.hasMatch(value.trim())) {
-                          return 'Enter a valid email';
+                          return S.current.validEmail;
                         }
                         return null;
                       },
@@ -64,14 +80,14 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: 10.h),
                     CustomTextFormField(
                       controller: password,
-                      hintText: "Password",
+                      hintText: S.current.password,
                       showVisibilityButton: true,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Password is required';
+                          return S.current.fieldRequired;
                         }
                         if (value.trim().length < 6) {
-                          return 'Password must be at least 6 characters';
+                          return S.current.passwordLength;
                         }
                         return null;
                       },
@@ -90,9 +106,9 @@ class LoginScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          child: const Text(
-                            "Forgot Password?",
-                            style: TextStyle(
+                          child: Text(
+                            S.current.forgotPassword,
+                            style: const TextStyle(
                               color: Color(0xffFFA62B),
                               fontSize: 16,
                               decoration: TextDecoration.none,
@@ -103,37 +119,119 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    CustomButton(
-                      text: "Login",
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainScreen(),
-                            ),
-                          );
-                          await PreferenceManager().setBool("isLoggedIn", true);
-                        } else {}
-                      },
+                    Builder(
+                      builder: (buttonContext) => CustomButton(
+                        text: S.current.login,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            
+                            try {
+                              final user = await AuthService()
+                                  .signInWithEmailAndPassword(
+                                email.text.trim(),
+                                password.text.trim(),
+                              );
+                            
+                              if (user != null) {
+                                Navigator.pushReplacement(
+                                  buttonContext,
+                                  MaterialPageRoute(
+                                    builder: (_) => const MainScreen(),
+                                  ),
+                                );
+                              }
+                            } catch (e) {
+                              String message = S.current.failedToLogin;
+                              if (e is FirebaseAuthException) {
+                                switch (e.code) {
+                                  case 'user-not-found':
+                                    message =
+                                        'No user found for this email';
+                                    break;
+                                  case 'wrong-password':
+                                    message = 'Incorrect password';
+                                    break;
+                                  case 'invalid-email':
+                                    message = 'Email format is invalid';
+                                    break;
+                                  default:
+                                    message = e.message ?? message;
+                                }
+                              }
+                            
+                              ScaffoldMessenger.of(buttonContext)
+                                  .showSnackBar(
+                                SnackBar(content: Text(message)),
+                              );
+                            } finally {
+                              if (mounted) {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            }
+                          }
+                        },
+                      ),
                     ),
                     const SizedBox(height: 20),
                     const OrDivider(),
                     const SizedBox(height: 20),
-                    GoogleSignButton(
-                      text: "Login with Google",
-                      onPressed: () {},
+                    Builder(
+                      builder: (googleContext) => GoogleSignButton(
+                        text: S.current.continueWithGoogle,
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                            
+                          try {
+                            final user =
+                                await AuthService().signInWithGoogle();
+                            
+                            if (user != null) {
+                              Navigator.pushReplacement(
+                                googleContext,
+                                MaterialPageRoute(
+                                  builder: (_) => const MainScreen(),
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(googleContext)
+                                  .showSnackBar(
+                                SnackBar(
+                                    content:
+                                        Text(S.current.failedToLogin)),
+                              );
+                            }
+                          } catch (e) {
+                            ScaffoldMessenger.of(googleContext)
+                                .showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
+                          } finally {
+                            if (mounted) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          }
+                        },
+                      ),
                     ),
                     SizedBox(height: 20.h),
                     RowStatements(
                       showCheckbox: false,
-                      normalText: "Don't have an account? ",
-                      linkText: "Sign up",
+                      normalText: S.current.doNotHaveAccount,
+                      linkText: S.current.signUp,
                       onLinkTap: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignupScreen(),
+                            builder: (context) => const SignupScreen(),
                           ),
                         );
                       },
@@ -144,7 +242,16 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-        ),
+          if (isLoading)
+            Container(
+              color: Colors.black.withValues(alpha: 0.5),
+              child: const Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

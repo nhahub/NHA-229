@@ -101,7 +101,7 @@ class FeatureCard extends StatelessWidget {
             child: ElevatedButton(
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
-                backgroundColor: buttonColor,
+                backgroundColor: MyColors.primary,
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                 shape: RoundedRectangleBorder(

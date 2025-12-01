@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mostawak/generated/l10n.dart';
 
 class RankCard extends StatelessWidget {
   final String rankText;
   final Widget rankIcon;
   final VoidCallback onButtonPressed;
 
-  final String title = 'My Rank';
-  final String description =
-      'Keep pushing forward! Every challenge brings you closer to the top';
   final Color backgroundColor = const Color(0xFF16697B);
 
   const RankCard({
@@ -48,7 +46,7 @@ class RankCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      S.current.myRank,
                       style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -57,7 +55,7 @@ class RankCard extends StatelessWidget {
                     ),
                     //const SizedBox(height: 2),
                     Text(
-                      description,
+                      S.current.challengesMessage,
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.normal,
@@ -101,18 +99,18 @@ class RankCard extends StatelessWidget {
                   color: const Color(0xFF82C0CB),
                   borderRadius: BorderRadius.circular(25),
                 ),
-                child: const Row(
+                child: Row(
                   children: <Widget>[
                     Text(
-                      "My Stats",
-                      style: TextStyle(
+                      S.current.myStats,
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF16697B),
                       ),
                     ),
-                    Spacer(),
-                    Icon(Icons.arrow_forward, color: Color(0xFF16697B)),
+                    const Spacer(),
+                    const Icon(Icons.arrow_forward, color: Color(0xFF16697B)),
                   ],
                 ),
               ),

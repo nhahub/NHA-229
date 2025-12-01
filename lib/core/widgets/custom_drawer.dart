@@ -1,27 +1,54 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/ai/screens/chat_screen.dart';
-import 'package:mostawak/features/home/home/screens/home_screen.dart';
+import 'package:mostawak/features/home/home/screens/main_screen.dart';
 import 'package:mostawak/features/home/shop/screens/reward_screen.dart';
+import 'package:mostawak/features/profile/profile.dart';
+import 'package:mostawak/features/settings/settings.dart';
+import 'package:mostawak/features/stats_and_dashboard/stats_and_dashboard.dart';
+import 'package:mostawak/generated/l10n.dart';
+import 'package:mostawak/services/auth_service.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    final userName = user?.displayName ?? 'User';
+    final userEmail = user?.email ?? 'user@example.com';
+
     return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xFF16697B),
+      decoration: BoxDecoration(
+        color: const Color(0xFF16697B),
         border: Border(
-          top: BorderSide(color: Color(0XFFFFA62B), width: 3),
-          right: BorderSide(color: Color(0XFFFFA62B), width: 3),
-          bottom: BorderSide(color: Color(0XFFFFA62B), width: 3),
+          top: const BorderSide(color: Color(0XFFFFA62B), width: 3),
+          bottom: const BorderSide(color: Color(0XFFFFA62B), width: 3),
+          right: Intl.getCurrentLocale() == 'en'
+              ? const BorderSide(color: Color(0XFFFFA62B), width: 3)
+              : BorderSide.none,
+          left: Intl.getCurrentLocale() == 'ar'
+              ? const BorderSide(color: Color(0XFFFFA62B), width: 3)
+              : BorderSide.none,
         ),
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(40),
-          bottomRight: Radius.circular(40),
+          topRight: Intl.getCurrentLocale() == 'en'
+              ? const Radius.circular(40)
+              : Radius.zero,
+          bottomRight: Intl.getCurrentLocale() == 'en'
+              ? const Radius.circular(40)
+              : Radius.zero,
+          topLeft: Intl.getCurrentLocale() == 'ar'
+              ? const Radius.circular(40)
+              : Radius.zero,
+          bottomLeft: Intl.getCurrentLocale() == 'ar'
+              ? const Radius.circular(40)
+              : Radius.zero,
         ),
       ),
       child: ClipRRect(
@@ -53,25 +80,25 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.all(6),
                         child: ClipOval(
-                          child: SvgPicture.asset(
-                            'assets/images/usama.svg',
-                            fit: BoxFit.contain,
+                          child: Image.asset(
+                            'assets/images/profile.gif',
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       const SizedBox(height: 15),
-                      const Text(
-                        'Usama Elgendy',
-                        style: TextStyle(
+                      Text(
+                        userName,
+                        style: const TextStyle(
                           fontFamily: 'BigShoulders',
                           fontSize: 30,
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      const Text(
-                        'usamaelgendy112@gmail.com',
-                        style: TextStyle(
+                      Text(
+                        userEmail,
+                        style: const TextStyle(
                           fontFamily: 'poppins',
                           fontSize: 12,
                           color: Color(0xff9e9e9e),
@@ -90,57 +117,45 @@ class CustomDrawer extends StatelessWidget {
                     children: [
                       _buildDrawerItem(
                         context,
-                        'assets/images/home.svg',
-                        'Home',
-                        const HomePage(),
+                        AppAssets.home,
+                        S.current.home,
+                        const MainScreen(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/shop.svg',
-                        'Shop',
+                        AppAssets.shop,
+                        S.current.shop,
                         const RewardScreen(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/stats.svg',
-                        'Stats & Dashboard',
-                        const Scaffold(
-                          body: Center(
-                            child: Text('Settings'),
-                          ),
-                        ),
+                        AppAssets.stats,
+                        S.current.statsDashboard,
+                        const StatsAndDashboard(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/chat.svg',
-                        'Chat with AI',
+                        AppAssets.chat,
+                        S.current.chatWithAI,
                         const ChatScreen(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/profile.svg',
-                        'Profile',
-                        const Scaffold(
-                          body: Center(
-                            child: Text('Settings'),
-                          ),
-                        ),
+                        AppAssets.profile,
+                        S.current.profile,
+                        const ProfilePage(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/settings.svg',
-                        'Settings',
-                        const Scaffold(
-                          body: Center(
-                            child: Text('Settings'),
-                          ),
-                        ),
+                        AppAssets.settings,
+                        S.current.settings,
+                        const SettingsPage(),
                       ),
                       _buildDrawerItem(
                         context,
-                        'assets/images/logout.svg',
-                        'Logout',
-                        LoginScreen(),
+                        AppAssets.logout,
+                        S.current.logout,
+                        const LoginScreen(),
                         logout: true,
                       ),
                     ],
@@ -180,6 +195,7 @@ class CustomDrawer extends StatelessWidget {
         Navigator.pop(context);
 
         if (logout) {
+          AuthService().signOut();
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => page),

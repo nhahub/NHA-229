@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/constants/app_colors.dart';
 import 'package:mostawak/data/preferences/preference_manager.dart';
-import 'package:mostawak/features/auth/signup/signup_screen.dart';
+import 'package:mostawak/features/auth/login/screens/login_screen.dart';
 import 'package:mostawak/features/home/home/screens/main_screen.dart';
 import 'onboarding.dart';
 
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -28,9 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
               builder: (context) =>
                   PreferenceManager().getBool("isFirstLaunch") ?? true
                       ? const OnboardingScreen()
-                      : PreferenceManager().getBool("isLoggedIn") ?? false
+                      : FirebaseAuth.instance.currentUser != null
                           ? const MainScreen()
-                          : SignupScreen()),
+                          : const LoginScreen()),
         );
       }
     });

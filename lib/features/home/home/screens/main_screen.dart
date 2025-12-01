@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:mostawak/core/constants/app_assets.dart';
 import 'package:mostawak/core/widgets/custom_drawer.dart';
 import 'package:mostawak/features/home/learn/screens/learn_screen.dart';
+import 'package:mostawak/generated/l10n.dart';
 import '../../home/screens/home_screen.dart';
 import '../../challenges/screens/challenges_screen.dart';
 
@@ -20,7 +21,7 @@ class MainScreen extends StatelessWidget {
             builder: (context) => IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
               icon: SvgPicture.asset(
-                'assets/images/drawer.svg',
+                AppAssets.drawerIcon,
                 width: 25,
                 height: 25,
               ),
@@ -40,18 +41,18 @@ class MainScreen extends StatelessWidget {
                 labelColor: Colors.white,
                 labelStyle: Theme.of(context).textTheme.bodySmall,
                 unselectedLabelColor: Colors.white70,
-                tabs: const [
+                tabs: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Home'),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(S.current.home),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Learn'),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(S.current.learn),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text('Challenges'),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(S.current.challenges),
                   ),
                 ],
               ),

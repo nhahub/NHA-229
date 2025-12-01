@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mostawak/data/models/user_model.dart';
+import 'package:mostawak/core/widgets/custom_drawer.dart';
+import 'package:mostawak/generated/l10n.dart';
+import '../../challenges/widgets/reusable_appbar.dart';
 import '../widgets/message_bubble.dart';
 import '../../../../data/models/message_model.dart';
 
@@ -15,7 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
 
   bool isUserTurn = true;
-  final UserModel user = UserModel(name: "Omar");
+  //final UserModel user = UserModel(name: "Omar");
 
   void _sendMessage() {
     final text = _controller.text.trim();
@@ -40,7 +42,10 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffECE7E3),
+      appBar: const ReusableAppBar(
+        centerImage: 'assets/images/chatwithai.svg',
+        showTabs: false,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 23),
@@ -60,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Hi, ${user.name}',
+                                S.current.hi,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 40,
@@ -68,10 +73,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                   color: Color(0xff82C0CB),
                                 ),
                               ),
-                              const Text(
-                                'What challenge will you tackle next?',
+                              Text(
+                                S.current.chatGreeting,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 15,
                                   fontFamily: 'Poppins',
                                   color: Color(0xff82C0CB),
@@ -112,9 +117,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           fontFamily: 'Poppins',
                           fontSize: 12,
                         ),
-                        decoration: const InputDecoration(
-                          hintText: 'Ask Sensei',
-                          hintStyle: TextStyle(
+                        decoration: InputDecoration(
+                          hintText: S.current.askSensei,
+                          hintStyle: const TextStyle(
                             color: Color(0xFF9E9E9E),
                             fontSize: 12,
                             fontFamily: 'Poppins',
@@ -149,6 +154,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
+      drawer: const CustomDrawer(),
     );
   }
 }

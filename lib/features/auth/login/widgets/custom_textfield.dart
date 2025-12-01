@@ -29,6 +29,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       padding: EdgeInsets.symmetric(horizontal: widget.hPadding ? 30 : 0),
       child: TextFormField(
         controller: widget.controller,
+        textDirection: TextDirection.ltr,
         obscureText: widget.showVisibilityButton ? _obscureText : false,
         validator: widget.validator ??
             (value) {
