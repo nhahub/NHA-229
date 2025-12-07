@@ -18,25 +18,41 @@ class RankStage {
 final List<RankStage> allStages = [
   // Bronze Levels
   RankStage(
-      level: 'Bronze', stageNumber: '|', svgAssetPath: 'assets/images/bronze1.svg'),
+      level: 'Bronze',
+      stageNumber: '|',
+      svgAssetPath: 'assets/images/bronze1.svg'),
   RankStage(
-      level: 'Bronze', stageNumber: '||', svgAssetPath: 'assets/images/bronze2.svg'),
+      level: 'Bronze',
+      stageNumber: '||',
+      svgAssetPath: 'assets/images/bronze2.svg'),
   RankStage(
-      level: 'Bronze', stageNumber: '|||', svgAssetPath: 'assets/images/bronze3.svg'),
+      level: 'Bronze',
+      stageNumber: '|||',
+      svgAssetPath: 'assets/images/bronze3.svg'),
   // Silver Levels
   RankStage(
-      level: 'Silver', stageNumber: '|', svgAssetPath: 'assets/images/silver1.svg'),
+      level: 'Silver',
+      stageNumber: '|',
+      svgAssetPath: 'assets/images/silver1.svg'),
   RankStage(
-      level: 'Silver', stageNumber: '||', svgAssetPath: 'assets/images/silver2.svg'),
+      level: 'Silver',
+      stageNumber: '||',
+      svgAssetPath: 'assets/images/silver2.svg'),
   RankStage(
-      level: 'Silver', stageNumber:'|||', svgAssetPath: 'assets/images/silver3.svg'),
+      level: 'Silver',
+      stageNumber: '|||',
+      svgAssetPath: 'assets/images/silver3.svg'),
   // Gold Levels
   RankStage(
       level: 'Gold', stageNumber: '|', svgAssetPath: 'assets/images/gold1.svg'),
   RankStage(
-      level: 'Gold', stageNumber: '||', svgAssetPath: 'assets/images/gold2.svg'),
+      level: 'Gold',
+      stageNumber: '||',
+      svgAssetPath: 'assets/images/gold2.svg'),
   RankStage(
-      level: 'Gold', stageNumber: '|||', svgAssetPath: 'assets/images/gold3.svg'),
+      level: 'Gold',
+      stageNumber: '|||',
+      svgAssetPath: 'assets/images/gold3.svg'),
 ];
 
 class RankScreen extends StatefulWidget {
@@ -47,8 +63,8 @@ class RankScreen extends StatefulWidget {
 }
 
 class _RankScreenState extends State<RankScreen> {
-  int _currentStageIndex = 0;
-  final int _maxStageIndex = allStages.length - 1;
+  final int _currentStageIndex = 0;
+  // final int _maxStageIndex = allStages.length - 1;
   Color _getLevelColor(String level) {
     switch (level) {
       case 'Bronze':
@@ -62,15 +78,15 @@ class _RankScreenState extends State<RankScreen> {
     }
   }
 
-  void _progressToNextStage() {
-    setState(() {
-      if (_currentStageIndex < _maxStageIndex) {
-        _currentStageIndex++;
-      } else {
-        _showMessage('You have reached the highest rank (Gold III)!');
-      }
-    });
-  }
+  // void _progressToNextStage() {
+  //   setState(() {
+  //     if (_currentStageIndex < _maxStageIndex) {
+  //       _currentStageIndex++;
+  //     } else {
+  //       _showMessage('You have reached the highest rank (Gold III)!');
+  //     }
+  //   });
+  // }
 
   void _showMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -111,7 +127,7 @@ class _RankScreenState extends State<RankScreen> {
               color: isLocked ? Colors.grey.shade600 : Colors.transparent,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),
@@ -156,7 +172,6 @@ class _RankScreenState extends State<RankScreen> {
             fontSize: 40,
             fontWeight: FontWeight.bold,
             color: levelTextColor,
-
           ),
         ),
       ],
@@ -166,9 +181,9 @@ class _RankScreenState extends State<RankScreen> {
   @override
   Widget build(BuildContext context) {
     final currentStage = allStages[_currentStageIndex];
-    final nextStageName = _currentStageIndex < _maxStageIndex
-        ? allStages[_currentStageIndex + 1].name
-        : 'Completed';
+    // final nextStageName = _currentStageIndex < _maxStageIndex
+    //     ? allStages[_currentStageIndex + 1].name
+    //     : 'Completed';
 
     return Scaffold(
       backgroundColor: const Color(0xFFF0EAE4),
@@ -179,7 +194,10 @@ class _RankScreenState extends State<RankScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {},
         ),
-        title:  SvgPicture.asset('assets/images/my_rank.svg' , height: 60,),
+        title: SvgPicture.asset(
+          'assets/images/my_rank.svg',
+          height: 60,
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -205,7 +223,6 @@ class _RankScreenState extends State<RankScreen> {
               );
             }),
             const SizedBox(height: 50),
-
           ],
         ),
       ),
