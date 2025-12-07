@@ -21,13 +21,12 @@ class _BeginnerChallengeRoomScreenState
   late final PageController _pageController;
   late List<int?> _selectedAnswers;
   final QuizService _quizService = QuizService();
-  final int _currentIndex = 0;
-
+  int _currentIndex = 0;
   final String quizId = "beginnerChallenge1";
   String? uid;
+  String? userName;
   bool _loading = true;
   bool _isSubmitting = false;
-  String? userName;
 
   @override
   void initState() {
@@ -51,12 +50,53 @@ class _BeginnerChallengeRoomScreenState
     }
   }
 
-  void _finishQuiz() async {
+  void _selectAnswer(int answerIndex) {
+    setState(() {
+      _selectedAnswers[_currentIndex] = answerIndex;
+    });
+  }
+
+  void _nextQuestion() {
+    if (_selectedAnswers[_currentIndex] == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please select an answer before proceeding."),
+        ),
+      );
+      return;
+    }
+
+    if (_currentIndex < quizQuestions.length - 1) {
+      _currentIndex++;
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      setState(() {}); // update UI
+    } else {
+      _finishQuiz();
+    }
+  }
+
+  void _prevQuestion() {
+    if (_currentIndex > 0) {
+      _currentIndex--;
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      setState(() {}); // update UI
+    }
+  }
+
+  Future<void> _finishQuiz() async {
     if (uid == null || userName == null) return;
 
     int score = 0;
     for (int i = 0; i < quizQuestions.length; i++) {
-      if (_selectedAnswers[i] == quizQuestions[i]['correct']) score++;
+      if (_selectedAnswers[i] == quizQuestions[i]['correct']) {
+        score++;
+      }
     }
 
     setState(() => _isSubmitting = true);
@@ -70,6 +110,7 @@ class _BeginnerChallengeRoomScreenState
       );
 
       if (!mounted) return;
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -123,37 +164,15 @@ class _BeginnerChallengeRoomScreenState
                     question: quizQuestions[index]['question'],
                     answers: quizQuestions[index]['answers'],
                     selectedIndex: _selectedAnswers[index],
-                    onAnswerSelected: (i) {
-                      setState(() => _selectedAnswers[index] = i);
-                    },
+                    onAnswerSelected: _selectAnswer,
                   ),
                 ),
               ),
               QuizNavigation(
                 currentIndex: _currentIndex,
                 totalQuestions: quizQuestions.length,
-                onNext: () {
-                  final nextPage = _pageController.page!.toInt() + 1;
-                  if (nextPage < quizQuestions.length) {
-                    _pageController.animateToPage(
-                      nextPage,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  } else {
-                    _finishQuiz();
-                  }
-                },
-                onPrev: () {
-                  final prevPage = _pageController.page!.toInt() - 1;
-                  if (prevPage >= 0) {
-                    _pageController.animateToPage(
-                      prevPage,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
+                onNext: _nextQuestion,
+                onPrev: _prevQuestion,
               ),
             ],
           ),
@@ -161,7 +180,7 @@ class _BeginnerChallengeRoomScreenState
         if (_isSubmitting)
           Positioned.fill(
             child: Container(
-              color: Colors.black.withValues(alpha: 0.5),
+              color: Colors.black.withOpacity(0.5),
               child: const Center(
                 child: CircularProgressIndicator(
                   color: Colors.white,
